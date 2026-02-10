@@ -8,6 +8,9 @@
     "ksfraser/ksf-modules-dao": "*",
     "ksfraser/validation": "^0.1"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  },
   "autoload": {
     "psr-4": {
       "Ksfraser\\FA\\": "src/Ksfraser/FA/"
@@ -18,5 +21,13 @@
     "exclude-from-classmap": [
       "legacy/archive/"
     ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ksfraser\\FA\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "@php vendor/bin/phpunit"
   }
 }
