@@ -1,0 +1,22 @@
+{
+  "name": "ksfraser/fa-classes",
+  "version": "0.1.0",
+  "description": "FrontAccounting-specific table classes and related data access helpers.",
+  "type": "library",
+  "require": {
+    "php": ">=7.3",
+    "ksfraser/ksf-modules-dao": "*",
+    "ksfraser/validation": "^0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ksfraser\\FA\\": "src/Ksfraser/FA/"
+    },
+    "classmap": [
+      "legacy/"
+    ],
+    "exclude-from-classmap": [
+      "legacy/archive/"
+    ]
+  }
+}
