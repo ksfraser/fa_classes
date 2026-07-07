@@ -1,6 +1,6 @@
 {
   "name": "ksfraser/fa-classes",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "FrontAccounting-specific table classes and related data access helpers.",
   "type": "library",
   "require": {
