@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Ksfraser\FA\Tests\Unit;
+namespace FrontAccounting\Tests\Unit;
 
-use Ksfraser\FA\DTO\BankAccount;
-use Ksfraser\FA\Repository\BankAccountsRepository;
-use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
+use FrontAccounting\DTO\BankAccount;
+use FrontAccounting\Repository\BankAccountsRepository;
+use FrontAccounting\Tests\FakeDbAdapter;
 use Ksfraser\Validation\Exception\ValidationException;
 use PHPUnit\Framework\TestCase;
 
@@ -64,49 +64,5 @@ final class BankAccountsRepositoryTest extends TestCase
 
         $this->expectException(ValidationException::class);
         $repo->findByBankAccountNumber(str_repeat('a', 256));
-    }
-}
-
-final class FakeDbAdapter implements DbAdapterInterface
-{
-    /** @var array<int, array<string, mixed>> */
-    private array $rows;
-
-    /** @var string|null */
-    public ?string $lastSql = null;
-
-    /** @var array<string, mixed>|null */
-    public ?array $lastParams = null;
-
-    /** @param array<int, array<string, mixed>> $rows */
-    public function __construct(array $rows)
-    {
-        $this->rows = $rows;
-    }
-
-    public function getDialect(): string
-    {
-        return 'mysql';
-    }
-
-    public function getTablePrefix(): string
-    {
-        return '';
-    }
-
-    public function query(string $sql, array $params = []): array
-    {
-        $this->lastSql = $sql;
-        $this->lastParams = $params;
-        return $this->rows;
-    }
-
-    public function execute(string $sql, array $params = []): void
-    {
-    }
-
-    public function lastInsertId(): ?int
-    {
-        return null;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Ksfraser\FA\Tests\Unit;
+namespace FrontAccounting\Tests\Unit;
 
-use Ksfraser\FA\Schema\SalesTypesSchema;
+use FrontAccounting\Schema\SalesTypesSchema;
 use PHPUnit\Framework\TestCase;
 
 final class SalesTypesSchemaTest extends TestCase

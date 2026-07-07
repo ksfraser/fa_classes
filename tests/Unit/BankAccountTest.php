@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Ksfraser\FA\Tests\Unit;
+namespace FrontAccounting\Tests\Unit;
 
-use Ksfraser\FA\DTO\BankAccount;
+use FrontAccounting\DTO\BankAccount;
 use PHPUnit\Framework\TestCase;
 
 final class BankAccountTest extends TestCase

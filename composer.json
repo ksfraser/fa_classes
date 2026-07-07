@@ -5,22 +5,28 @@
   "type": "library",
   "require": {
     "php": ">=7.3",
-    "ksfraser/ksf-modules-dao": "*",
-    "ksfraser/validation": "^0.1"
+    "ksfraser/ksf-modules-dao": "dev-main",
+    "ksfraser/validation": "dev-main"
   },
   "repositories": [
     {
       "type": "path",
       "url": "../ksf_ModulesDAO",
       "options": {
-        "symlink": false
+        "symlink": false,
+        "versions": {
+          "ksfraser/ksf-modules-dao": "dev-main"
+        }
       }
     },
     {
       "type": "path",
       "url": "../validation",
       "options": {
-        "symlink": false
+        "symlink": false,
+        "versions": {
+          "ksfraser/validation": "dev-main"
+        }
       }
     }
   ],
@@ -29,17 +35,20 @@
   },
   "autoload": {
     "psr-4": {
+      "FrontAccounting\\": "src/FrontAccounting/",
       "Ksfraser\\FA\\": "src/Ksfraser/FA/"
     },
     "classmap": [
       "legacy/"
     ],
     "exclude-from-classmap": [
-      "legacy/archive/"
+      "legacy/archive/",
+      "legacy/class.fa_bank_transfer.php"
     ]
   },
   "autoload-dev": {
     "psr-4": {
+      "FrontAccounting\\Tests\\": "tests/",
       "Ksfraser\\FA\\Tests\\": "tests/"
     }
   },
