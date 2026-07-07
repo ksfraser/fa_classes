@@ -2,7 +2,7 @@
 
 namespace FrontAccounting\DTO;
 
-final class BankAccount
+class BankAccount
 {
     /** @var int */
     private $id;

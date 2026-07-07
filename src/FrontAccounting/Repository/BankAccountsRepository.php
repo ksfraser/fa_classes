@@ -6,7 +6,7 @@ use FrontAccounting\DTO\BankAccount;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 use Ksfraser\Validation\Traits\ValidatesStringTrait;
 
-final class BankAccountsRepository
+class BankAccountsRepository
 {
     use ValidatesStringTrait;
 
