@@ -4,7 +4,7 @@
   "type": "library",
   "require": {
     "php": ">=7.3",
-    "ksfraser/ksf-modules-dao": "^0.3",
+    "ksfraser/ksf-modules-dao": "^0.4",
     "ksfraser/validation": "^0.1"
   },
   "repositories": [
