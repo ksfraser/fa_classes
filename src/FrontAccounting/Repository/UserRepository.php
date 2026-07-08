@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\User;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class UserRepository
-{
+final class UserRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -94,5 +94,10 @@ final class UserRepository
             (bool)(isset($row['show_currency']) ? (int)$row['show_currency'] : 0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'users';
     }
 }

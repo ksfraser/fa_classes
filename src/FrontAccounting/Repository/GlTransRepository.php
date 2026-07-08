@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\GlTrans;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class GlTransRepository
-{
+final class GlTransRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -105,5 +105,10 @@ final class GlTransRepository
             isset($row['person_type_id']) ? ((int)$row['person_type_id'] !== 0 ? (int)$row['person_type_id'] : null) : null,
             isset($row['person_id']) ? ((int)$row['person_id'] !== 0 ? (int)$row['person_id'] : null) : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'gl_trans';
     }
 }

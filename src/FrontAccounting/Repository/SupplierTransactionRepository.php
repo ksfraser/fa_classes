@@ -5,8 +5,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SupplierTransaction;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SupplierTransactionRepository
-{
+final class SupplierTransactionRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -101,5 +101,10 @@ final class SupplierTransactionRepository
             (float)$row['alloc'],
             (int)$row['tax_included']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'supp_trans';
     }
 }

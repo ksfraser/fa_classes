@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Voided;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class VoidedRepository
-{
+final class VoidedRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -89,5 +89,10 @@ final class VoidedRepository
             isset($row['user_id']) ? (int)$row['user_id'] : null,
             isset($row['user_email']) ? (string)$row['user_email'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'voided';
     }
 }

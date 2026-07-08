@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CreditStatus;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CreditStatusRepository
-{
+final class CreditStatusRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -74,5 +74,10 @@ final class CreditStatusRepository
             (bool)(isset($row['dissallow_invoices']) ? (int)$row['dissallow_invoices'] : 0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'credit_status';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Refs;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class RefsRepository
-{
+final class RefsRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -53,5 +53,10 @@ final class RefsRepository
             (string)$row['reference'],
             isset($row['description']) ? (string)$row['description'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'refs';
     }
 }

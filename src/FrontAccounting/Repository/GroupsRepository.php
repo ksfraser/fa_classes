@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Groups;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class GroupsRepository
-{
+final class GroupsRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -51,5 +51,10 @@ final class GroupsRepository
             (string)$row['description'],
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'groups';
     }
 }

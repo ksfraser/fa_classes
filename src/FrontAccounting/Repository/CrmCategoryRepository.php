@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CrmCategory;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CrmCategoryRepository
-{
+final class CrmCategoryRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -77,5 +77,10 @@ final class CrmCategoryRepository
             (int)$row['system'],
             (int)$row['inactive']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'crm_categories';
     }
 }

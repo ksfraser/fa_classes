@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\FiscalYear;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class FiscalYearRepository
-{
+final class FiscalYearRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -87,5 +87,10 @@ final class FiscalYearRepository
             (bool)(isset($row['closed']) ? (int)$row['closed'] : 0),
             (bool)(isset($row['is_active']) ? (int)$row['is_active'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'fiscal_year';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\RefLines;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class RefLinesRepository
-{
+final class RefLinesRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -53,5 +53,10 @@ final class RefLinesRepository
             (string)$row['reference'],
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'reflines';
     }
 }

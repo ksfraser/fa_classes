@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoCosting;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoCostingRepository
-{
+final class WoCostingRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -56,5 +56,10 @@ final class WoCostingRepository
             (float)$row['cost'],
             (string)($row['date_'] ?? '')
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'wo_costing';
     }
 }

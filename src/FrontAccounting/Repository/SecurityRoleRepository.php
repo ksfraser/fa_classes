@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SecurityRole;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SecurityRoleRepository
-{
+final class SecurityRoleRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -63,5 +63,10 @@ final class SecurityRoleRepository
             (string)($row['areas'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'security_roles';
     }
 }

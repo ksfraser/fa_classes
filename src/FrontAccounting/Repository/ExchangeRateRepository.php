@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ExchangeRate;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ExchangeRateRepository
-{
+final class ExchangeRateRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -76,5 +76,10 @@ final class ExchangeRateRepository
             (string)$row['date_'],
             isset($row['date_time']) ? (string)$row['date_time'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'exchange_rates';
     }
 }

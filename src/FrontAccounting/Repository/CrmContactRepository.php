@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CrmContact;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CrmContactRepository
-{
+final class CrmContactRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -91,5 +91,10 @@ final class CrmContactRepository
             (string)$row['action'],
             isset($row['entity_id']) ? (string)$row['entity_id'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'crm_contacts';
     }
 }

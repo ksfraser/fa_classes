@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TaxGroup;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TaxGroupRepository
-{
+final class TaxGroupRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -73,5 +73,10 @@ final class TaxGroupRepository
             (string)$row['name'],
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'tax_groups';
     }
 }

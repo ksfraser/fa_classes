@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemTaxType;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemTaxTypeRepository
-{
+final class ItemTaxTypeRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -74,5 +74,10 @@ final class ItemTaxTypeRepository
             (string)($row['long_name'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'item_tax_types';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CustomerBranch;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CustomerBranchRepository
-{
+final class CustomerBranchRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -101,5 +101,10 @@ final class CustomerBranchRepository
             isset($row['bank_account']) ? (string)$row['bank_account'] : null,
             (int)$row['inactive']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'cust_branch';
     }
 }

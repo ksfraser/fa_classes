@@ -5,8 +5,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SupplierAllocation;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AllocationRepository
-{
+final class AllocationRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -100,5 +100,10 @@ final class AllocationRepository
               AND ABS(dt.alloc - COALESCE(ca_sum.total_alloc, 0)) > {$d}";
 
         return $this->db->execute($sql);
+    }
+
+    protected function getTableName(): string
+    {
+        return 'supp_allocations';
     }
 }

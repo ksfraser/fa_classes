@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\BudgetTrans;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class BudgetTransRepository
-{
+final class BudgetTransRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -56,5 +56,10 @@ final class BudgetTransRepository
             (int)($row['dimension2_id'] ?? 0),
             (float)$row['amount']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'budget_trans';
     }
 }

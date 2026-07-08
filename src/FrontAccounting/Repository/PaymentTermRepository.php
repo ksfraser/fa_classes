@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PaymentTerm;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PaymentTermRepository
-{
+final class PaymentTermRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -76,5 +76,10 @@ final class PaymentTermRepository
             (int)$row['terms_indicator'],
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'payment_terms';
     }
 }

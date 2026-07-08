@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Comment;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CommentRepository
-{
+final class CommentRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -76,5 +76,10 @@ final class CommentRepository
             (string)($row['memo'] ?? ''),
             isset($row['user_email']) ? (string)$row['user_email'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'comments';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Journal;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class JournalRepository
-{
+final class JournalRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -66,5 +66,10 @@ final class JournalRepository
             (int)($row['recurring'] ?? 0),
             isset($row['user_id']) ? (int)$row['user_id'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'journal';
     }
 }

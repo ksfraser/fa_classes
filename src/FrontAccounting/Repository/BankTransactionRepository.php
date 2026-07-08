@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\BankTransaction;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class BankTransactionRepository
-{
+final class BankTransactionRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -95,5 +95,10 @@ final class BankTransactionRepository
             isset($row['trans_date']) ? (string)$row['trans_date'] : null,
             (bool)(isset($row['reconciled']) ? (int)$row['reconciled'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'bank_trans';
     }
 }

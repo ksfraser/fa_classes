@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CrmPerson;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CrmPersonRepository
-{
+final class CrmPersonRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -98,5 +98,10 @@ final class CrmPersonRepository
             (string)$row['notes'],
             (int)$row['inactive']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'crm_persons';
     }
 }

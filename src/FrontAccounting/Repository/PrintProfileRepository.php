@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PrintProfile;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PrintProfileRepository
-{
+final class PrintProfileRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -62,5 +62,10 @@ final class PrintProfileRepository
             (string)($row['printer_name'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'print_profiles';
     }
 }

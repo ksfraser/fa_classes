@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Price;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PriceRepository
-{
+final class PriceRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -91,5 +91,10 @@ final class PriceRepository
             isset($row['end_date']) ? (string)$row['end_date'] : null,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'prices';
     }
 }

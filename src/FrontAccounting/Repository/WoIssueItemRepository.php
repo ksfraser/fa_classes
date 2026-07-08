@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoIssueItem;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoIssueItemRepository
-{
+final class WoIssueItemRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -53,5 +53,10 @@ final class WoIssueItemRepository
             (float)$row['qty_issued'],
             (string)($row['date_'] ?? '')
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'wo_issue_items';
     }
 }

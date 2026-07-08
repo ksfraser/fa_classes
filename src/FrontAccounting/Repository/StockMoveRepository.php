@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockMove;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockMoveRepository
-{
+final class StockMoveRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -82,5 +82,10 @@ final class StockMoveRepository
             (float)$row['qty'],
             (float)$row['standard_cost']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'stock_moves';
     }
 }

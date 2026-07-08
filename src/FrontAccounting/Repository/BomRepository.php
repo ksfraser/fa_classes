@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Bom;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class BomRepository
-{
+final class BomRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -63,5 +63,10 @@ final class BomRepository
             (float)($row['labour_cost'] ?? 0.0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'bom';
     }
 }

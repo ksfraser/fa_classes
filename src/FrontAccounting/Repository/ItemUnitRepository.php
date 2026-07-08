@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemUnit;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemUnitRepository
-{
+final class ItemUnitRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -52,5 +52,10 @@ final class ItemUnitRepository
             (int)($row['decimals'] ?? 0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'item_units';
     }
 }

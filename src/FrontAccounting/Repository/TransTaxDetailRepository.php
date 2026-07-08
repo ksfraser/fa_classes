@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TransTaxDetail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TransTaxDetailRepository
-{
+final class TransTaxDetailRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -58,5 +58,10 @@ final class TransTaxDetailRepository
             (float)$row['amount'],
             (float)$row['net_amount']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'trans_tax_details';
     }
 }

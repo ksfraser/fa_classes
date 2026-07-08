@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoManufacture;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoManufactureRepository
-{
+final class WoManufactureRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -57,5 +57,10 @@ final class WoManufactureRepository
             isset($row['memo_']) ? (string)$row['memo_'] : null,
             isset($row['user_id']) ? (int)$row['user_id'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'wo_manufacture';
     }
 }

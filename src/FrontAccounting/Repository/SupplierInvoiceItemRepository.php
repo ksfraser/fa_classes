@@ -5,8 +5,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SupplierInvoiceItem;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SupplierInvoiceItemRepository
-{
+final class SupplierInvoiceItemRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -92,5 +92,10 @@ final class SupplierInvoiceItemRepository
             (int)$row['dimension_id'],
             (int)$row['dimension2_id']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'supp_invoice_items';
     }
 }

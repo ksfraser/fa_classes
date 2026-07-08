@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ChartClass;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ChartClassRepository
-{
+final class ChartClassRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -62,5 +62,10 @@ final class ChartClassRepository
             (string)$row['ctype'],
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'chart_class';
     }
 }

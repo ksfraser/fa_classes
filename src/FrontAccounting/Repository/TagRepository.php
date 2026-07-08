@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Tag;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TagRepository
-{
+final class TagRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -61,5 +61,10 @@ final class TagRepository
             (string)($row['description'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'tags';
     }
 }

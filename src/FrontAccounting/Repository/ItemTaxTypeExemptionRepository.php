@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemTaxTypeExemption;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemTaxTypeExemptionRepository
-{
+final class ItemTaxTypeExemptionRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -50,5 +50,10 @@ final class ItemTaxTypeExemptionRepository
             (int)$row['item_tax_type_id'],
             (int)$row['tax_type_id']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'item_tax_type_exemptions';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PurchaseOrder;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PurchaseOrderRepository
-{
+final class PurchaseOrderRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -86,5 +86,10 @@ final class PurchaseOrderRepository
             (float)$row['alloc'],
             (int)$row['tax_included']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'purch_orders';
     }
 }

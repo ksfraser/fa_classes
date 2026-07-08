@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\DebtorMaster;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DebtorMasterRepository
-{
+final class DebtorMasterRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -94,5 +94,10 @@ final class DebtorMasterRepository
             (string)$row['notes'],
             (int)$row['inactive']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'debtors_master';
     }
 }

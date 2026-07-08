@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SalesPerson;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesPersonRepository
-{
+final class SalesPersonRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -79,5 +79,10 @@ final class SalesPersonRepository
             isset($row['provision2']) ? (float)$row['provision2'] : null,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'salesman';
     }
 }

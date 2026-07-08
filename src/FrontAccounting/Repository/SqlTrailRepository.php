@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SqlTrail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SqlTrailRepository
-{
+final class SqlTrailRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -54,5 +54,10 @@ final class SqlTrailRepository
             (string)($row['error_no'] ?? ''),
             (string)($row['msg'] ?? '')
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'sql_trail';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockFaClass;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockFaClassRepository
-{
+final class StockFaClassRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -56,5 +56,10 @@ final class StockFaClassRepository
             (string)($row['accum_depreciation_account_code'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'stock_fa_class';
     }
 }

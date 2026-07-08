@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SalesOrderDetail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesOrderDetailRepository
-{
+final class SalesOrderDetailRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -82,5 +82,10 @@ final class SalesOrderDetailRepository
             (float)$row['invoiced'],
             (float)$row['discount_percent']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'sales_order_details';
     }
 }

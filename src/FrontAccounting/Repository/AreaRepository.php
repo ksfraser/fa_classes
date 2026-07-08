@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Area;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AreaRepository
-{
+final class AreaRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -73,5 +73,10 @@ final class AreaRepository
             (string)$row['description'],
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'areas';
     }
 }

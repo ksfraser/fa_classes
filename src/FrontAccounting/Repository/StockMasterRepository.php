@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockMaster;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockMasterRepository
-{
+final class StockMasterRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -108,5 +108,10 @@ final class StockMasterRepository
             (int)$row['no_purchase'],
             (int)$row['editable']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'stock_master';
     }
 }

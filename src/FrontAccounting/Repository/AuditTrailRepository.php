@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\AuditTrail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AuditTrailRepository
-{
+final class AuditTrailRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -64,5 +64,10 @@ final class AuditTrailRepository
             isset($row['description']) ? (string)$row['description'] : null,
             isset($row['sql']) ? (string)$row['sql'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'audit_trail';
     }
 }

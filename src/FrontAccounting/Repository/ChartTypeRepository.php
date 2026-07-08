@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ChartType;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ChartTypeRepository
-{
+final class ChartTypeRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -75,5 +75,10 @@ final class ChartTypeRepository
             isset($row['parent']) ? ($row['parent'] !== '' ? (int)$row['parent'] : null) : null,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'chart_types';
     }
 }

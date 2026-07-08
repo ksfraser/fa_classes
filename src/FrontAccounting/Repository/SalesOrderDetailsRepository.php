@@ -4,8 +4,8 @@ namespace FrontAccounting\Repository;
 
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesOrderDetailsRepository
-{
+final class SalesOrderDetailsRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -60,5 +60,10 @@ final class SalesOrderDetailsRepository
             WHERE ABS(sod.invoiced - COALESCE(inv_sum.qty_invoiced, 0)) > {$d}";
 
         return $this->db->execute($sql);
+    }
+
+    protected function getTableName(): string
+    {
+        return 'sales_order_details';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Location;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class LocationRepository
-{
+final class LocationRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -89,5 +89,10 @@ final class LocationRepository
             (bool)(isset($row['dflt']) ? (int)$row['dflt'] : 0),
             isset($row['tax_group_id']) ? (int)$row['tax_group_id'] : 0
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'locations';
     }
 }

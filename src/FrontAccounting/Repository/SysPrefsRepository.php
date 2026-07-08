@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SysPrefs;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SysPrefsRepository
-{
+final class SysPrefsRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -90,5 +90,10 @@ final class SysPrefsRepository
             isset($row['user_id']) ? (int)$row['user_id'] : null,
             isset($row['company_id']) ? (int)$row['company_id'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'sys_prefs';
     }
 }

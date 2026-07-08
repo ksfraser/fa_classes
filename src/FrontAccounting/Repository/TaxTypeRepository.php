@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TaxType;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TaxTypeRepository
-{
+final class TaxTypeRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -77,5 +77,10 @@ final class TaxTypeRepository
             (string)($row['purchasing_gl_code'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'tax_types';
     }
 }

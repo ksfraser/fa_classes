@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Dimension;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DimensionRepository
-{
+final class DimensionRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -90,5 +90,10 @@ final class DimensionRepository
             isset($row['due_date']) ? (string)$row['due_date'] : null,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'dimensions';
     }
 }

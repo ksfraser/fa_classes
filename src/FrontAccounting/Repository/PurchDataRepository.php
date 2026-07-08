@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PurchData;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PurchDataRepository
-{
+final class PurchDataRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -90,5 +90,10 @@ final class PurchDataRepository
             isset($row['supplier_description']) ? (string)$row['supplier_description'] : '',
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'purch_data';
     }
 }

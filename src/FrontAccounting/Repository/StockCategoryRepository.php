@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockCategory;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockCategoryRepository
-{
+final class StockCategoryRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -84,5 +84,10 @@ final class StockCategoryRepository
             isset($row['dflt_wip_account']) ? (string)$row['dflt_wip_account'] : null,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'stock_category';
     }
 }

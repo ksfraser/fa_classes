@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Shipper;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ShipperRepository
-{
+final class ShipperRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -78,5 +78,10 @@ final class ShipperRepository
             (string)($row['website'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'shippers';
     }
 }

@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SalesType;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesTypeRepository
-{
+final class SalesTypeRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -75,5 +75,10 @@ final class SalesTypeRepository
             (float)($row['factor'] ?? 1.0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'sales_types';
     }
 }

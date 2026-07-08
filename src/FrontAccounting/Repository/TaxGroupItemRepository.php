@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TaxGroupItem;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TaxGroupItemRepository
-{
+final class TaxGroupItemRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -44,5 +44,10 @@ final class TaxGroupItemRepository
             (int)$row['tax_type_id'],
             (float)($row['rate'] ?? 0.0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'tax_group_items';
     }
 }

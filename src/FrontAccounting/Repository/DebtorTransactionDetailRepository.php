@@ -5,8 +5,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\DebtorTransactionDetail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DebtorTransactionDetailRepository
-{
+final class DebtorTransactionDetailRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -75,5 +75,10 @@ final class DebtorTransactionDetailRepository
             (float)$row['qty_done'],
             (int)$row['src_id']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'debtor_trans_details';
     }
 }

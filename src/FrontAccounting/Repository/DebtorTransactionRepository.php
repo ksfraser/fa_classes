@@ -5,8 +5,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\DebtorTransaction;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DebtorTransactionRepository
-{
+final class DebtorTransactionRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -116,5 +116,10 @@ final class DebtorTransactionRepository
             (int)$row['payment_terms'],
             (int)$row['tax_included']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'debtor_trans';
     }
 }

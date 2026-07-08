@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ChartMaster;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ChartMasterRepository
-{
+final class ChartMasterRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -97,5 +97,10 @@ final class ChartMasterRepository
             (bool)(isset($row['show_in_trial_balance']) ? (int)$row['show_in_trial_balance'] : 1),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'chart_master';
     }
 }

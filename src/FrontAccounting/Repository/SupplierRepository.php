@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Supplier;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SupplierRepository
-{
+final class SupplierRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -100,5 +100,10 @@ final class SupplierRepository
             (string)$row['notes'],
             (int)$row['inactive']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'suppliers';
     }
 }

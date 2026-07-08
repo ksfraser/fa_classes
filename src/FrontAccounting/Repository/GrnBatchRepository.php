@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\GrnBatch;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class GrnBatchRepository
-{
+final class GrnBatchRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -91,5 +91,10 @@ final class GrnBatchRepository
             (bool)(isset($row['is_received']) ? (int)$row['is_received'] : 0),
             (bool)(isset($row['is_partial']) ? (int)$row['is_partial'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'grn_batch';
     }
 }

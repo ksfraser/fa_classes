@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\QuickEntryLine;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class QuickEntryLineRepository
-{
+final class QuickEntryLineRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -46,5 +46,10 @@ final class QuickEntryLineRepository
             (string)($row['amount'] ?? '0'),
             (string)($row['memo_'] ?? '')
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'quick_entry_lines';
     }
 }

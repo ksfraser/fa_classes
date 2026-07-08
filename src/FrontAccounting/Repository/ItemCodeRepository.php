@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemCode;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemCodeRepository
-{
+final class ItemCodeRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -65,5 +65,10 @@ final class ItemCodeRepository
             (bool)(isset($row['is_foreign']) ? (int)$row['is_foreign'] : 0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'item_codes';
     }
 }

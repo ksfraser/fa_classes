@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Currency;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CurrencyRepository
-{
+final class CurrencyRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -63,5 +63,10 @@ final class CurrencyRepository
             isset($row['decimal_places']) ? (int)$row['decimal_places'] : 2,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'currencies';
     }
 }

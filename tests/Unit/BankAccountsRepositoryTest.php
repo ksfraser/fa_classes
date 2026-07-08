@@ -14,14 +14,14 @@ final class BankAccountsRepositoryTest extends TestCase
     public function testFindByBankAccountNumberReturnsNullWhenNoRows(): void
     {
         $db = new FakeDbAdapter([]);
-        $repo = new BankAccountsRepository($db, '0_bank_accounts');
+        $repo = new BankAccountsRepository($db);
 
         $result = $repo->findByBankAccountNumber('ABC');
 
         $this->assertNull($result);
-        $this->assertSame('ABC', $db->lastParams['bank_account_number'] ?? null);
+        $this->assertSame('ABC', $db->lastParams[0] ?? null);
         $this->assertStringContainsString('FROM 0_bank_accounts', $db->lastSql ?? '');
-        $this->assertStringContainsString('WHERE bank_account_number = :bank_account_number', $db->lastSql ?? '');
+        $this->assertStringContainsString('WHERE bank_account_number = ?', $db->lastSql ?? '');
         $this->assertStringContainsString('LIMIT 1', $db->lastSql ?? '');
     }
 
@@ -36,7 +36,7 @@ final class BankAccountsRepositoryTest extends TestCase
                 'inactive' => 1,
             ],
         ]);
-        $repo = new BankAccountsRepository($db, '0_bank_accounts');
+        $repo = new BankAccountsRepository($db);
 
         $dto = $repo->findByBankAccountNumber('999');
 
@@ -51,7 +51,7 @@ final class BankAccountsRepositoryTest extends TestCase
     public function testFindByBankAccountNumberRejectsEmpty(): void
     {
         $db = new FakeDbAdapter([]);
-        $repo = new BankAccountsRepository($db, '0_bank_accounts');
+        $repo = new BankAccountsRepository($db);
 
         $this->expectException(ValidationException::class);
         $repo->findByBankAccountNumber('   ');
@@ -60,7 +60,7 @@ final class BankAccountsRepositoryTest extends TestCase
     public function testFindByBankAccountNumberRejectsTooLong(): void
     {
         $db = new FakeDbAdapter([]);
-        $repo = new BankAccountsRepository($db, '0_bank_accounts');
+        $repo = new BankAccountsRepository($db);
 
         $this->expectException(ValidationException::class);
         $repo->findByBankAccountNumber(str_repeat('a', 256));

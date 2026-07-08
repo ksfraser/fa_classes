@@ -16,6 +16,6 @@ class BankAccountsRepository extends \FrontAccounting\Repository\BankAccountsRep
             __CLASS__ . ' is deprecated, use FrontAccounting\Repository\BankAccountsRepository instead.',
             E_USER_DEPRECATED
         );
-        parent::__construct($db, $tableName);
+        parent::__construct($db);
     }
 }

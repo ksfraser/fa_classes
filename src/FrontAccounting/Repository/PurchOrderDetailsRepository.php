@@ -4,8 +4,8 @@ namespace FrontAccounting\Repository;
 
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PurchOrderDetailsRepository
-{
+final class PurchOrderDetailsRepository {
+    use RepositoryTrait;
     /** @var DbAdapterInterface */
     private $db;
     /** @var string */
@@ -55,5 +55,10 @@ final class PurchOrderDetailsRepository
             WHERE ABS(pod.quantity_received - COALESCE(grn_sum.qty_recd, 0)) > {$d}";
 
         return $this->db->execute($sql);
+    }
+
+    protected function getTableName(): string
+    {
+        return 'purch_order_details';
     }
 }

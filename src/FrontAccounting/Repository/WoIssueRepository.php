@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoIssue;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoIssueRepository
-{
+final class WoIssueRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -56,5 +56,10 @@ final class WoIssueRepository
             isset($row['memo_']) ? (string)$row['memo_'] : null,
             isset($row['user_id']) ? (int)$row['user_id'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'wo_issues';
     }
 }

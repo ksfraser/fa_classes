@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Attachment;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AttachmentRepository
-{
+final class AttachmentRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -57,5 +57,10 @@ final class AttachmentRepository
             isset($row['description']) ? (string)$row['description'] : null,
             isset($row['date_']) ? (string)$row['date_'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'attachments';
     }
 }

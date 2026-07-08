@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\UserOnline;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class UserOnlineRepository
-{
+final class UserOnlineRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -55,5 +55,10 @@ final class UserOnlineRepository
             isset($row['curr_date']) ? (string)$row['curr_date'] : null,
             isset($row['last_check']) ? (string)$row['last_check'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'useronline';
     }
 }

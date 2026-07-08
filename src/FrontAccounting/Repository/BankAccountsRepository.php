@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrontAccounting\Repository;
 
 use FrontAccounting\DTO\BankAccount;
@@ -8,17 +10,21 @@ use Ksfraser\Validation\Traits\ValidatesStringTrait;
 
 class BankAccountsRepository
 {
+    use RepositoryTrait;
     use ValidatesStringTrait;
 
-    /** @var DbAdapterInterface */
-    private $db;
-    /** @var string */
-    private $tableName;
+    private DbAdapterInterface $db;
+    private string $prefix;
 
-    public function __construct(DbAdapterInterface $db, string $tableName)
+    public function __construct(DbAdapterInterface $db)
     {
         $this->db = $db;
-        $this->tableName = $tableName;
+        $this->prefix = $db->getTablePrefix();
+    }
+
+    protected function getTableName(): string
+    {
+        return 'bank_accounts';
     }
 
     public function findByBankAccountNumber(string $bankAccountNumber): ?BankAccount
@@ -27,13 +33,11 @@ class BankAccountsRepository
         $this->assertStringMaxLen($bankAccountNumber, 255, 'bankAccountNumber');
 
         $sql = "SELECT id, bank_account_name, bank_account_number, bank_curr_code, inactive "
-            . "FROM {$this->tableName} "
-            . "WHERE bank_account_number = :bank_account_number "
+            . "FROM {$this->prefix}bank_accounts "
+            . "WHERE bank_account_number = ? "
             . "LIMIT 1";
 
-        $rows = $this->db->query($sql, [
-            'bank_account_number' => $bankAccountNumber,
-        ]);
+        $rows = $this->db->query($sql, [$bankAccountNumber]);
         if (count($rows) < 1) {
             return null;
         }

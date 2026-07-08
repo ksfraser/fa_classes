@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoRequirement;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoRequirementRepository
-{
+final class WoRequirementRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -55,5 +55,10 @@ final class WoRequirementRepository
             (float)($row['qty_lost'] ?? 0.0),
             isset($row['date_']) ? (string)$row['date_'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'wo_requirements';
     }
 }

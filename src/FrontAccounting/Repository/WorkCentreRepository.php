@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WorkCentre;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WorkCentreRepository
-{
+final class WorkCentreRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -63,5 +63,10 @@ final class WorkCentreRepository
             isset($row['labour_cost']) ? (float)$row['labour_cost'] : null,
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'workcentres';
     }
 }

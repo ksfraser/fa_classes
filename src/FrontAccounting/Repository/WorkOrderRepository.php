@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WorkOrder;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WorkOrderRepository
-{
+final class WorkOrderRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -81,5 +81,10 @@ final class WorkOrderRepository
             (int)($row['released'] ?? 0),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'workorders';
     }
 }

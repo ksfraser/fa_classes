@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TagAssociation;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TagAssociationRepository
-{
+final class TagAssociationRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -51,5 +51,10 @@ final class TagAssociationRepository
             (int)$row['trans_type'],
             (int)$row['trans_no']
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'tag_associations';
     }
 }

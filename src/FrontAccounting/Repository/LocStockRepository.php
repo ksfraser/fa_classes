@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\LocStock;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class LocStockRepository
-{
+final class LocStockRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -74,5 +74,10 @@ final class LocStockRepository
             (float)($row['qty_on_hand'] ?? 0),
             isset($row['expiry_date']) ? (string)$row['expiry_date'] : null
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'loc_stock';
     }
 }

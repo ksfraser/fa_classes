@@ -7,8 +7,8 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\RecurrentInvoice;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class RecurrentInvoiceRepository
-{
+final class RecurrentInvoiceRepository {
+    use RepositoryTrait;
     private DbAdapterInterface $db;
     private string $prefix;
 
@@ -70,5 +70,10 @@ final class RecurrentInvoiceRepository
             (string)($row['memo_'] ?? ''),
             (bool)(isset($row['inactive']) ? (int)$row['inactive'] : 0)
         );
+    }
+
+    protected function getTableName(): string
+    {
+        return 'recurrent_invoices';
     }
 }
