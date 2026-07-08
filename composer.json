@@ -5,29 +5,17 @@
   "type": "library",
   "require": {
     "php": ">=7.3",
-    "ksfraser/ksf-modules-dao": "dev-main",
-    "ksfraser/validation": "dev-main"
+    "ksfraser/ksf-modules-dao": "^0.3",
+    "ksfraser/validation": "^0.1"
   },
   "repositories": [
     {
-      "type": "path",
-      "url": "../ksf_ModulesDAO",
-      "options": {
-        "symlink": false,
-        "versions": {
-          "ksfraser/ksf-modules-dao": "dev-main"
-        }
-      }
+      "type": "vcs",
+      "url": "https://github.com/ksfraser/ksf_ModulesDAO.git"
     },
     {
-      "type": "path",
-      "url": "../validation",
-      "options": {
-        "symlink": false,
-        "versions": {
-          "ksfraser/validation": "dev-main"
-        }
-      }
+      "type": "vcs",
+      "url": "https://github.com/ksfraser/Validation.git"
     }
   ],
   "require-dev": {
