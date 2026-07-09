@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by FrontAccounting\Repository\BaseRepository
+ * @deprecated 2026-07-09 Replaced by BaseRepository + RepositoryTrait (src/FrontAccounting/Repository/BaseRepository.php).
  */
 require_once( dirname( __FILE__ ) . '/class.MODEL.php' );
 

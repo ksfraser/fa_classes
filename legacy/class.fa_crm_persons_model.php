@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ * @deprecated 2026-07-09 Replaced by CrmPersonDTO + CrmPersonRepository (src/FrontAccounting/DTO/CrmPerson.php, Repository/CrmPersonRepository.php).
  */
 require_once( 'class.table_interface.php' );
 

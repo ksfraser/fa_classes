@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by SupplierDTO + SupplierRepository (src/FrontAccounting/DTO/Supplier.php, Repository/SupplierRepository.php).
+ */
 $path_to_root="../..";
 //require_once( 'class.fa_origin.php' );
 require_once( 'class.table_interface.php' );

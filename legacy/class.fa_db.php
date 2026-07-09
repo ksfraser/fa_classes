@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by Ksfraser\ModulesDAO\Db\DbAdapterInterface
+ * @deprecated 2026-07-09 Replaced by Ksfraser\ModulesDAO\Db\FrontAccountingDbAdapter.
  */
 $path_to_root="../..";
 

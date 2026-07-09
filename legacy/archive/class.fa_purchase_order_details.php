@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by PurchaseOrderDetailDTO + PurchaseOrderDetailRepository (src/FrontAccounting/DTO/PurchaseOrderDetail.php, Repository/PurchaseOrderDetailRepository.php).
+ */
 require_once( 'class.fa_table_wrapper.php' );
 
 $path_to_root="../..";

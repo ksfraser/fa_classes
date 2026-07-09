@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by AttachmentDTO + AttachmentRepository (src/FrontAccounting/DTO/Attachment.php, Repository/AttachmentRepository.php).
+ */
 require_once( 'class.fa_table_wrapper.php' );
 
 $path_to_root="../..";

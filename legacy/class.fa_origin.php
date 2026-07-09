@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Transaction base class (trans_no/ref/comments). Not replaced — future Service layer needed. Extends external 'origin'.
+ * @deprecated 2026-07-09 Replaced by ReferenceService (src/FrontAccounting/Service/ReferenceService.php).
  */
 /***************************************************************//**
  * 

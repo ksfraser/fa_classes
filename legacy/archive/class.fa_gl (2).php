@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by GlTransDTO + GlTransRepository (src/FrontAccounting/DTO/GlTrans.php, Repository/GlTransRepository.php).
+ */
 require_once( 'class.origin.php' );
 
 class fa_gl extends origin

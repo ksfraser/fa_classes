@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Image/file utility. Not DB/schema related. Extends external 'ksf_file_upload'.
+ * @deprecated 2026-07-09 Not yet ported to DTO/Repository/Service pattern.
  */
 require_once( '../ksf_modules_common/class.ksf_file.php' );
 

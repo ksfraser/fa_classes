@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Customer wrapper + CRM cross-reference logic not yet ported
+ * @deprecated 2026-07-09 Not yet ported to DTO/Repository/Service pattern.
  */
 $path_to_root="../..";
 

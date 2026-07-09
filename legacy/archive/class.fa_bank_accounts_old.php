@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by BankAccountsDTO + BankAccountsRepository (src/FrontAccounting/DTO/BankAccounts.php, Repository/BankAccountsRepository.php).
+ */
 /*****************************************************************************************************************
 	I have code for this class spread across ALOT of places
 

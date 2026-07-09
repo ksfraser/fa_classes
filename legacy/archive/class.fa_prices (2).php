@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by PriceDTO + PriceRepository (src/FrontAccounting/DTO/Price.php, Repository/PriceRepository.php).
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root="../..";

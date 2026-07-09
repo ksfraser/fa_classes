@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by StockMasterDTO + StockMasterRepository (src/FrontAccounting/DTO/StockMaster.php, Repository/StockMasterRepository.php).
+ */
 $path_to_root="../..";
 //require_once( 'class.fa_origin.php' );
 require_once( 'class.table_interface.php' );

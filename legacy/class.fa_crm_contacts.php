@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Schema replaced by CrmContactDTO + CrmContactRepository; add_crm_contact() business logic not yet ported
+ * @deprecated 2026-07-09 Replaced by CrmContactService, CrmContactDTO, CrmContactRepository (src/FrontAccounting/Service/CrmContactService.php, DTO/CrmContact.php, Repository/CrmContactRepository.php).
  */
 require_once( 'class.table_interface.php' );
 

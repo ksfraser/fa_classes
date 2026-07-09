@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ * @deprecated 2026-07-09 Replaced by DimensionDTO + DimensionRepository (src/FrontAccounting/DTO/Dimension.php, Repository/DimensionRepository.php).
  */
 $path_to_root="../..";
 

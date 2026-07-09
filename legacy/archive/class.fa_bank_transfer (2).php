@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @deprecated 2026-07-09 Not yet ported to DTO/Repository/Service pattern.
+ */
 //$page_security = 'SA_BANKTRANSFER';
 $path_to_root = "../..";
 

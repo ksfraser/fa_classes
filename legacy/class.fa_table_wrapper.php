@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by RepositoryTrait + QueryBuilder (read-only queries)
+ * @deprecated 2026-07-09 Replaced by BaseRepository + RepositoryTrait (src/FrontAccounting/Repository/BaseRepository.php).
  */
 require_once( 'class.table_interface.php' );
 /********************************************************//**

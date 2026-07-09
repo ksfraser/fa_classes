@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Schema replaced by CrmPersonDTO + CrmPersonRepository; add_crm_person() business logic not yet ported
+ * @deprecated 2026-07-09 Replaced by CrmPersonService, CrmPersonDTO, CrmPersonRepository (src/FrontAccounting/Service/CrmPersonService.php, DTO/CrmPerson.php, Repository/CrmPersonRepository.php).
  */
 require_once( 'class.table_interface.php' );
 

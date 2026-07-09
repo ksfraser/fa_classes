@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Order-to-delivery analysis queries not yet ported; references external 'table_interface' class
+ * @deprecated 2026-07-09 Not yet ported to DTO/Repository/Service pattern.
  */
 require_once( 'class.table_interface.php' );
 

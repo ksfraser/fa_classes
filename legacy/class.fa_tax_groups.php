@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ * @deprecated 2026-07-09 Replaced by TaxGroupDTO + TaxGroupRepository (src/FrontAccounting/DTO/TaxGroup.php, Repository/TaxGroupRepository.php).
  */
 $path_to_root="../..";
 //require_once( 'class.fa_origin.php' );

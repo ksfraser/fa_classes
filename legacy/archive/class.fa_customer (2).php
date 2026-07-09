@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Not yet ported to DTO/Repository/Service pattern.
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root = "../..";

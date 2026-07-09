@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Schema replaced by DebtorMasterDTO + DebtorMasterRepository; business methods (find_customer_by_email, searchCustomersByName) not yet ported to repository
+ * @deprecated 2026-07-09 Replaced by DebtorMasterDTO + DebtorMasterRepository (src/FrontAccounting/DTO/DebtorMaster.php, Repository/DebtorMasterRepository.php).
  */
 require_once( 'class.table_interface.php' );
 

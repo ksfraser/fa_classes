@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ * @deprecated 2026-07-09 Replaced by CurrencyDTO + CurrencyRepository (src/FrontAccounting/DTO/Currency.php, Repository/CurrencyRepository.php).
  */
 require_once( 'class.table_interface.php' );
 

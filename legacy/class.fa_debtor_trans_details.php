@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ * @deprecated 2026-07-09 Replaced by DebtorTransactionDetailDTO + DebtorTransactionDetailRepository (src/FrontAccounting/DTO/DebtorTransactionDetail.php, Repository/DebtorTransactionDetailRepository.php).
  */
 //This file isn't called _model because I intend to put the _view class in here too!
 

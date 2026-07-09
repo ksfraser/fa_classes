@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ * @deprecated 2026-07-09 Replaced by DebtorTransactionDTO + DebtorTransactionRepository (src/FrontAccounting/DTO/DebtorTransaction.php, Repository/DebtorTransactionRepository.php).
  */
 require_once( 'class.fa_table_wrapper.php' );
 

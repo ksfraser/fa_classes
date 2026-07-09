@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated 2026-07-09 Replaced by CrmPersonService, CrmPersonDTO, CrmPersonRepository (src/FrontAccounting/Service/CrmPersonService.php, DTO/CrmPerson.php, Repository/CrmPersonRepository.php).
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root = "../..";
