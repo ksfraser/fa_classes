@@ -12,19 +12,12 @@ final class UserOnlineRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'useronline';
     public function findById(int $id): ?UserOnline
     {
-        $sql = "SELECT * FROM {$this->prefix}useronline WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByUser(int $userId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}useronline WHERE user_id = ? ORDER BY last_check DESC";
-        $rows = $this->db->query($sql, [$userId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['user_id' => $userId], ['last_check' => 'DESC']);
     }
 
     public function findActiveSince(string $since): array
@@ -36,7 +29,7 @@ final class UserOnlineRepository extends \FrontAccounting\Repository\BaseReposit
         return $results;
     }
 
-    private function hydrate(array $row): UserOnline
+    protected function hydrate(array $row): UserOnline
     {
         return new UserOnline(
             (int)$row['id'],

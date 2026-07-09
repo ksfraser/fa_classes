@@ -12,26 +12,12 @@ final class ExchangeRateRepository extends \FrontAccounting\Repository\BaseRepos
     protected string $tableName = 'exchange_rates';
     public function findById(int $id): ?ExchangeRate
     {
-        $sql = "SELECT * FROM {$this->prefix}exchange_rates WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByCurrency(string $currency): array
     {
-        $sql = "SELECT * FROM {$this->prefix}exchange_rates WHERE curr_code = ? ORDER BY date_ DESC";
-        $rows = $this->db->query($sql, [$currency]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['curr_code' => $currency], ['date_' => 'DESC']);
     }
 
     public function findLatest(string $currency): ?ExchangeRate
@@ -58,7 +44,7 @@ final class ExchangeRateRepository extends \FrontAccounting\Repository\BaseRepos
         return $this->hydrate($rows[0]);
     }
 
-    private function hydrate(array $row): ExchangeRate
+    protected function hydrate(array $row): ExchangeRate
     {
         return new ExchangeRate(
             (int)$row['id'],

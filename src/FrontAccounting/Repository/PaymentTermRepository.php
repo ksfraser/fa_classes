@@ -12,14 +12,7 @@ final class PaymentTermRepository extends \FrontAccounting\Repository\BaseReposi
     protected string $tableName = 'payment_terms';
     public function findById(int $termsId): ?PaymentTerm
     {
-        $sql = "SELECT * FROM {$this->prefix}payment_terms WHERE terms_id = ?";
-        $rows = $this->db->query($sql, [$termsId]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['terms_id' => $termsId]);
     }
 
     public function findByName(string $name): array
@@ -36,29 +29,15 @@ final class PaymentTermRepository extends \FrontAccounting\Repository\BaseReposi
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}payment_terms WHERE inactive = 0 ORDER BY terms_name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['terms_name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}payment_terms ORDER BY terms_name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['terms_name' => 'ASC']);
     }
 
-    private function hydrate(array $row): PaymentTerm
+    protected function hydrate(array $row): PaymentTerm
     {
         return new PaymentTerm(
             (int)$row['terms_id'],

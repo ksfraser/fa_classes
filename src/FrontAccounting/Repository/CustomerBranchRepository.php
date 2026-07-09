@@ -12,14 +12,7 @@ final class CustomerBranchRepository extends \FrontAccounting\Repository\BaseRep
     protected string $tableName = 'cust_branch';
     public function findById(int $branchCode, int $debtorNo): ?CustomerBranch
     {
-        $sql = "SELECT * FROM {$this->prefix}cust_branch WHERE branch_code = ? AND debtor_no = ?";
-        $rows = $this->db->query($sql, [$branchCode, $debtorNo]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['branch_code' => $branchCode, 'debtor_no' => $debtorNo]);
     }
 
     public function findByDebtor(int $debtorNo): array
@@ -36,14 +29,7 @@ final class CustomerBranchRepository extends \FrontAccounting\Repository\BaseRep
 
     public function findByBranchRef(string $branchRef): array
     {
-        $sql = "SELECT * FROM {$this->prefix}cust_branch WHERE branch_ref = ? ORDER BY br_name";
-        $rows = $this->db->query($sql, [$branchRef]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['branch_ref' => $branchRef], ['br_name' => 'ASC']);
     }
 
     public function findByArea(int $area): array
@@ -70,7 +56,7 @@ final class CustomerBranchRepository extends \FrontAccounting\Repository\BaseRep
         return $results;
     }
 
-    private function hydrate(array $row): CustomerBranch
+    protected function hydrate(array $row): CustomerBranch
     {
         return new CustomerBranch(
             (int)$row['branch_code'],

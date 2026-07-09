@@ -12,14 +12,7 @@ final class AreaRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'areas';
     public function findById(int $areaCode): ?Area
     {
-        $sql = "SELECT * FROM {$this->prefix}areas WHERE area_code = ?";
-        $rows = $this->db->query($sql, [$areaCode]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['area_code' => $areaCode]);
     }
 
     public function findByDescription(string $description): array
@@ -36,29 +29,15 @@ final class AreaRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}areas WHERE inactive = 0 ORDER BY description";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['description' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}areas ORDER BY description";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['description' => 'ASC']);
     }
 
-    private function hydrate(array $row): Area
+    protected function hydrate(array $row): Area
     {
         return new Area(
             (int)$row['area_code'],

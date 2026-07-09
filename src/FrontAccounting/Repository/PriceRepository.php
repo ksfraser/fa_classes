@@ -12,26 +12,12 @@ final class PriceRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'prices';
     public function findById(int $id): ?Price
     {
-        $sql = "SELECT * FROM {$this->prefix}prices WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}prices WHERE stock_id = ? ORDER BY sales_type_id";
-        $rows = $this->db->query($sql, [$stockId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['sales_type_id' => 'ASC']);
     }
 
     public function findBySalesType(int $salesTypeId): array
@@ -60,17 +46,10 @@ final class PriceRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}prices WHERE inactive = 0 ORDER BY stock_id";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['stock_id' => 'ASC']);
     }
 
-    private function hydrate(array $row): Price
+    protected function hydrate(array $row): Price
     {
         return new Price(
             (int)$row['id'],

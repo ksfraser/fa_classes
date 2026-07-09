@@ -12,11 +12,7 @@ final class RefLinesRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'reflines';
     public function findByType(int $type): array
     {
-        $sql = "SELECT * FROM {$this->prefix}reflines WHERE type = ? ORDER BY reference";
-        $rows = $this->db->query($sql, [$type]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['type' => $type], ['reference' => 'ASC']);
     }
 
     public function findByReference(string $reference): array
@@ -30,14 +26,10 @@ final class RefLinesRepository extends \FrontAccounting\Repository\BaseRepositor
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}reflines WHERE inactive = 0 ORDER BY type, reference";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['type' => 'ASC', 'reference' => 'ASC']);
     }
 
-    private function hydrate(array $row): RefLines
+    protected function hydrate(array $row): RefLines
     {
         return new RefLines(
             (int)$row['id'],

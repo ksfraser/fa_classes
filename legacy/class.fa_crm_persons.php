@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Schema replaced by CrmPersonDTO + CrmPersonRepository; add_crm_person() business logic not yet ported
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root = "../..";

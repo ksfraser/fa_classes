@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Replaced by RepositoryTrait + QueryBuilder (read-only queries)
+ */
 require_once( 'class.table_interface.php' );
 /********************************************************//**
  * This class is a wrapper to make all data destructive functions in table_interface non-destructive.

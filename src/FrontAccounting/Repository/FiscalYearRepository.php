@@ -12,26 +12,12 @@ final class FiscalYearRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'fiscal_year';
     public function findById(int $id): ?FiscalYear
     {
-        $sql = "SELECT * FROM {$this->prefix}fiscal_year WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}fiscal_year ORDER BY begin";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['begin' => 'ASC']);
     }
 
     public function findActive(): ?FiscalYear
@@ -70,7 +56,7 @@ final class FiscalYearRepository extends \FrontAccounting\Repository\BaseReposit
         return $this->hydrate($rows[0]);
     }
 
-    private function hydrate(array $row): FiscalYear
+    protected function hydrate(array $row): FiscalYear
     {
         return new FiscalYear(
             (int)$row['id'],

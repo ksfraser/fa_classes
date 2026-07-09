@@ -12,14 +12,7 @@ final class VoidedRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'voided';
     public function findById(int $id): ?Voided
     {
-        $sql = "SELECT * FROM {$this->prefix}voided WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByTransaction(int $type, int $typeNo): ?Voided
@@ -36,14 +29,7 @@ final class VoidedRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findByUser(int $userId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}voided WHERE user_id = ? ORDER BY date_ DESC";
-        $rows = $this->db->query($sql, [$userId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['user_id' => $userId], ['date_' => 'DESC']);
     }
 
     public function findVoidedInDateRange(string $fromDate, string $toDate): array
@@ -60,17 +46,10 @@ final class VoidedRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findByType(int $type): array
     {
-        $sql = "SELECT * FROM {$this->prefix}voided WHERE type = ? ORDER BY date_ DESC";
-        $rows = $this->db->query($sql, [$type]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type' => $type], ['date_' => 'DESC']);
     }
 
-    private function hydrate(array $row): Voided
+    protected function hydrate(array $row): Voided
     {
         return new Voided(
             (int)$row['id'],

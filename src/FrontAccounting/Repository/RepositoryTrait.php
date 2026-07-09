@@ -92,6 +92,18 @@ trait RepositoryTrait
         return new PaginatedResult($items, $total, $page, $perPage);
     }
 
+    public function find(array $conditions, array $orderBy = [], ?int $limit = null, ?int $offset = null): array
+    {
+        $rows = $this->findWhere($conditions, $orderBy, $limit, $offset);
+        return array_map([$this, 'hydrate'], $rows);
+    }
+
+    public function findOne(array $conditions): ?object
+    {
+        $row = $this->findOneWhere($conditions);
+        return $row !== null ? $this->hydrate($row) : null;
+    }
+
     public function existsWhere(array $conditions): bool
     {
         return $this->countWhere($conditions) > 0;
@@ -100,6 +112,28 @@ trait RepositoryTrait
     public function deleteWhere(array $conditions): int
     {
         $qb = (new QueryBuilder($this->db))->delete($this->getTableName());
+
+        foreach ($conditions as $column => $value) {
+            if (is_array($value)) {
+                $qb->where($column, $value[0], $value[1] ?? null);
+            } else {
+                $qb->where($column, $value);
+            }
+        }
+
+        return $qb->execute();
+    }
+
+    public function insert(array $data): int
+    {
+        $qb = (new QueryBuilder($this->db))->insert($this->getTableName(), $data);
+        $qb->execute();
+        return $this->db->lastInsertId();
+    }
+
+    public function update(array $data, array $conditions): int
+    {
+        $qb = (new QueryBuilder($this->db))->update($this->getTableName(), $data);
 
         foreach ($conditions as $column => $value) {
             if (is_array($value)) {

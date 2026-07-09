@@ -60,7 +60,7 @@ final class CrmPersonRepositoryTest extends TestCase
         $results = $repo->findActive();
 
         $this->assertIsArray($results);
-        $this->assertStringContainsString('inactive = 0', $db->lastSql);
+        $this->assertStringContainsString('inactive = ?', $db->lastSql);
     }
 
     public function testSearch(): void

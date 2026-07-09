@@ -12,16 +12,7 @@ final class StockMoveRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'stock_moves';
     public function findByTypeAndNo(int $type, int $transNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_moves
-                WHERE type = ? AND trans_no = ?
-                ORDER BY trans_id";
-        $rows = $this->db->query($sql, [$type, $transNo]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type' => $type, 'trans_no' => $transNo], ['trans_id' => 'ASC']);
     }
 
     public function findByStockId(string $stockId): array
@@ -60,7 +51,7 @@ final class StockMoveRepository extends \FrontAccounting\Repository\BaseReposito
         return $this->db->execute($sql, [$standardCost, $type, $transNo]);
     }
 
-    private function hydrate(array $row): StockMove
+    protected function hydrate(array $row): StockMove
     {
         return new StockMove(
             (int)$row['trans_id'],

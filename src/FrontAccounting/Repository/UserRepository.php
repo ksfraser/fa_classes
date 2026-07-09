@@ -12,50 +12,22 @@ final class UserRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'users';
     public function findById(int $id): ?User
     {
-        $sql = "SELECT * FROM {$this->prefix}users WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByUserId(string $userId): ?User
     {
-        $sql = "SELECT * FROM {$this->prefix}users WHERE user_id = ?";
-        $rows = $this->db->query($sql, [$userId]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['user_id' => $userId]);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}users WHERE inactive = 0 ORDER BY user_id";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['user_id' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}users ORDER BY user_id";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['user_id' => 'ASC']);
     }
 
     public function findByEmail(string $email): ?User
@@ -70,7 +42,7 @@ final class UserRepository extends \FrontAccounting\Repository\BaseRepository
         return $this->hydrate($rows[0]);
     }
 
-    private function hydrate(array $row): User
+    protected function hydrate(array $row): User
     {
         return new User(
             (int)$row['id'],

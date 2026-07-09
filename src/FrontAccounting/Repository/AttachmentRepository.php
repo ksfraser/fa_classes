@@ -12,19 +12,12 @@ final class AttachmentRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'attachments';
     public function findById(int $id): ?Attachment
     {
-        $sql = "SELECT * FROM {$this->prefix}attachments WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByTransaction(int $type, int $typeNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}attachments WHERE type = ? AND type_no = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$type, $typeNo]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['type' => $type, 'type_no' => $typeNo], ['id' => 'ASC']);
     }
 
     public function findByFilename(string $filename): array
@@ -36,7 +29,7 @@ final class AttachmentRepository extends \FrontAccounting\Repository\BaseReposit
         return $results;
     }
 
-    private function hydrate(array $row): Attachment
+    protected function hydrate(array $row): Attachment
     {
         return new Attachment(
             (int)$row['id'],

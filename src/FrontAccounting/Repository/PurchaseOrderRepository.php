@@ -12,40 +12,17 @@ final class PurchaseOrderRepository extends \FrontAccounting\Repository\BaseRepo
     protected string $tableName = 'purch_orders';
     public function findById(int $orderNo): ?PurchaseOrder
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_orders WHERE order_no = ?";
-        $rows = $this->db->query($sql, [$orderNo]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['order_no' => $orderNo]);
     }
 
     public function findBySupplier(int $supplierId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_orders
-                WHERE supplier_id = ? ORDER BY ord_date DESC";
-        $rows = $this->db->query($sql, [$supplierId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['supplier_id' => $supplierId], ['ord_date' => 'DESC']);
     }
 
     public function findByReference(string $reference): array
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_orders
-                WHERE reference = ? ORDER BY ord_date DESC";
-        $rows = $this->db->query($sql, [$reference]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['reference' => $reference], ['ord_date' => 'DESC']);
     }
 
     public function findOpen(): array
@@ -62,7 +39,7 @@ final class PurchaseOrderRepository extends \FrontAccounting\Repository\BaseRepo
         return $results;
     }
 
-    private function hydrate(array $row): PurchaseOrder
+    protected function hydrate(array $row): PurchaseOrder
     {
         return new PurchaseOrder(
             (int)$row['order_no'],

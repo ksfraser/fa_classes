@@ -12,40 +12,25 @@ final class BomRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'bom';
     public function findById(int $id): ?Bom
     {
-        $sql = "SELECT * FROM {$this->prefix}bom WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByParent(string $parentStockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}bom WHERE parent = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$parentStockId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['parent' => $parentStockId], ['id' => 'ASC']);
     }
 
     public function findByComponent(string $componentStockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}bom WHERE component = ? ORDER BY parent";
-        $rows = $this->db->query($sql, [$componentStockId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['component' => $componentStockId], ['parent' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}bom WHERE inactive = 0 ORDER BY parent";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['parent' => 'ASC']);
     }
 
-    private function hydrate(array $row): Bom
+    protected function hydrate(array $row): Bom
     {
         return new Bom(
             (int)$row['id'],

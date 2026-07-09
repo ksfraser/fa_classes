@@ -59,6 +59,6 @@ final class CrmCategoryRepositoryTest extends TestCase
         $results = $repo->findActive();
 
         $this->assertIsArray($results);
-        $this->assertStringContainsString('inactive = 0', $db->lastSql);
+        $this->assertStringContainsString('inactive = ?', $db->lastSql);
     }
 }

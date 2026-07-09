@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @deprecated Bank transfer transaction logic not yet ported — references external 'fa_origin' class
+ */
 //$page_security = 'SA_BANKTRANSFER';
 $path_to_root = "../..";
 

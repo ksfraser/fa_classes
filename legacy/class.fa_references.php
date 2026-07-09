@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ */
 $path_to_root="../..";
 
 class fa_references

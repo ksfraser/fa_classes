@@ -12,23 +12,15 @@ final class QuickEntryLineRepository extends \FrontAccounting\Repository\BaseRep
     protected string $tableName = 'quick_entry_lines';
     public function findByQuickEntry(int $quickEntryId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}quick_entry_lines WHERE quick_entries_id = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$quickEntryId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['quick_entries_id' => $quickEntryId], ['id' => 'ASC']);
     }
 
     public function findByAccount(string $accountCode): array
     {
-        $sql = "SELECT * FROM {$this->prefix}quick_entry_lines WHERE account_code = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$accountCode]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['account_code' => $accountCode], ['id' => 'ASC']);
     }
 
-    private function hydrate(array $row): QuickEntryLine
+    protected function hydrate(array $row): QuickEntryLine
     {
         return new QuickEntryLine(
             (int)$row['id'],

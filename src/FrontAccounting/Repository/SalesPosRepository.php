@@ -12,10 +12,7 @@ final class SalesPosRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'sales_pos';
     public function findById(int $id): ?SalesPos
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_pos WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByName(string $posName): array
@@ -29,23 +26,15 @@ final class SalesPosRepository extends \FrontAccounting\Repository\BaseRepositor
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_pos WHERE inactive = 0 ORDER BY pos_name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['pos_name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_pos ORDER BY pos_name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['pos_name' => 'ASC']);
     }
 
-    private function hydrate(array $row): SalesPos
+    protected function hydrate(array $row): SalesPos
     {
         return new SalesPos(
             (int)$row['id'],

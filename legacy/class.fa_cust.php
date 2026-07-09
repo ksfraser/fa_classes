@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Customer wrapper + CRM cross-reference logic not yet ported
+ */
 $path_to_root="../..";
 
 require_once( 'class.fa_customer.php' ); 

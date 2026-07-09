@@ -12,14 +12,7 @@ final class StockMasterRepository extends \FrontAccounting\Repository\BaseReposi
     protected string $tableName = 'stock_master';
     public function findById(string $stockId): ?StockMaster
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_master WHERE stock_id = ?";
-        $rows = $this->db->query($sql, [$stockId]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['stock_id' => $stockId]);
     }
 
     public function findByCategory(int $categoryId): array
@@ -38,15 +31,7 @@ final class StockMasterRepository extends \FrontAccounting\Repository\BaseReposi
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_master
-                WHERE inactive = 0 ORDER BY stock_id";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['stock_id' => 'ASC']);
     }
 
     public function search(string $query): array
@@ -74,7 +59,7 @@ final class StockMasterRepository extends \FrontAccounting\Repository\BaseReposi
         return !empty($rows) && (int)$rows[0]['cnt'] > 0;
     }
 
-    private function hydrate(array $row): StockMaster
+    protected function hydrate(array $row): StockMaster
     {
         return new StockMaster(
             (string)$row['stock_id'],

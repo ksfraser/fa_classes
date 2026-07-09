@@ -12,14 +12,7 @@ final class SalesTypeRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'sales_types';
     public function findById(int $id): ?SalesType
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_types WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByType(string $salesType): ?SalesType
@@ -36,29 +29,15 @@ final class SalesTypeRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_types WHERE inactive = 0 ORDER BY sales_type";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['sales_type' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_types ORDER BY sales_type";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['sales_type' => 'ASC']);
     }
 
-    private function hydrate(array $row): SalesType
+    protected function hydrate(array $row): SalesType
     {
         return new SalesType(
             (int)$row['id'],

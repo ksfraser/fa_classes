@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * @deprecated Transaction base class (trans_no/ref/comments). Not replaced — future Service layer needed. Extends external 'origin'.
+ */
 /***************************************************************//**
  * 
  * Inherits:

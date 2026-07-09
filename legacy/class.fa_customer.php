@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Customer CRUD via FA core functions (add_customer, add_branch, add_crm_person) not yet ported to Service layer
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root = "../..";

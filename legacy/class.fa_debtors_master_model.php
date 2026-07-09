@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Schema replaced by DebtorMasterDTO + DebtorMasterRepository; business methods (find_customer_by_email, searchCustomersByName) not yet ported to repository
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root = "../..";

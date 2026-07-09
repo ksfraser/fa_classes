@@ -12,20 +12,12 @@ final class ItemTaxTypeExemptionRepository extends \FrontAccounting\Repository\B
     protected string $tableName = 'item_tax_type_exemptions';
     public function findByItemTaxType(int $itemTaxTypeId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}item_tax_type_exemptions WHERE item_tax_type_id = ?";
-        $rows = $this->db->query($sql, [$itemTaxTypeId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['item_tax_type_id' => $itemTaxTypeId]);
     }
 
     public function findByTaxType(int $taxTypeId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}item_tax_type_exemptions WHERE tax_type_id = ?";
-        $rows = $this->db->query($sql, [$taxTypeId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['tax_type_id' => $taxTypeId]);
     }
 
     public function exists(int $itemTaxTypeId, int $taxTypeId): bool
@@ -35,7 +27,7 @@ final class ItemTaxTypeExemptionRepository extends \FrontAccounting\Repository\B
         return !empty($rows) && (int)$rows[0]['cnt'] > 0;
     }
 
-    private function hydrate(array $row): ItemTaxTypeExemption
+    protected function hydrate(array $row): ItemTaxTypeExemption
     {
         return new ItemTaxTypeExemption(
             (int)$row['id'],

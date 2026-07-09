@@ -12,14 +12,7 @@ final class StockCategoryRepository extends \FrontAccounting\Repository\BaseRepo
     protected string $tableName = 'stock_category';
     public function findById(int $categoryId): ?StockCategory
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_category WHERE category_id = ?";
-        $rows = $this->db->query($sql, [$categoryId]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['category_id' => $categoryId]);
     }
 
     public function findByDescription(string $description): array
@@ -36,29 +29,15 @@ final class StockCategoryRepository extends \FrontAccounting\Repository\BaseRepo
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_category WHERE inactive = 0 ORDER BY description";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['description' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_category ORDER BY description";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['description' => 'ASC']);
     }
 
-    private function hydrate(array $row): StockCategory
+    protected function hydrate(array $row): StockCategory
     {
         return new StockCategory(
             (int)$row['category_id'],

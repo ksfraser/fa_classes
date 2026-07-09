@@ -12,19 +12,12 @@ final class WorkOrderRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'workorders';
     public function findById(int $id): ?WorkOrder
     {
-        $sql = "SELECT * FROM {$this->prefix}workorders WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}workorders WHERE stock_id = ? ORDER BY id DESC";
-        $rows = $this->db->query($sql, [$stockId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['id' => 'DESC']);
     }
 
     public function findByReference(string $reference): array
@@ -47,14 +40,10 @@ final class WorkOrderRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findByWorkCentre(int $workCentreId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}workorders WHERE workcentre_id = ? ORDER BY id DESC";
-        $rows = $this->db->query($sql, [$workCentreId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['workcentre_id' => $workCentreId], ['id' => 'DESC']);
     }
 
-    private function hydrate(array $row): WorkOrder
+    protected function hydrate(array $row): WorkOrder
     {
         return new WorkOrder(
             (int)$row['id'],

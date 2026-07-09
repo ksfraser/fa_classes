@@ -12,31 +12,20 @@ final class WoIssueItemRepository extends \FrontAccounting\Repository\BaseReposi
     protected string $tableName = 'wo_issue_items';
     public function findById(int $id): ?WoIssueItem
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_issue_items WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByIssue(int $issueId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_issue_items WHERE issue_id = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$issueId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['issue_id' => $issueId], ['id' => 'ASC']);
     }
 
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_issue_items WHERE stock_id = ? ORDER BY date_ DESC";
-        $rows = $this->db->query($sql, [$stockId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['date_' => 'DESC']);
     }
 
-    private function hydrate(array $row): WoIssueItem
+    protected function hydrate(array $row): WoIssueItem
     {
         return new WoIssueItem(
             (int)$row['id'],

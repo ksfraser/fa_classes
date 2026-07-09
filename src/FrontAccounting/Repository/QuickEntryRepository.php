@@ -12,40 +12,25 @@ final class QuickEntryRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'quick_entries';
     public function findById(int $id): ?QuickEntry
     {
-        $sql = "SELECT * FROM {$this->prefix}quick_entries WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByType(int $type): array
     {
-        $sql = "SELECT * FROM {$this->prefix}quick_entries WHERE type = ? ORDER BY description";
-        $rows = $this->db->query($sql, [$type]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['type' => $type], ['description' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}quick_entries WHERE inactive = 0 ORDER BY description";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['description' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}quick_entries ORDER BY description";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['description' => 'ASC']);
     }
 
-    private function hydrate(array $row): QuickEntry
+    protected function hydrate(array $row): QuickEntry
     {
         return new QuickEntry(
             (int)$row['id'],

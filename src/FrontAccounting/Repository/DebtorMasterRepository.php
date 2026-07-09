@@ -12,26 +12,12 @@ final class DebtorMasterRepository extends \FrontAccounting\Repository\BaseRepos
     protected string $tableName = 'debtors_master';
     public function findById(int $debtorNo): ?DebtorMaster
     {
-        $sql = "SELECT * FROM {$this->prefix}debtors_master WHERE debtor_no = ?";
-        $rows = $this->db->query($sql, [$debtorNo]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['debtor_no' => $debtorNo]);
     }
 
     public function findByRef(string $debtorRef): ?DebtorMaster
     {
-        $sql = "SELECT * FROM {$this->prefix}debtors_master WHERE debtor_ref = ?";
-        $rows = $this->db->query($sql, [$debtorRef]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['debtor_ref' => $debtorRef]);
     }
 
     public function findByName(string $name): array
@@ -48,14 +34,7 @@ final class DebtorMasterRepository extends \FrontAccounting\Repository\BaseRepos
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}debtors_master WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function exists(int $debtorNo): bool
@@ -66,7 +45,7 @@ final class DebtorMasterRepository extends \FrontAccounting\Repository\BaseRepos
         return !empty($rows) && (int)$rows[0]['cnt'] > 0;
     }
 
-    private function hydrate(array $row): DebtorMaster
+    protected function hydrate(array $row): DebtorMaster
     {
         return new DebtorMaster(
             (int)$row['debtor_no'],

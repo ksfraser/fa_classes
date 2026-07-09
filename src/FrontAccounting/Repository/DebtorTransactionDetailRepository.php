@@ -50,7 +50,7 @@ final class DebtorTransactionDetailRepository extends \FrontAccounting\Repositor
         return $this->db->execute($sql, [$type, $transNo]);
     }
 
-    private function hydrate(array $row): DebtorTransactionDetail
+    protected function hydrate(array $row): DebtorTransactionDetail
     {
         return new DebtorTransactionDetail(
             (int)$row['id'],

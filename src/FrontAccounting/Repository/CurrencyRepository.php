@@ -12,41 +12,20 @@ final class CurrencyRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'currencies';
     public function findByCode(string $currency): ?Currency
     {
-        $sql = "SELECT * FROM {$this->prefix}currencies WHERE currency = ?";
-        $rows = $this->db->query($sql, [$currency]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['currency' => $currency]);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}currencies WHERE inactive = 0 ORDER BY currency";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['currency' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}currencies ORDER BY currency";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['currency' => 'ASC']);
     }
 
-    private function hydrate(array $row): Currency
+    protected function hydrate(array $row): Currency
     {
         return new Currency(
             (string)$row['currency'],

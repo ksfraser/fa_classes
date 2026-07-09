@@ -12,26 +12,12 @@ final class GlTransRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'gl_trans';
     public function findByCounter(int $counter): ?GlTrans
     {
-        $sql = "SELECT * FROM {$this->prefix}gl_trans WHERE counter = ?";
-        $rows = $this->db->query($sql, [$counter]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['counter' => $counter]);
     }
 
     public function findByTransaction(int $type, int $typeNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}gl_trans WHERE type = ? AND type_no = ? ORDER BY counter";
-        $rows = $this->db->query($sql, [$type, $typeNo]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type' => $type, 'type_no' => $typeNo], ['counter' => 'ASC']);
     }
 
     public function findByAccount(string $accountCode, ?string $fromDate = null, ?string $toDate = null): array
@@ -60,14 +46,7 @@ final class GlTransRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findByDimension(int $dimensionId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}gl_trans WHERE dimension_id = ? ORDER BY tran_date, counter";
-        $rows = $this->db->query($sql, [$dimensionId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['dimension_id' => $dimensionId], ['tran_date' => 'ASC', 'counter' => 'ASC']);
     }
 
     public function findForPeriod(string $fromDate, string $toDate): array
@@ -82,7 +61,7 @@ final class GlTransRepository extends \FrontAccounting\Repository\BaseRepository
         return $results;
     }
 
-    private function hydrate(array $row): GlTrans
+    protected function hydrate(array $row): GlTrans
     {
         return new GlTrans(
             (int)$row['counter'],

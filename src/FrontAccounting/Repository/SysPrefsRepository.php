@@ -12,50 +12,22 @@ final class SysPrefsRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'sys_prefs';
     public function findByName(string $name): ?SysPrefs
     {
-        $sql = "SELECT * FROM {$this->prefix}sys_prefs WHERE name = ?";
-        $rows = $this->db->query($sql, [$name]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['name' => $name]);
     }
 
     public function findByCategory(int $category): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sys_prefs WHERE category = ? ORDER BY name";
-        $rows = $this->db->query($sql, [$category]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['category' => $category], ['name' => 'ASC']);
     }
 
     public function findByUser(int $userId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sys_prefs WHERE user_id = ? ORDER BY name";
-        $rows = $this->db->query($sql, [$userId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['user_id' => $userId], ['name' => 'ASC']);
     }
 
     public function findByCompany(int $companyId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sys_prefs WHERE company_id = ? ORDER BY name";
-        $rows = $this->db->query($sql, [$companyId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['company_id' => $companyId], ['name' => 'ASC']);
     }
 
     public function findGlobal(): array
@@ -70,7 +42,7 @@ final class SysPrefsRepository extends \FrontAccounting\Repository\BaseRepositor
         return $results;
     }
 
-    private function hydrate(array $row): SysPrefs
+    protected function hydrate(array $row): SysPrefs
     {
         return new SysPrefs(
             (string)$row['name'],

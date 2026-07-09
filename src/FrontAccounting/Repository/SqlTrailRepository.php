@@ -12,10 +12,7 @@ final class SqlTrailRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'sql_trail';
     public function findById(int $id): ?SqlTrail
     {
-        $sql = "SELECT * FROM {$this->prefix}sql_trail WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByUser(int $userId): array
@@ -36,7 +33,7 @@ final class SqlTrailRepository extends \FrontAccounting\Repository\BaseRepositor
         return $results;
     }
 
-    private function hydrate(array $row): SqlTrail
+    protected function hydrate(array $row): SqlTrail
     {
         return new SqlTrail(
             (int)$row['id'],

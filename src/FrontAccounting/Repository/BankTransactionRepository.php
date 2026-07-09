@@ -12,38 +12,17 @@ final class BankTransactionRepository extends \FrontAccounting\Repository\BaseRe
     protected string $tableName = 'bank_trans';
     public function findById(int $id): ?BankTransaction
     {
-        $sql = "SELECT * FROM {$this->prefix}bank_trans WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByBankAccount(string $bankAccount): array
     {
-        $sql = "SELECT * FROM {$this->prefix}bank_trans WHERE bank_act = ? ORDER BY trans_date DESC";
-        $rows = $this->db->query($sql, [$bankAccount]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['bank_act' => $bankAccount], ['trans_date' => 'DESC']);
     }
 
     public function findByTransaction(int $type, int $transNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}bank_trans WHERE type = ? AND trans_no = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$type, $transNo]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type' => $type, 'trans_no' => $transNo], ['id' => 'ASC']);
     }
 
     public function findUnreconciled(string $bankAccount): array
@@ -70,7 +49,7 @@ final class BankTransactionRepository extends \FrontAccounting\Repository\BaseRe
         return $results;
     }
 
-    private function hydrate(array $row): BankTransaction
+    protected function hydrate(array $row): BankTransaction
     {
         return new BankTransaction(
             (int)$row['id'],

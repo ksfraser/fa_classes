@@ -12,26 +12,12 @@ final class CrmPersonRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'crm_persons';
     public function findById(int $id): ?CrmPerson
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_persons WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByRef(string $ref): ?CrmPerson
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_persons WHERE ref = ?";
-        $rows = $this->db->query($sql, [$ref]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['ref' => $ref]);
     }
 
     public function findByEmail(string $email): array
@@ -48,14 +34,7 @@ final class CrmPersonRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_persons WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function search(string $query): array
@@ -74,7 +53,7 @@ final class CrmPersonRepository extends \FrontAccounting\Repository\BaseReposito
         return $results;
     }
 
-    private function hydrate(array $row): CrmPerson
+    protected function hydrate(array $row): CrmPerson
     {
         return new CrmPerson(
             (int)$row['id'],

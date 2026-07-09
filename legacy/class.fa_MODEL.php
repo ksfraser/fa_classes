@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Replaced by FrontAccounting\Repository\BaseRepository
+ */
 require_once( dirname( __FILE__ ) . '/class.MODEL.php' );
 
 /********************************************************************//**

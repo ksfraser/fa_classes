@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ */
 //This file isn't called _model because I intend to put the _view class in here too!
 
 require_once( 'class.table_interface.php' );

@@ -12,10 +12,7 @@ final class SecurityRoleRepository extends \FrontAccounting\Repository\BaseRepos
     protected string $tableName = 'security_roles';
     public function findById(int $id): ?SecurityRole
     {
-        $sql = "SELECT * FROM {$this->prefix}security_roles WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByRole(string $role): array
@@ -29,23 +26,15 @@ final class SecurityRoleRepository extends \FrontAccounting\Repository\BaseRepos
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}security_roles WHERE inactive = 0 ORDER BY role";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['role' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}security_roles ORDER BY role";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['role' => 'ASC']);
     }
 
-    private function hydrate(array $row): SecurityRole
+    protected function hydrate(array $row): SecurityRole
     {
         return new SecurityRole(
             (int)$row['id'],

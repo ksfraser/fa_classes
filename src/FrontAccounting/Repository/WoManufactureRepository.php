@@ -12,31 +12,20 @@ final class WoManufactureRepository extends \FrontAccounting\Repository\BaseRepo
     protected string $tableName = 'wo_manufacture';
     public function findById(int $id): ?WoManufacture
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_manufacture WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByWorkOrder(int $workOrderId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_manufacture WHERE workorder_id = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$workOrderId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['workorder_id' => $workOrderId], ['id' => 'ASC']);
     }
 
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_manufacture WHERE stock_id = ? ORDER BY date_ DESC";
-        $rows = $this->db->query($sql, [$stockId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['date_' => 'DESC']);
     }
 
-    private function hydrate(array $row): WoManufacture
+    protected function hydrate(array $row): WoManufacture
     {
         return new WoManufacture(
             (int)$row['id'],

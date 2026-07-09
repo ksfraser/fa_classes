@@ -12,26 +12,12 @@ final class GrnBatchRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'grn_batch';
     public function findById(int $id): ?GrnBatch
     {
-        $sql = "SELECT * FROM {$this->prefix}grn_batch WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByPurchOrder(int $purchOrderNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}grn_batch WHERE purch_order_no = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$purchOrderNo]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['purch_order_no' => $purchOrderNo], ['id' => 'ASC']);
     }
 
     public function findByReference(string $reference): array
@@ -48,14 +34,7 @@ final class GrnBatchRepository extends \FrontAccounting\Repository\BaseRepositor
 
     public function findByLocation(string $location): array
     {
-        $sql = "SELECT * FROM {$this->prefix}grn_batch WHERE loc_code = ? ORDER BY id DESC";
-        $rows = $this->db->query($sql, [$location]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['loc_code' => $location], ['id' => 'DESC']);
     }
 
     public function findReceived(): array
@@ -70,7 +49,7 @@ final class GrnBatchRepository extends \FrontAccounting\Repository\BaseRepositor
         return $results;
     }
 
-    private function hydrate(array $row): GrnBatch
+    protected function hydrate(array $row): GrnBatch
     {
         return new GrnBatch(
             (int)$row['id'],

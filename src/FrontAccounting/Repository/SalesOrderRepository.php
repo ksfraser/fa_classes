@@ -12,15 +12,7 @@ final class SalesOrderRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'sales_orders';
     public function findById(int $orderNo, int $transType = 30): ?SalesOrder
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_orders
-                WHERE order_no = ? AND trans_type = ?";
-        $rows = $this->db->query($sql, [$orderNo, $transType]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['order_no' => $orderNo, 'trans_type' => $transType]);
     }
 
     public function findByDebtor(int $debtorNo): array
@@ -40,16 +32,7 @@ final class SalesOrderRepository extends \FrontAccounting\Repository\BaseReposit
 
     public function findByReference(string $reference): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_orders
-                WHERE reference = ?
-                ORDER BY ord_date DESC";
-        $rows = $this->db->query($sql, [$reference]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['reference' => $reference], ['ord_date' => 'DESC']);
     }
 
     public function findOpen(): array
@@ -66,7 +49,7 @@ final class SalesOrderRepository extends \FrontAccounting\Repository\BaseReposit
         return $results;
     }
 
-    private function hydrate(array $row): SalesOrder
+    protected function hydrate(array $row): SalesOrder
     {
         return new SalesOrder(
             (int)$row['order_no'],

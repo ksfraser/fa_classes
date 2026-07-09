@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Replaced by Ksfraser\ModulesDAO\Db\DbAdapterInterface
+ */
 $path_to_root="../..";
 
 require_once( 'class.fa_origin.php' );

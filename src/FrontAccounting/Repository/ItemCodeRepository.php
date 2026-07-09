@@ -12,10 +12,7 @@ final class ItemCodeRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'item_codes';
     public function findById(int $id): ?ItemCode
     {
-        $sql = "SELECT * FROM {$this->prefix}item_codes WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByItemCode(string $itemCode): array
@@ -29,23 +26,15 @@ final class ItemCodeRepository extends \FrontAccounting\Repository\BaseRepositor
 
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}item_codes WHERE stock_id = ? ORDER BY item_code";
-        $rows = $this->db->query($sql, [$stockId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['item_code' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}item_codes WHERE inactive = 0 ORDER BY item_code";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['item_code' => 'ASC']);
     }
 
-    private function hydrate(array $row): ItemCode
+    protected function hydrate(array $row): ItemCode
     {
         return new ItemCode(
             (int)$row['id'],

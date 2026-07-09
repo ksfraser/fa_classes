@@ -32,30 +32,12 @@ final class SupplierInvoiceItemRepository extends \FrontAccounting\Repository\Ba
 
     public function findByGrnItem(int $grnItemId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}supp_invoice_items
-                WHERE grn_item_id = ?
-                ORDER BY supp_trans_no";
-        $rows = $this->db->query($sql, [$grnItemId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['grn_item_id' => $grnItemId], ['supp_trans_no' => 'ASC']);
     }
 
     public function findByPoDetailItem(int $poDetailItemId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}supp_invoice_items
-                WHERE po_detail_item_id = ?
-                ORDER BY supp_trans_no";
-        $rows = $this->db->query($sql, [$poDetailItemId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['po_detail_item_id' => $poDetailItemId], ['supp_trans_no' => 'ASC']);
     }
 
     public function void(int $type, int $transNo): int
@@ -66,7 +48,7 @@ final class SupplierInvoiceItemRepository extends \FrontAccounting\Repository\Ba
         return $this->db->execute($sql, [$type, $transNo]);
     }
 
-    private function hydrate(array $row): SupplierInvoiceItem
+    protected function hydrate(array $row): SupplierInvoiceItem
     {
         return new SupplierInvoiceItem(
             (int)$row['id'],

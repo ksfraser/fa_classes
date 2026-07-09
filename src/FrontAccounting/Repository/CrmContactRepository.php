@@ -12,51 +12,22 @@ final class CrmContactRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'crm_contacts';
     public function findById(int $id): ?CrmContact
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_contacts WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByPerson(int $personId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_contacts WHERE person_id = ?";
-        $rows = $this->db->query($sql, [$personId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['person_id' => $personId]);
     }
 
     public function findByEntity(string $type, string $action, string $entityId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_contacts
-                WHERE type = ? AND action = ? AND entity_id = ?";
-        $rows = $this->db->query($sql, [$type, $action, $entityId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type' => $type, 'action' => $action, 'entity_id' => $entityId]);
     }
 
     public function findByType(string $type): array
     {
-        $sql = "SELECT * FROM {$this->prefix}crm_contacts WHERE type = ?";
-        $rows = $this->db->query($sql, [$type]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type' => $type]);
     }
 
     public function findPersonContacts(int $personId): array
@@ -74,7 +45,7 @@ final class CrmContactRepository extends \FrontAccounting\Repository\BaseReposit
         return $results;
     }
 
-    private function hydrate(array $row): CrmContact
+    protected function hydrate(array $row): CrmContact
     {
         return new CrmContact(
             (int)$row['id'],

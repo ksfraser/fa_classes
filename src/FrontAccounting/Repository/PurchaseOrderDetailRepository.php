@@ -12,15 +12,7 @@ final class PurchaseOrderDetailRepository extends \FrontAccounting\Repository\Ba
     protected string $tableName = 'purch_order_details';
     public function findByOrder(int $orderNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_order_details
-                WHERE order_no = ? ORDER BY po_detail_item";
-        $rows = $this->db->query($sql, [$orderNo]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['order_no' => $orderNo], ['po_detail_item' => 'ASC']);
     }
 
     public function findByItemCode(string $itemCode): array
@@ -54,7 +46,7 @@ final class PurchaseOrderDetailRepository extends \FrontAccounting\Repository\Ba
         return $results;
     }
 
-    private function hydrate(array $row): PurchaseOrderDetail
+    protected function hydrate(array $row): PurchaseOrderDetail
     {
         return new PurchaseOrderDetail(
             (int)$row['po_detail_item'],

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Order-to-delivery analysis queries not yet ported; references external 'table_interface' class
+ */
 require_once( 'class.table_interface.php' );
 
 $path_to_root="../..";

@@ -12,23 +12,15 @@ final class TaxGroupItemRepository extends \FrontAccounting\Repository\BaseRepos
     protected string $tableName = 'tax_group_items';
     public function findByTaxGroup(int $taxGroupId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}tax_group_items WHERE tax_group_id = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$taxGroupId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['tax_group_id' => $taxGroupId], ['id' => 'ASC']);
     }
 
     public function findByTaxType(int $taxTypeId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}tax_group_items WHERE tax_type_id = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$taxTypeId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['tax_type_id' => $taxTypeId], ['id' => 'ASC']);
     }
 
-    private function hydrate(array $row): TaxGroupItem
+    protected function hydrate(array $row): TaxGroupItem
     {
         return new TaxGroupItem(
             (int)$row['id'],

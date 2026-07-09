@@ -12,14 +12,7 @@ final class ItemTaxTypeRepository extends \FrontAccounting\Repository\BaseReposi
     protected string $tableName = 'item_tax_types';
     public function findById(int $id): ?ItemTaxType
     {
-        $sql = "SELECT * FROM {$this->prefix}item_tax_types WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByName(string $name): array
@@ -36,29 +29,15 @@ final class ItemTaxTypeRepository extends \FrontAccounting\Repository\BaseReposi
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}item_tax_types WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}item_tax_types ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): ItemTaxType
+    protected function hydrate(array $row): ItemTaxType
     {
         return new ItemTaxType(
             (int)$row['id'],

@@ -12,31 +12,20 @@ final class GroupsRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'groups';
     public function findById(int $id): ?Groups
     {
-        $sql = "SELECT * FROM {$this->prefix}groups WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}groups ORDER BY description";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['description' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}groups WHERE inactive = 0 ORDER BY description";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['description' => 'ASC']);
     }
 
-    private function hydrate(array $row): Groups
+    protected function hydrate(array $row): Groups
     {
         return new Groups(
             (int)$row['id'],

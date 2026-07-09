@@ -12,26 +12,12 @@ final class LocationRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'locations';
     public function findByCode(string $locCode): ?Location
     {
-        $sql = "SELECT * FROM {$this->prefix}locations WHERE loc_code = ?";
-        $rows = $this->db->query($sql, [$locCode]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['loc_code' => $locCode]);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}locations WHERE inactive = 0 ORDER BY location_name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['location_name' => 'ASC']);
     }
 
     public function findByName(string $name): array
@@ -60,17 +46,10 @@ final class LocationRepository extends \FrontAccounting\Repository\BaseRepositor
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}locations ORDER BY location_name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['location_name' => 'ASC']);
     }
 
-    private function hydrate(array $row): Location
+    protected function hydrate(array $row): Location
     {
         return new Location(
             (string)$row['loc_code'],

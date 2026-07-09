@@ -60,7 +60,7 @@ final class DebtorMasterRepositoryTest extends TestCase
         $results = $repo->findActive();
 
         $this->assertIsArray($results);
-        $this->assertStringContainsString('inactive = 0', $db->lastSql);
+        $this->assertStringContainsString('inactive = ?', $db->lastSql);
     }
 
     public function testExists_returnsTrue(): void

@@ -12,31 +12,20 @@ final class StockFaClassRepository extends \FrontAccounting\Repository\BaseRepos
     protected string $tableName = 'stock_fa_class';
     public function findById(int $id): ?StockFaClass
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_fa_class WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_fa_class ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['name' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}stock_fa_class WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): StockFaClass
+    protected function hydrate(array $row): StockFaClass
     {
         return new StockFaClass(
             (int)$row['id'],

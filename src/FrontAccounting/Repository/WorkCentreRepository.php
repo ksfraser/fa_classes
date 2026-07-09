@@ -12,10 +12,7 @@ final class WorkCentreRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'workcentres';
     public function findById(int $id): ?WorkCentre
     {
-        $sql = "SELECT * FROM {$this->prefix}workcentres WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByName(string $name): array
@@ -29,23 +26,15 @@ final class WorkCentreRepository extends \FrontAccounting\Repository\BaseReposit
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}workcentres WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}workcentres ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): WorkCentre
+    protected function hydrate(array $row): WorkCentre
     {
         return new WorkCentre(
             (int)$row['id'],

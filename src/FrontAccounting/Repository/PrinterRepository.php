@@ -12,10 +12,7 @@ final class PrinterRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'printers';
     public function findById(int $id): ?Printer
     {
-        $sql = "SELECT * FROM {$this->prefix}printers WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByName(string $name): ?Printer
@@ -28,23 +25,15 @@ final class PrinterRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}printers WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}printers ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): Printer
+    protected function hydrate(array $row): Printer
     {
         return new Printer(
             (int)$row['id'],

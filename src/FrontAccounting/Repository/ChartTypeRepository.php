@@ -12,26 +12,12 @@ final class ChartTypeRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'chart_types';
     public function findById(int $id): ?ChartType
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_types WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByClass(int $classId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_types WHERE class_id = ? ORDER BY name";
-        $rows = $this->db->query($sql, [$classId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['class_id' => $classId], ['name' => 'ASC']);
     }
 
     public function findByName(string $name): array
@@ -48,17 +34,10 @@ final class ChartTypeRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_types WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): ChartType
+    protected function hydrate(array $row): ChartType
     {
         return new ChartType(
             (int)$row['id'],

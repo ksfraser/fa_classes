@@ -11,15 +11,7 @@ final class DebtorTransactionRepository extends \FrontAccounting\Repository\Base
 
     public function findByTypeAndNo(int $type, int $transNo): ?DebtorTransaction
     {
-        $sql = "SELECT * FROM {$this->prefix}debtor_trans
-                WHERE type = ? AND trans_no = ?";
-        $rows = $this->db->query($sql, [$type, $transNo]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['type' => $type, 'trans_no' => $transNo]);
     }
 
     public function findByCustomer(int $debtorNo): array
@@ -82,7 +74,7 @@ final class DebtorTransactionRepository extends \FrontAccounting\Repository\Base
         return $this->db->execute($sql, [$type, $transNo]);
     }
 
-    private function hydrate(array $row): DebtorTransaction
+    protected function hydrate(array $row): DebtorTransaction
     {
         return new DebtorTransaction(
             (int)$row['trans_no'],

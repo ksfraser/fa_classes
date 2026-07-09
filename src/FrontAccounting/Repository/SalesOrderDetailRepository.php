@@ -12,16 +12,7 @@ final class SalesOrderDetailRepository extends \FrontAccounting\Repository\BaseR
     protected string $tableName = 'sales_order_details';
     public function findByOrder(int $orderNo, int $transType = 30): array
     {
-        $sql = "SELECT * FROM {$this->prefix}sales_order_details
-                WHERE order_no = ? AND trans_type = ?
-                ORDER BY id";
-        $rows = $this->db->query($sql, [$orderNo, $transType]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['order_no' => $orderNo, 'trans_type' => $transType], ['id' => 'ASC']);
     }
 
     public function findByStkCode(string $stkCode): array
@@ -60,7 +51,7 @@ final class SalesOrderDetailRepository extends \FrontAccounting\Repository\BaseR
         return $results;
     }
 
-    private function hydrate(array $row): SalesOrderDetail
+    protected function hydrate(array $row): SalesOrderDetail
     {
         return new SalesOrderDetail(
             (int)$row['id'],

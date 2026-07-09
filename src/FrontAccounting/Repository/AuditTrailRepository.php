@@ -12,19 +12,12 @@ final class AuditTrailRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'audit_trail';
     public function findById(int $id): ?AuditTrail
     {
-        $sql = "SELECT * FROM {$this->prefix}audit_trail WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByTransaction(int $type, int $transNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}audit_trail WHERE type = ? AND trans_no = ? ORDER BY stamp";
-        $rows = $this->db->query($sql, [$type, $transNo]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['type' => $type, 'trans_no' => $transNo], ['stamp' => 'ASC']);
     }
 
     public function findByUser(int $userId): array
@@ -45,7 +38,7 @@ final class AuditTrailRepository extends \FrontAccounting\Repository\BaseReposit
         return $results;
     }
 
-    private function hydrate(array $row): AuditTrail
+    protected function hydrate(array $row): AuditTrail
     {
         return new AuditTrail(
             (int)$row['id'],

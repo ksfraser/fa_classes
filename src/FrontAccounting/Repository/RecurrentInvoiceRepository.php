@@ -12,28 +12,17 @@ final class RecurrentInvoiceRepository extends \FrontAccounting\Repository\BaseR
     protected string $tableName = 'recurrent_invoices';
     public function findById(int $id): ?RecurrentInvoice
     {
-        $sql = "SELECT * FROM {$this->prefix}recurrent_invoices WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByDebtor(int $debtorNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}recurrent_invoices WHERE debtor_no = ? ORDER BY description";
-        $rows = $this->db->query($sql, [$debtorNo]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['debtor_no' => $debtorNo], ['description' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}recurrent_invoices WHERE inactive = 0 ORDER BY description";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['description' => 'ASC']);
     }
 
     public function findDue(string $asAtDate): array
@@ -45,7 +34,7 @@ final class RecurrentInvoiceRepository extends \FrontAccounting\Repository\BaseR
         return $results;
     }
 
-    private function hydrate(array $row): RecurrentInvoice
+    protected function hydrate(array $row): RecurrentInvoice
     {
         return new RecurrentInvoice(
             (int)$row['id'],

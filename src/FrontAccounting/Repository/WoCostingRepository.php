@@ -12,31 +12,20 @@ final class WoCostingRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'wo_costing';
     public function findById(int $id): ?WoCosting
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_costing WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByWorkOrder(int $workOrderId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_costing WHERE workorder_id = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$workOrderId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['workorder_id' => $workOrderId], ['id' => 'ASC']);
     }
 
     public function findBySource(int $crType, int $crNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}wo_costing WHERE cr_type = ? AND cr_no = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$crType, $crNo]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['cr_type' => $crType, 'cr_no' => $crNo], ['id' => 'ASC']);
     }
 
-    private function hydrate(array $row): WoCosting
+    protected function hydrate(array $row): WoCosting
     {
         return new WoCosting(
             (int)$row['id'],

@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @deprecated Payment/allocation transaction logic not yet ported — references external 'origin' class
+ */
 $path_to_root = "../..";
 include_once($path_to_root . "/includes/ui/allocation_cart.inc");
 //include_once($path_to_root . "/includes/session.inc");

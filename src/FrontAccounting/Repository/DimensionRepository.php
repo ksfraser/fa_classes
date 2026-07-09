@@ -12,14 +12,7 @@ final class DimensionRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'dimensions';
     public function findById(int $id): ?Dimension
     {
-        $sql = "SELECT * FROM {$this->prefix}dimensions WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByReference(string $reference): array
@@ -36,14 +29,7 @@ final class DimensionRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findByType(int $type): array
     {
-        $sql = "SELECT * FROM {$this->prefix}dimensions WHERE type_ = ? ORDER BY reference";
-        $rows = $this->db->query($sql, [$type]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['type_' => $type], ['reference' => 'ASC']);
     }
 
     public function findOpen(): array
@@ -60,17 +46,10 @@ final class DimensionRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}dimensions WHERE inactive = 0 ORDER BY reference";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['reference' => 'ASC']);
     }
 
-    private function hydrate(array $row): Dimension
+    protected function hydrate(array $row): Dimension
     {
         return new Dimension(
             (int)$row['id'],

@@ -12,20 +12,12 @@ final class BudgetTransRepository extends \FrontAccounting\Repository\BaseReposi
     protected string $tableName = 'budget_trans';
     public function findByAccount(string $account): array
     {
-        $sql = "SELECT * FROM {$this->prefix}budget_trans WHERE account = ? ORDER BY tran_date";
-        $rows = $this->db->query($sql, [$account]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['account' => $account], ['tran_date' => 'ASC']);
     }
 
     public function findByDimension(int $dimensionId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}budget_trans WHERE dimension_id = ? ORDER BY tran_date";
-        $rows = $this->db->query($sql, [$dimensionId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['dimension_id' => $dimensionId], ['tran_date' => 'ASC']);
     }
 
     public function findByPeriod(string $fromDate, string $toDate): array
@@ -37,7 +29,7 @@ final class BudgetTransRepository extends \FrontAccounting\Repository\BaseReposi
         return $results;
     }
 
-    private function hydrate(array $row): BudgetTrans
+    protected function hydrate(array $row): BudgetTrans
     {
         return new BudgetTrans(
             (int)$row['id'],

@@ -12,38 +12,17 @@ final class PurchDataRepository extends \FrontAccounting\Repository\BaseReposito
     protected string $tableName = 'purch_data';
     public function findById(int $id): ?PurchData
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_data WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findBySupplier(int $supplierId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_data WHERE supplier_id = ? ORDER BY stock_id";
-        $rows = $this->db->query($sql, [$supplierId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['supplier_id' => $supplierId], ['stock_id' => 'ASC']);
     }
 
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_data WHERE stock_id = ? ORDER BY price";
-        $rows = $this->db->query($sql, [$stockId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['price' => 'ASC']);
     }
 
     public function findSupplierPrice(int $supplierId, string $stockId): ?PurchData
@@ -60,17 +39,10 @@ final class PurchDataRepository extends \FrontAccounting\Repository\BaseReposito
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}purch_data WHERE inactive = 0 ORDER BY stock_id";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['stock_id' => 'ASC']);
     }
 
-    private function hydrate(array $row): PurchData
+    protected function hydrate(array $row): PurchData
     {
         return new PurchData(
             (int)$row['id'],

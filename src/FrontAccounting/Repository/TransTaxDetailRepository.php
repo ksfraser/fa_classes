@@ -12,20 +12,12 @@ final class TransTaxDetailRepository extends \FrontAccounting\Repository\BaseRep
     protected string $tableName = 'trans_tax_details';
     public function findByTransaction(int $transType, int $transNo): array
     {
-        $sql = "SELECT * FROM {$this->prefix}trans_tax_details WHERE trans_type = ? AND trans_no = ? ORDER BY id";
-        $rows = $this->db->query($sql, [$transType, $transNo]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['trans_type' => $transType, 'trans_no' => $transNo], ['id' => 'ASC']);
     }
 
     public function findByTaxType(int $taxTypeId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}trans_tax_details WHERE tax_type_id = ? ORDER BY tran_date DESC";
-        $rows = $this->db->query($sql, [$taxTypeId]);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['tax_type_id' => $taxTypeId], ['tran_date' => 'DESC']);
     }
 
     public function findByDateRange(string $fromDate, string $toDate): array
@@ -37,7 +29,7 @@ final class TransTaxDetailRepository extends \FrontAccounting\Repository\BaseRep
         return $results;
     }
 
-    private function hydrate(array $row): TransTaxDetail
+    protected function hydrate(array $row): TransTaxDetail
     {
         return new TransTaxDetail(
             (int)$row['id'],

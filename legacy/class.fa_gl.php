@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated Replaced by DTO + Repository pattern in src/FrontAccounting/{DTO,Repository}/
+ */
 require_once( 'class.fa_origin.php' );
 /**************************************************************************************//**
 * MODEL class to handle FA's GL records

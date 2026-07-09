@@ -12,10 +12,7 @@ final class TagRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'tags';
     public function findById(int $id): ?Tag
     {
-        $sql = "SELECT * FROM {$this->prefix}tags WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByName(string $name): array
@@ -29,23 +26,15 @@ final class TagRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}tags WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}tags ORDER BY name";
-        $rows = $this->db->query($sql);
-        $results = [];
-        foreach ($rows as $row) $results[] = $this->hydrate($row);
-        return $results;
+        return $this->find([], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): Tag
+    protected function hydrate(array $row): Tag
     {
         return new Tag(
             (int)$row['id'],

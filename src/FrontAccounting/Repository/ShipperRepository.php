@@ -12,14 +12,7 @@ final class ShipperRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'shippers';
     public function findById(int $shipperId): ?Shipper
     {
-        $sql = "SELECT * FROM {$this->prefix}shippers WHERE shipper_id = ?";
-        $rows = $this->db->query($sql, [$shipperId]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['shipper_id' => $shipperId]);
     }
 
     public function findByName(string $name): array
@@ -36,29 +29,15 @@ final class ShipperRepository extends \FrontAccounting\Repository\BaseRepository
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}shippers WHERE inactive = 0 ORDER BY shipper_name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['shipper_name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}shippers ORDER BY shipper_name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['shipper_name' => 'ASC']);
     }
 
-    private function hydrate(array $row): Shipper
+    protected function hydrate(array $row): Shipper
     {
         return new Shipper(
             (int)$row['shipper_id'],

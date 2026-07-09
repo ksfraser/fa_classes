@@ -11,15 +11,7 @@ final class SupplierTransactionRepository extends \FrontAccounting\Repository\Ba
 
     public function findByTypeAndNo(int $type, int $transNo): ?SupplierTransaction
     {
-        $sql = "SELECT * FROM {$this->prefix}supp_trans
-                WHERE type = ? AND trans_no = ?";
-        $rows = $this->db->query($sql, [$type, $transNo]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['type' => $type, 'trans_no' => $transNo]);
     }
 
     public function findBySupplier(int $supplierId): array
@@ -75,7 +67,7 @@ final class SupplierTransactionRepository extends \FrontAccounting\Repository\Ba
         return $this->db->execute($sql, [$type, $transNo]);
     }
 
-    private function hydrate(array $row): SupplierTransaction
+    protected function hydrate(array $row): SupplierTransaction
     {
         return new SupplierTransaction(
             (int)$row['trans_no'],

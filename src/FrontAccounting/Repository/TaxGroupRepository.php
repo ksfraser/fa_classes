@@ -12,14 +12,7 @@ final class TaxGroupRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'tax_groups';
     public function findById(int $id): ?TaxGroup
     {
-        $sql = "SELECT * FROM {$this->prefix}tax_groups WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findByName(string $name): array
@@ -36,29 +29,15 @@ final class TaxGroupRepository extends \FrontAccounting\Repository\BaseRepositor
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}tax_groups WHERE inactive = 0 ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['name' => 'ASC']);
     }
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}tax_groups ORDER BY name";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['name' => 'ASC']);
     }
 
-    private function hydrate(array $row): TaxGroup
+    protected function hydrate(array $row): TaxGroup
     {
         return new TaxGroup(
             (int)$row['id'],

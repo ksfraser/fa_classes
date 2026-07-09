@@ -12,26 +12,12 @@ final class ChartMasterRepository extends \FrontAccounting\Repository\BaseReposi
     protected string $tableName = 'chart_master';
     public function findByCode(string $accountCode): ?ChartMaster
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_master WHERE account_code = ?";
-        $rows = $this->db->query($sql, [$accountCode]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['account_code' => $accountCode]);
     }
 
     public function findByType(int $accountType): array
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_master WHERE account_type = ? ORDER BY account_code";
-        $rows = $this->db->query($sql, [$accountType]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['account_type' => $accountType], ['account_code' => 'ASC']);
     }
 
     public function findByName(string $name): array
@@ -48,14 +34,7 @@ final class ChartMasterRepository extends \FrontAccounting\Repository\BaseReposi
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_master WHERE inactive = 0 ORDER BY account_code";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['account_code' => 'ASC']);
     }
 
     public function findBankAccounts(): array
@@ -78,7 +57,7 @@ final class ChartMasterRepository extends \FrontAccounting\Repository\BaseReposi
         return !empty($rows) && (int)$rows[0]['cnt'] > 0;
     }
 
-    private function hydrate(array $row): ChartMaster
+    protected function hydrate(array $row): ChartMaster
     {
         return new ChartMaster(
             (string)$row['account_code'],

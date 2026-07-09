@@ -12,10 +12,7 @@ final class RefsRepository extends \FrontAccounting\Repository\BaseRepository
     protected string $tableName = 'refs';
     public function findByTransaction(int $type, int $transNo): ?Refs
     {
-        $sql = "SELECT * FROM {$this->prefix}refs WHERE type = ? AND trans_no = ?";
-        $rows = $this->db->query($sql, [$type, $transNo]);
-        if (empty($rows)) return null;
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['type' => $type, 'trans_no' => $transNo]);
     }
 
     public function findByReference(string $reference): array
@@ -36,7 +33,7 @@ final class RefsRepository extends \FrontAccounting\Repository\BaseRepository
         return $results;
     }
 
-    private function hydrate(array $row): Refs
+    protected function hydrate(array $row): Refs
     {
         return new Refs(
             (int)$row['id'],

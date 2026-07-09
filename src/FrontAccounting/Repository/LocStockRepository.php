@@ -12,26 +12,12 @@ final class LocStockRepository extends \FrontAccounting\Repository\BaseRepositor
     protected string $tableName = 'loc_stock';
     public function findByStockId(string $stockId): array
     {
-        $sql = "SELECT * FROM {$this->prefix}loc_stock WHERE stock_id = ? ORDER BY loc_code";
-        $rows = $this->db->query($sql, [$stockId]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['stock_id' => $stockId], ['loc_code' => 'ASC']);
     }
 
     public function findByLocation(string $locCode): array
     {
-        $sql = "SELECT * FROM {$this->prefix}loc_stock WHERE loc_code = ? ORDER BY stock_id";
-        $rows = $this->db->query($sql, [$locCode]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['loc_code' => $locCode], ['stock_id' => 'ASC']);
     }
 
     public function findOne(string $locCode, string $stockId): ?LocStock
@@ -58,7 +44,7 @@ final class LocStockRepository extends \FrontAccounting\Repository\BaseRepositor
         return $results;
     }
 
-    private function hydrate(array $row): LocStock
+    protected function hydrate(array $row): LocStock
     {
         return new LocStock(
             (string)$row['loc_code'],

@@ -12,26 +12,12 @@ final class CreditStatusRepository extends \FrontAccounting\Repository\BaseRepos
     protected string $tableName = 'credit_status';
     public function findById(int $id): ?CreditStatus
     {
-        $sql = "SELECT * FROM {$this->prefix}credit_status WHERE id = ?";
-        $rows = $this->db->query($sql, [$id]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['id' => $id]);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}credit_status WHERE inactive = 0 ORDER BY reason_description";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['reason_description' => 'ASC']);
     }
 
     public function findDissallowInvoices(): array
@@ -48,17 +34,10 @@ final class CreditStatusRepository extends \FrontAccounting\Repository\BaseRepos
 
     public function findAll(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}credit_status ORDER BY reason_description";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find([], ['reason_description' => 'ASC']);
     }
 
-    private function hydrate(array $row): CreditStatus
+    protected function hydrate(array $row): CreditStatus
     {
         return new CreditStatus(
             (int)$row['id'],

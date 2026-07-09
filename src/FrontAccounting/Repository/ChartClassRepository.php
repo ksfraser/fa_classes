@@ -12,41 +12,20 @@ final class ChartClassRepository extends \FrontAccounting\Repository\BaseReposit
     protected string $tableName = 'chart_class';
     public function findById(int $cid): ?ChartClass
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_class WHERE cid = ?";
-        $rows = $this->db->query($sql, [$cid]);
-
-        if (empty($rows)) {
-            return null;
-        }
-
-        return $this->hydrate($rows[0]);
+        return $this->findOne(['cid' => $cid]);
     }
 
     public function findByType(string $ctype): array
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_class WHERE ctype = ? ORDER BY cid";
-        $rows = $this->db->query($sql, [$ctype]);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['ctype' => $ctype], ['cid' => 'ASC']);
     }
 
     public function findActive(): array
     {
-        $sql = "SELECT * FROM {$this->prefix}chart_class WHERE inactive = 0 ORDER BY cid";
-        $rows = $this->db->query($sql);
-
-        $results = [];
-        foreach ($rows as $row) {
-            $results[] = $this->hydrate($row);
-        }
-        return $results;
+        return $this->find(['inactive' => 0], ['cid' => 'ASC']);
     }
 
-    private function hydrate(array $row): ChartClass
+    protected function hydrate(array $row): ChartClass
     {
         return new ChartClass(
             (int)$row['cid'],
