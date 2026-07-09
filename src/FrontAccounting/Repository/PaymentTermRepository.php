@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PaymentTerm;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PaymentTermRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class PaymentTermRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'payment_terms';
     public function findById(int $termsId): ?PaymentTerm
     {
         $sql = "SELECT * FROM {$this->prefix}payment_terms WHERE terms_id = ?";
@@ -78,8 +70,4 @@ final class PaymentTermRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'payment_terms';
-    }
 }

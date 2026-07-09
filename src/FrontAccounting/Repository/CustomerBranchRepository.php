@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CustomerBranch;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CustomerBranchRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class CustomerBranchRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'cust_branch';
     public function findById(int $branchCode, int $debtorNo): ?CustomerBranch
     {
         $sql = "SELECT * FROM {$this->prefix}cust_branch WHERE branch_code = ? AND debtor_no = ?";
@@ -103,8 +95,4 @@ final class CustomerBranchRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'cust_branch';
-    }
 }

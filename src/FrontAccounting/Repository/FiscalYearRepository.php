@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\FiscalYear;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class FiscalYearRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class FiscalYearRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'fiscal_year';
     public function findById(int $id): ?FiscalYear
     {
         $sql = "SELECT * FROM {$this->prefix}fiscal_year WHERE id = ?";
@@ -89,8 +81,4 @@ final class FiscalYearRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'fiscal_year';
-    }
 }

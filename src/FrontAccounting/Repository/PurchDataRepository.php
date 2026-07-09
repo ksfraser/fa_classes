@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PurchData;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PurchDataRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class PurchDataRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'purch_data';
     public function findById(int $id): ?PurchData
     {
         $sql = "SELECT * FROM {$this->prefix}purch_data WHERE id = ?";
@@ -92,8 +84,4 @@ final class PurchDataRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'purch_data';
-    }
 }

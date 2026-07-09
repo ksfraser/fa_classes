@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Price;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PriceRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class PriceRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'prices';
     public function findById(int $id): ?Price
     {
         $sql = "SELECT * FROM {$this->prefix}prices WHERE id = ?";
@@ -93,8 +85,4 @@ final class PriceRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'prices';
-    }
 }

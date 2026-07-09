@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CrmCategory;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CrmCategoryRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class CrmCategoryRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'crm_categories';
     public function findById(int $id): ?CrmCategory
     {
         $sql = "SELECT * FROM {$this->prefix}crm_categories WHERE id = ?";
@@ -79,8 +71,4 @@ final class CrmCategoryRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'crm_categories';
-    }
 }

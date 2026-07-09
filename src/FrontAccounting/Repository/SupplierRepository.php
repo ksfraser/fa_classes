@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Supplier;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SupplierRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class SupplierRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'suppliers';
     public function findById(int $supplierId): ?Supplier
     {
         $sql = "SELECT * FROM {$this->prefix}suppliers WHERE supplier_id = ?";
@@ -102,8 +94,4 @@ final class SupplierRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'suppliers';
-    }
 }

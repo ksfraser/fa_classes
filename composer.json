@@ -3,7 +3,7 @@
   "description": "FrontAccounting-specific table classes and related data access helpers.",
   "type": "library",
   "require": {
-    "php": ">=7.3",
+    "php": ">=7.4",
     "ksfraser/ksf-modules-dao": "^0.5",
     "ksfraser/validation": "^0.1"
   },

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockCategory;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockCategoryRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class StockCategoryRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'stock_category';
     public function findById(int $categoryId): ?StockCategory
     {
         $sql = "SELECT * FROM {$this->prefix}stock_category WHERE category_id = ?";
@@ -86,8 +78,4 @@ final class StockCategoryRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'stock_category';
-    }
 }

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TaxGroup;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TaxGroupRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class TaxGroupRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'tax_groups';
     public function findById(int $id): ?TaxGroup
     {
         $sql = "SELECT * FROM {$this->prefix}tax_groups WHERE id = ?";
@@ -75,8 +67,4 @@ final class TaxGroupRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'tax_groups';
-    }
 }

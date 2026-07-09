@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Groups;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class GroupsRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class GroupsRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'groups';
     public function findById(int $id): ?Groups
     {
         $sql = "SELECT * FROM {$this->prefix}groups WHERE id = ?";
@@ -53,8 +45,4 @@ final class GroupsRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'groups';
-    }
 }

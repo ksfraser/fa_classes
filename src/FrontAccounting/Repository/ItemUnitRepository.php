@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemUnit;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemUnitRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ItemUnitRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'item_units';
     public function findByAbbreviation(string $abbreviation): ?ItemUnit
     {
         $sql = "SELECT * FROM {$this->prefix}item_units WHERE abbr = ?";
@@ -54,8 +46,4 @@ final class ItemUnitRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'item_units';
-    }
 }

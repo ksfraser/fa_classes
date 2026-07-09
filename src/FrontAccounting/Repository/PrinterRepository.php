@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Printer;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PrinterRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class PrinterRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'printers';
     public function findById(int $id): ?Printer
     {
         $sql = "SELECT * FROM {$this->prefix}printers WHERE id = ?";
@@ -63,8 +55,4 @@ final class PrinterRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'printers';
-    }
 }

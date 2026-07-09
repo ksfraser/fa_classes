@@ -4,19 +4,15 @@ namespace FrontAccounting\Repository;
 
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesOrderDetailsRepository {
-    use RepositoryTrait;
-    /** @var DbAdapterInterface */
-    private $db;
-    /** @var string */
-    private $prefix;
-    /** @var float */
-    private $delta;
+final class SalesOrderDetailsRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'sales_order_details';
+
+    private float $delta;
 
     public function __construct(DbAdapterInterface $db, float $delta = 0.005)
     {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
+        parent::__construct($db);
         $this->delta = $delta;
     }
 
@@ -62,8 +58,4 @@ final class SalesOrderDetailsRepository {
         return $this->db->execute($sql);
     }
 
-    protected function getTableName(): string
-    {
-        return 'sales_order_details';
-    }
 }

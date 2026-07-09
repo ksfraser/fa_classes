@@ -11,7 +11,10 @@ trait RepositoryTrait
 {
     protected function getTableName(): string
     {
-        throw new \BadMethodCallException(static::class . ' must implement getTableName()');
+        if (!isset($this->tableName)) {
+            throw new \BadMethodCallException(static::class . ' must set $tableName or override getTableName()');
+        }
+        return $this->tableName;
     }
 
     public function findWhere(array $conditions, array $orderBy = [], ?int $limit = null, ?int $offset = null): array

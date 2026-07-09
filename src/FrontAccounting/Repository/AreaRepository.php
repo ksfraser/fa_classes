@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Area;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AreaRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class AreaRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'areas';
     public function findById(int $areaCode): ?Area
     {
         $sql = "SELECT * FROM {$this->prefix}areas WHERE area_code = ?";
@@ -75,8 +67,4 @@ final class AreaRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'areas';
-    }
 }

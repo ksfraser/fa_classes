@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\DebtorMaster;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DebtorMasterRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class DebtorMasterRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'debtors_master';
     public function findById(int $debtorNo): ?DebtorMaster
     {
         $sql = "SELECT * FROM {$this->prefix}debtors_master WHERE debtor_no = ?";
@@ -96,8 +88,4 @@ final class DebtorMasterRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'debtors_master';
-    }
 }

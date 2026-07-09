@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\BudgetTrans;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class BudgetTransRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class BudgetTransRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'budget_trans';
     public function findByAccount(string $account): array
     {
         $sql = "SELECT * FROM {$this->prefix}budget_trans WHERE account = ? ORDER BY tran_date";
@@ -58,8 +50,4 @@ final class BudgetTransRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'budget_trans';
-    }
 }

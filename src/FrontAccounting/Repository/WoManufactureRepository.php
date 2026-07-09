@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoManufacture;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoManufactureRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class WoManufactureRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'wo_manufacture';
     public function findById(int $id): ?WoManufacture
     {
         $sql = "SELECT * FROM {$this->prefix}wo_manufacture WHERE id = ?";
@@ -59,8 +51,4 @@ final class WoManufactureRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'wo_manufacture';
-    }
 }

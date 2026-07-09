@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoCosting;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoCostingRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class WoCostingRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'wo_costing';
     public function findById(int $id): ?WoCosting
     {
         $sql = "SELECT * FROM {$this->prefix}wo_costing WHERE id = ?";
@@ -58,8 +50,4 @@ final class WoCostingRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'wo_costing';
-    }
 }

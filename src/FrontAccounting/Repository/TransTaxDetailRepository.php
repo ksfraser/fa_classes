@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TransTaxDetail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TransTaxDetailRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class TransTaxDetailRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'trans_tax_details';
     public function findByTransaction(int $transType, int $transNo): array
     {
         $sql = "SELECT * FROM {$this->prefix}trans_tax_details WHERE trans_type = ? AND trans_no = ? ORDER BY id";
@@ -60,8 +52,4 @@ final class TransTaxDetailRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'trans_tax_details';
-    }
 }

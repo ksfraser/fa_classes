@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\GrnBatch;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class GrnBatchRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class GrnBatchRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'grn_batch';
     public function findById(int $id): ?GrnBatch
     {
         $sql = "SELECT * FROM {$this->prefix}grn_batch WHERE id = ?";
@@ -93,8 +85,4 @@ final class GrnBatchRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'grn_batch';
-    }
 }

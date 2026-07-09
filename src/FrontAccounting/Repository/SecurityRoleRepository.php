@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SecurityRole;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SecurityRoleRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class SecurityRoleRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'security_roles';
     public function findById(int $id): ?SecurityRole
     {
         $sql = "SELECT * FROM {$this->prefix}security_roles WHERE id = ?";
@@ -65,8 +57,4 @@ final class SecurityRoleRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'security_roles';
-    }
 }

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ChartMaster;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ChartMasterRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ChartMasterRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'chart_master';
     public function findByCode(string $accountCode): ?ChartMaster
     {
         $sql = "SELECT * FROM {$this->prefix}chart_master WHERE account_code = ?";
@@ -99,8 +91,4 @@ final class ChartMasterRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'chart_master';
-    }
 }

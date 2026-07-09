@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Currency;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CurrencyRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class CurrencyRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'currencies';
     public function findByCode(string $currency): ?Currency
     {
         $sql = "SELECT * FROM {$this->prefix}currencies WHERE currency = ?";
@@ -65,8 +57,4 @@ final class CurrencyRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'currencies';
-    }
 }

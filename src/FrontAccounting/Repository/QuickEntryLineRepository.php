@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\QuickEntryLine;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class QuickEntryLineRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class QuickEntryLineRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'quick_entry_lines';
     public function findByQuickEntry(int $quickEntryId): array
     {
         $sql = "SELECT * FROM {$this->prefix}quick_entry_lines WHERE quick_entries_id = ? ORDER BY id";
@@ -48,8 +40,4 @@ final class QuickEntryLineRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'quick_entry_lines';
-    }
 }

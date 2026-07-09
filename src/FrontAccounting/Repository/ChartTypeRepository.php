@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ChartType;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ChartTypeRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ChartTypeRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'chart_types';
     public function findById(int $id): ?ChartType
     {
         $sql = "SELECT * FROM {$this->prefix}chart_types WHERE id = ?";
@@ -77,8 +69,4 @@ final class ChartTypeRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'chart_types';
-    }
 }

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Dimension;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DimensionRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class DimensionRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'dimensions';
     public function findById(int $id): ?Dimension
     {
         $sql = "SELECT * FROM {$this->prefix}dimensions WHERE id = ?";
@@ -92,8 +84,4 @@ final class DimensionRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'dimensions';
-    }
 }

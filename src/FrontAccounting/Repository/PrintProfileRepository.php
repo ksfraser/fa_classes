@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PrintProfile;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PrintProfileRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class PrintProfileRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'print_profiles';
     public function findById(int $id): ?PrintProfile
     {
         $sql = "SELECT * FROM {$this->prefix}print_profiles WHERE id = ?";
@@ -64,8 +56,4 @@ final class PrintProfileRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'print_profiles';
-    }
 }

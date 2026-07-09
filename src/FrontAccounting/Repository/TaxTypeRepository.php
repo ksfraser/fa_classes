@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TaxType;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TaxTypeRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class TaxTypeRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'tax_types';
     public function findById(int $id): ?TaxType
     {
         $sql = "SELECT * FROM {$this->prefix}tax_types WHERE id = ?";
@@ -79,8 +71,4 @@ final class TaxTypeRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'tax_types';
-    }
 }

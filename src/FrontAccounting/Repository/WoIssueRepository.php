@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoIssue;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoIssueRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class WoIssueRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'wo_issues';
     public function findById(int $id): ?WoIssue
     {
         $sql = "SELECT * FROM {$this->prefix}wo_issues WHERE id = ?";
@@ -58,8 +50,4 @@ final class WoIssueRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'wo_issues';
-    }
 }

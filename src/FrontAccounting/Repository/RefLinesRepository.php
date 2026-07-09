@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\RefLines;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class RefLinesRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class RefLinesRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'reflines';
     public function findByType(int $type): array
     {
         $sql = "SELECT * FROM {$this->prefix}reflines WHERE type = ? ORDER BY reference";
@@ -55,8 +47,4 @@ final class RefLinesRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'reflines';
-    }
 }

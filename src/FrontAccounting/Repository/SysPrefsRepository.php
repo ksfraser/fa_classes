@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SysPrefs;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SysPrefsRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class SysPrefsRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'sys_prefs';
     public function findByName(string $name): ?SysPrefs
     {
         $sql = "SELECT * FROM {$this->prefix}sys_prefs WHERE name = ?";
@@ -92,8 +84,4 @@ final class SysPrefsRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'sys_prefs';
-    }
 }

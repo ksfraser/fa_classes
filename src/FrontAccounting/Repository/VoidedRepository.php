@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Voided;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class VoidedRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class VoidedRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'voided';
     public function findById(int $id): ?Voided
     {
         $sql = "SELECT * FROM {$this->prefix}voided WHERE id = ?";
@@ -91,8 +83,4 @@ final class VoidedRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'voided';
-    }
 }

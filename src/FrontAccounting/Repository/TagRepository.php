@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Tag;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TagRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class TagRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'tags';
     public function findById(int $id): ?Tag
     {
         $sql = "SELECT * FROM {$this->prefix}tags WHERE id = ?";
@@ -63,8 +55,4 @@ final class TagRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'tags';
-    }
 }

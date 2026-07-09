@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CreditStatus;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CreditStatusRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class CreditStatusRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'credit_status';
     public function findById(int $id): ?CreditStatus
     {
         $sql = "SELECT * FROM {$this->prefix}credit_status WHERE id = ?";
@@ -76,8 +68,4 @@ final class CreditStatusRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'credit_status';
-    }
 }

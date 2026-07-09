@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ChartClass;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ChartClassRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ChartClassRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'chart_class';
     public function findById(int $cid): ?ChartClass
     {
         $sql = "SELECT * FROM {$this->prefix}chart_class WHERE cid = ?";
@@ -64,8 +56,4 @@ final class ChartClassRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'chart_class';
-    }
 }

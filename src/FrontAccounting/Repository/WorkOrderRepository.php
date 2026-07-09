@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WorkOrder;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WorkOrderRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class WorkOrderRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'workorders';
     public function findById(int $id): ?WorkOrder
     {
         $sql = "SELECT * FROM {$this->prefix}workorders WHERE id = ?";
@@ -83,8 +75,4 @@ final class WorkOrderRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'workorders';
-    }
 }

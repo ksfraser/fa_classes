@@ -5,18 +5,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\DebtorTransactionDetail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class DebtorTransactionDetailRepository {
-    use RepositoryTrait;
-    /** @var DbAdapterInterface */
-    private $db;
-    /** @var string */
-    private $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
+final class DebtorTransactionDetailRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'debtor_trans_details';
 
     public function findByTransaction(int $type, int $transNo): array
     {
@@ -77,8 +68,4 @@ final class DebtorTransactionDetailRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'debtor_trans_details';
-    }
 }

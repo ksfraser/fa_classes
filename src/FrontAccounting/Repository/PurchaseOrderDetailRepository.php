@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\PurchaseOrderDetail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class PurchaseOrderDetailRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class PurchaseOrderDetailRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'purch_order_details';
     public function findByOrder(int $orderNo): array
     {
         $sql = "SELECT * FROM {$this->prefix}purch_order_details
@@ -79,8 +71,4 @@ final class PurchaseOrderDetailRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'purch_order_details';
-    }
 }

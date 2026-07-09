@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\TagAssociation;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class TagAssociationRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class TagAssociationRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'tag_associations';
     public function findByTag(int $tagId): array
     {
         $sql = "SELECT * FROM {$this->prefix}tag_associations WHERE tag_id = ? ORDER BY id";
@@ -53,8 +45,4 @@ final class TagAssociationRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'tag_associations';
-    }
 }

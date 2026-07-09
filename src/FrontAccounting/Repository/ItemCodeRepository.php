@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemCode;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemCodeRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ItemCodeRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'item_codes';
     public function findById(int $id): ?ItemCode
     {
         $sql = "SELECT * FROM {$this->prefix}item_codes WHERE id = ?";
@@ -67,8 +59,4 @@ final class ItemCodeRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'item_codes';
-    }
 }

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SalesOrder;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesOrderRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class SalesOrderRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'sales_orders';
     public function findById(int $orderNo, int $transType = 30): ?SalesOrder
     {
         $sql = "SELECT * FROM {$this->prefix}sales_orders
@@ -103,8 +95,4 @@ final class SalesOrderRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'sales_orders';
-    }
 }

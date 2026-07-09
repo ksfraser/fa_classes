@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\LocStock;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class LocStockRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class LocStockRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'loc_stock';
     public function findByStockId(string $stockId): array
     {
         $sql = "SELECT * FROM {$this->prefix}loc_stock WHERE stock_id = ? ORDER BY loc_code";
@@ -76,8 +68,4 @@ final class LocStockRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'loc_stock';
-    }
 }

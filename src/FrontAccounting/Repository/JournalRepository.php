@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Journal;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class JournalRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class JournalRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'journal';
     public function findById(int $type, int $typeNo): ?Journal
     {
         $sql = "SELECT * FROM {$this->prefix}journal WHERE type = ? AND type_no = ?";
@@ -68,8 +60,4 @@ final class JournalRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'journal';
-    }
 }

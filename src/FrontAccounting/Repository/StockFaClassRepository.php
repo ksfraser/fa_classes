@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockFaClass;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockFaClassRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class StockFaClassRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'stock_fa_class';
     public function findById(int $id): ?StockFaClass
     {
         $sql = "SELECT * FROM {$this->prefix}stock_fa_class WHERE id = ?";
@@ -58,8 +50,4 @@ final class StockFaClassRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'stock_fa_class';
-    }
 }

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Location;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class LocationRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class LocationRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'locations';
     public function findByCode(string $locCode): ?Location
     {
         $sql = "SELECT * FROM {$this->prefix}locations WHERE loc_code = ?";
@@ -91,8 +83,4 @@ final class LocationRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'locations';
-    }
 }

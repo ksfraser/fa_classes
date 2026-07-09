@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\RecurrentInvoice;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class RecurrentInvoiceRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class RecurrentInvoiceRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'recurrent_invoices';
     public function findById(int $id): ?RecurrentInvoice
     {
         $sql = "SELECT * FROM {$this->prefix}recurrent_invoices WHERE id = ?";
@@ -72,8 +64,4 @@ final class RecurrentInvoiceRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'recurrent_invoices';
-    }
 }

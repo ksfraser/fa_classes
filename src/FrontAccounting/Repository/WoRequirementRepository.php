@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\WoRequirement;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class WoRequirementRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class WoRequirementRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'wo_requirements';
     public function findById(int $id): ?WoRequirement
     {
         $sql = "SELECT * FROM {$this->prefix}wo_requirements WHERE id = ?";
@@ -57,8 +49,4 @@ final class WoRequirementRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'wo_requirements';
-    }
 }

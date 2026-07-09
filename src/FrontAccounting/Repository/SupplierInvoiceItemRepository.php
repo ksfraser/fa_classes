@@ -5,18 +5,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SupplierInvoiceItem;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SupplierInvoiceItemRepository {
-    use RepositoryTrait;
-    /** @var DbAdapterInterface */
-    private $db;
-    /** @var string */
-    private $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
+final class SupplierInvoiceItemRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'supp_invoice_items';
 
     public function findByTransaction(int $type, int $transNo): array
     {
@@ -94,8 +85,4 @@ final class SupplierInvoiceItemRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'supp_invoice_items';
-    }
 }

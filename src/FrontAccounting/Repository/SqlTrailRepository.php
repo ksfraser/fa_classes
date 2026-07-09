@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SqlTrail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SqlTrailRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class SqlTrailRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'sql_trail';
     public function findById(int $id): ?SqlTrail
     {
         $sql = "SELECT * FROM {$this->prefix}sql_trail WHERE id = ?";
@@ -56,8 +48,4 @@ final class SqlTrailRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'sql_trail';
-    }
 }

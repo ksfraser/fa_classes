@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Shipper;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ShipperRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ShipperRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'shippers';
     public function findById(int $shipperId): ?Shipper
     {
         $sql = "SELECT * FROM {$this->prefix}shippers WHERE shipper_id = ?";
@@ -80,8 +72,4 @@ final class ShipperRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'shippers';
-    }
 }

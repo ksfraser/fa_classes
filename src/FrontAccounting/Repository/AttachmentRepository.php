@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Attachment;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AttachmentRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class AttachmentRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'attachments';
     public function findById(int $id): ?Attachment
     {
         $sql = "SELECT * FROM {$this->prefix}attachments WHERE id = ?";
@@ -59,8 +51,4 @@ final class AttachmentRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'attachments';
-    }
 }

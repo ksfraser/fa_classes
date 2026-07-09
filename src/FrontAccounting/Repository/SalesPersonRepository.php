@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SalesPerson;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SalesPersonRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class SalesPersonRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'salesman';
     public function findById(int $salesmanCode): ?SalesPerson
     {
         $sql = "SELECT * FROM {$this->prefix}salesman WHERE salesman_code = ?";
@@ -81,8 +73,4 @@ final class SalesPersonRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'salesman';
-    }
 }

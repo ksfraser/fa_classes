@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Bom;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class BomRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class BomRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'bom';
     public function findById(int $id): ?Bom
     {
         $sql = "SELECT * FROM {$this->prefix}bom WHERE id = ?";
@@ -65,8 +57,4 @@ final class BomRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'bom';
-    }
 }

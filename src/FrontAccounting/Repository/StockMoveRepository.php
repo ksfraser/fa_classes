@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockMove;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockMoveRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class StockMoveRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'stock_moves';
     public function findByTypeAndNo(int $type, int $transNo): array
     {
         $sql = "SELECT * FROM {$this->prefix}stock_moves
@@ -84,8 +76,4 @@ final class StockMoveRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'stock_moves';
-    }
 }

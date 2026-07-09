@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\CrmContact;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CrmContactRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class CrmContactRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'crm_contacts';
     public function findById(int $id): ?CrmContact
     {
         $sql = "SELECT * FROM {$this->prefix}crm_contacts WHERE id = ?";
@@ -93,8 +85,4 @@ final class CrmContactRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'crm_contacts';
-    }
 }

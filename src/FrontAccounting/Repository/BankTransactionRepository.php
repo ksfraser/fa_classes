@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\BankTransaction;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class BankTransactionRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class BankTransactionRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'bank_trans';
     public function findById(int $id): ?BankTransaction
     {
         $sql = "SELECT * FROM {$this->prefix}bank_trans WHERE id = ?";
@@ -97,8 +89,4 @@ final class BankTransactionRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'bank_trans';
-    }
 }

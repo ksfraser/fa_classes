@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\User;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class UserRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class UserRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'users';
     public function findById(int $id): ?User
     {
         $sql = "SELECT * FROM {$this->prefix}users WHERE id = ?";
@@ -96,8 +88,4 @@ final class UserRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'users';
-    }
 }

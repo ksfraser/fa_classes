@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ItemTaxTypeExemption;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ItemTaxTypeExemptionRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ItemTaxTypeExemptionRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'item_tax_type_exemptions';
     public function findByItemTaxType(int $itemTaxTypeId): array
     {
         $sql = "SELECT * FROM {$this->prefix}item_tax_type_exemptions WHERE item_tax_type_id = ?";
@@ -52,8 +44,4 @@ final class ItemTaxTypeExemptionRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'item_tax_type_exemptions';
-    }
 }

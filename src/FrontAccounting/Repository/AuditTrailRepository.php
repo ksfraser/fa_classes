@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\AuditTrail;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class AuditTrailRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class AuditTrailRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'audit_trail';
     public function findById(int $id): ?AuditTrail
     {
         $sql = "SELECT * FROM {$this->prefix}audit_trail WHERE id = ?";
@@ -66,8 +58,4 @@ final class AuditTrailRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'audit_trail';
-    }
 }

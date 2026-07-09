@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\GlTrans;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class GlTransRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class GlTransRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'gl_trans';
     public function findByCounter(int $counter): ?GlTrans
     {
         $sql = "SELECT * FROM {$this->prefix}gl_trans WHERE counter = ?";
@@ -107,8 +99,4 @@ final class GlTransRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'gl_trans';
-    }
 }

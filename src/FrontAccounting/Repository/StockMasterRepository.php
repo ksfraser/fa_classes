@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\StockMaster;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class StockMasterRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class StockMasterRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'stock_master';
     public function findById(string $stockId): ?StockMaster
     {
         $sql = "SELECT * FROM {$this->prefix}stock_master WHERE stock_id = ?";
@@ -110,8 +102,4 @@ final class StockMasterRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'stock_master';
-    }
 }

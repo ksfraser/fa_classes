@@ -5,18 +5,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\SupplierTransaction;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class SupplierTransactionRepository {
-    use RepositoryTrait;
-    /** @var DbAdapterInterface */
-    private $db;
-    /** @var string */
-    private $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
+final class SupplierTransactionRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'supp_trans';
 
     public function findByTypeAndNo(int $type, int $transNo): ?SupplierTransaction
     {
@@ -103,8 +94,4 @@ final class SupplierTransactionRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'supp_trans';
-    }
 }

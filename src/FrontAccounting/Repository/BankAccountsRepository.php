@@ -8,24 +8,10 @@ use FrontAccounting\DTO\BankAccount;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 use Ksfraser\Validation\Traits\ValidatesStringTrait;
 
-class BankAccountsRepository
+class BankAccountsRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    use RepositoryTrait;
+    protected string $tableName = 'bank_accounts';
     use ValidatesStringTrait;
-
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
-    protected function getTableName(): string
-    {
-        return 'bank_accounts';
-    }
 
     public function findByBankAccountNumber(string $bankAccountNumber): ?BankAccount
     {

@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\ExchangeRate;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class ExchangeRateRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class ExchangeRateRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'exchange_rates';
     public function findById(int $id): ?ExchangeRate
     {
         $sql = "SELECT * FROM {$this->prefix}exchange_rates WHERE id = ?";
@@ -78,8 +70,4 @@ final class ExchangeRateRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'exchange_rates';
-    }
 }

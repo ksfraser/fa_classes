@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Comment;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class CommentRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class CommentRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'comments';
     public function findById(int $id): ?Comment
     {
         $sql = "SELECT * FROM {$this->prefix}comments WHERE id = ?";
@@ -78,8 +70,4 @@ final class CommentRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'comments';
-    }
 }

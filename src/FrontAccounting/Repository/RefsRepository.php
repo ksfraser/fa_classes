@@ -7,17 +7,9 @@ namespace FrontAccounting\Repository;
 use FrontAccounting\DTO\Refs;
 use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
-final class RefsRepository {
-    use RepositoryTrait;
-    private DbAdapterInterface $db;
-    private string $prefix;
-
-    public function __construct(DbAdapterInterface $db)
-    {
-        $this->db = $db;
-        $this->prefix = $db->getTablePrefix();
-    }
-
+final class RefsRepository extends \FrontAccounting\Repository\BaseRepository
+{
+    protected string $tableName = 'refs';
     public function findByTransaction(int $type, int $transNo): ?Refs
     {
         $sql = "SELECT * FROM {$this->prefix}refs WHERE type = ? AND trans_no = ?";
@@ -55,8 +47,4 @@ final class RefsRepository {
         );
     }
 
-    protected function getTableName(): string
-    {
-        return 'refs';
-    }
 }
