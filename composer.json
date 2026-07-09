@@ -15,10 +15,15 @@
     {
       "type": "vcs",
       "url": "https://github.com/ksfraser/Validation.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ksfraser/FAMock.git"
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "^9.6"
+    "phpunit/phpunit": "^9.6",
+    "ksfraser/famock": "*"
   },
   "autoload": {
     "psr-4": {
