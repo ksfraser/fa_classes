@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for database transaction operations.
+ * Service contract for database transaction operations.
  */
-interface TransactionInterface
+interface TransactionService
 {
     public function begin(): void;
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\MiscInterface;
+use FrontAccounting\Service\Contracts\MiscService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for misc FA core utility functions.
+ * Native implementation of MiscService wrapping FA core utility functions.
  */
-class MiscNative implements MiscInterface
+class MiscServiceNative implements MiscService
 {
     /**
      * Wrap check_num() — validates a numeric input field.

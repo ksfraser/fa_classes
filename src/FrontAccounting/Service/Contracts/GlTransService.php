@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for GL transaction operations.
+ * Service contract for GL transaction operations.
  */
-interface GlTransInterface
+interface GlTransService
 {
     public function addGlTrans(
         int $type,

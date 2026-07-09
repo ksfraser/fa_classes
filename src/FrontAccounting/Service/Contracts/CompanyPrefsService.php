@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for company preference operations.
+ * Service contract for company preference operations.
  */
-interface CompanyPrefsInterface
+interface CompanyPrefsService
 {
     /**
      * @return array<string, mixed>

@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for comment operations.
+ * Service contract for comment operations.
  */
-interface CommentsInterface
+interface CommentsService
 {
     public function addComments(int $type, int $typeNo, string $date_, string $memo): bool;
 

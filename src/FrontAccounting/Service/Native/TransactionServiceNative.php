@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\TransactionInterface;
+use FrontAccounting\Service\Contracts\TransactionService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for FA core database transaction functions.
+ * Native implementation of TransactionService wrapping FA core transaction functions.
  */
-class TransactionNative implements TransactionInterface
+class TransactionServiceNative implements TransactionService
 {
     /**
      * Wrap begin_transaction().

@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for bank account query operations.
+ * Service contract for bank account query operations.
  */
-interface BankAccountInterface
+interface BankAccountService
 {
     /**
      * @return array<string, mixed>|null

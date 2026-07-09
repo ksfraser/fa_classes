@@ -4,252 +4,101 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service;
 
-use FrontAccounting\Service\Contracts\BankAccountInterface;
-use FrontAccounting\Service\Contracts\BankTransInterface;
-use FrontAccounting\Service\Contracts\CommentsInterface;
-use FrontAccounting\Service\Contracts\CompanyPrefsInterface;
-use FrontAccounting\Service\Contracts\CustomerInterface;
-use FrontAccounting\Service\Contracts\DebtorTransInterface;
-use FrontAccounting\Service\Contracts\ExchangeRateInterface;
-use FrontAccounting\Service\Contracts\GlTransInterface;
-use FrontAccounting\Service\Contracts\HooksInterface;
-use FrontAccounting\Service\Contracts\MiscInterface;
-use FrontAccounting\Service\Contracts\ReferenceInterface;
-use FrontAccounting\Service\Contracts\TransactionInterface;
-use FrontAccounting\Service\Native\BankAccountNative;
-use FrontAccounting\Service\Native\BankTransNative;
-use FrontAccounting\Service\Native\CommentsNative;
-use FrontAccounting\Service\Native\CompanyPrefsNative;
-use FrontAccounting\Service\Native\CustomerNative;
-use FrontAccounting\Service\Native\DebtorTransNative;
-use FrontAccounting\Service\Native\ExchangeRateNative;
-use FrontAccounting\Service\Native\GlTransNative;
-use FrontAccounting\Service\Native\HooksNative;
-use FrontAccounting\Service\Native\MiscNative;
-use FrontAccounting\Service\Native\ReferenceNative;
-use FrontAccounting\Service\Native\TransactionNative;
+use FrontAccounting\Service\Contracts\BankAccountService;
+use FrontAccounting\Service\Contracts\BankTransService;
+use FrontAccounting\Service\Contracts\CommentsService;
+use FrontAccounting\Service\Contracts\CompanyPrefsService;
+use FrontAccounting\Service\Contracts\CustomerService;
+use FrontAccounting\Service\Contracts\DebtorTransService;
+use FrontAccounting\Service\Contracts\ExchangeRateService;
+use FrontAccounting\Service\Contracts\GlTransService;
+use FrontAccounting\Service\Contracts\HooksService;
+use FrontAccounting\Service\Contracts\MiscService;
+use FrontAccounting\Service\Contracts\ReferenceService;
+use FrontAccounting\Service\Contracts\TransactionService;
+use FrontAccounting\Service\Native\BankAccountServiceNative;
+use FrontAccounting\Service\Native\BankTransServiceNative;
+use FrontAccounting\Service\Native\CommentsServiceNative;
+use FrontAccounting\Service\Native\CompanyPrefsServiceNative;
+use FrontAccounting\Service\Native\CustomerServiceNative;
+use FrontAccounting\Service\Native\DebtorTransServiceNative;
+use FrontAccounting\Service\Native\ExchangeRateServiceNative;
+use FrontAccounting\Service\Native\GlTransServiceNative;
+use FrontAccounting\Service\Native\HooksServiceNative;
+use FrontAccounting\Service\Native\MiscServiceNative;
+use FrontAccounting\Service\Native\ReferenceServiceNative;
+use FrontAccounting\Service\Native\TransactionServiceNative;
 
 /**
  * @since 2026-07-09
- * Runtime configuration for service Native vs DTO/Repository mode.
+ * Runtime registry of service implementations.
  *
- * Defaults to MODE_NATIVE, which creates Native wrapper instances
- * lazily.  Switch to MODE_DTO and inject specific interface
- * implementations via the set*Dto() methods to replace individual
- * FA core functions with DTO/Repository-based equivalents.
+ * Defaults every slot to a *ServiceNative (Fa core wrapper).  Callers
+ * override individual slots via set*() with DTO/Repository-based
+ * implementations.  No mode switching — the composition root is the
+ * only place that decides.
  *
- * ┌───────────────────────────────────────────────────────────┐
- * │                     ServiceRuntimeConfig                  │
- * │  mode: 'native' | 'dto'                                   │
- * │                                                           │
- * │  Lazy Native (private)    DTO Overrides (public setters)  │
- * │  ─────────────────────    ──────────────────────────────  │
- * │  glTransNative            setGlTransDto()                 │
- * │  bankTransNative          setBankTransDto()               │
- * │  debtorTransNative        setDebtorTransDto()             │
- * │  commentsNative           setCommentsDto()                │
- * │  referenceNative          setReferenceDto()               │
- * │  bankAccountNative        setBankAccountDto()             │
- * │  companyPrefsNative       setCompanyPrefsDto()            │
- * │  customerNative           setCustomerDto()                │
- * │  exchangeRateNative       setExchangeRateDto()            │
- * │  hooksNative              setHooksDto()                   │
- * │  transactionNative        setTransactionDto()             │
- * │  miscNative               setMiscDto()                    │
- * ├───────────────────────────────────────────────────────────┤
- * │  get*() returns the DTO implementation when mode='dto'    │
- * │  and a DTO override is set; otherwise returns Native.     │
- * └───────────────────────────────────────────────────────────┘
+ * ┌──────────────────────────────────────────────────────────┐
+ * │                    ServiceRuntimeConfig                   │
+ * │                                                          │
+ * │  Registry (set / get)      Default (lazy ??=)            │
+ * │  ─────────────────────     ──────────────────────────    │
+ * │  setGlTrans(...)           GlTransServiceNative          │
+ * │  setBankTrans(...)         BankTransServiceNative        │
+ * │  setDebtorTrans(...)       DebtorTransServiceNative      │
+ * │  setComments(...)          CommentsServiceNative         │
+ * │  setReference(...)         ReferenceServiceNative        │
+ * │  setBankAccount(...)       BankAccountServiceNative      │
+ * │  setCompanyPrefs(...)      CompanyPrefsServiceNative     │
+ * │  setCustomer(...)          CustomerServiceNative         │
+ * │  setExchangeRate(...)      ExchangeRateServiceNative     │
+ * │  setHooks(...)             HooksServiceNative            │
+ * │  setTransaction(...)       TransactionServiceNative      │
+ * │  setMisc(...)              MiscServiceNative             │
+ * └──────────────────────────────────────────────────────────┘
  */
 class ServiceRuntimeConfig
 {
-    public const MODE_NATIVE = 'native';
-    public const MODE_DTO = 'dto';
+    private ?GlTransService $glTrans = null;
+    private ?BankTransService $bankTrans = null;
+    private ?DebtorTransService $debtorTrans = null;
+    private ?CommentsService $comments = null;
+    private ?ReferenceService $reference = null;
+    private ?BankAccountService $bankAccount = null;
+    private ?CompanyPrefsService $companyPrefs = null;
+    private ?CustomerService $customer = null;
+    private ?ExchangeRateService $exchangeRate = null;
+    private ?HooksService $hooks = null;
+    private ?TransactionService $transaction = null;
+    private ?MiscService $misc = null;
 
-    private string $mode;
+    // ── Setters ──────────────────────────────────────────────
 
-    private ?GlTransInterface $glTransNative = null;
-    private ?BankTransInterface $bankTransNative = null;
-    private ?DebtorTransInterface $debtorTransNative = null;
-    private ?CommentsInterface $commentsNative = null;
-    private ?ReferenceInterface $referenceNative = null;
-    private ?BankAccountInterface $bankAccountNative = null;
-    private ?CompanyPrefsInterface $companyPrefsNative = null;
-    private ?CustomerInterface $customerNative = null;
-    private ?ExchangeRateInterface $exchangeRateNative = null;
-    private ?HooksInterface $hooksNative = null;
-    private ?TransactionInterface $transactionNative = null;
-    private ?MiscInterface $miscNative = null;
+    public function setGlTrans(GlTransService $impl): void { $this->glTrans = $impl; }
+    public function setBankTrans(BankTransService $impl): void { $this->bankTrans = $impl; }
+    public function setDebtorTrans(DebtorTransService $impl): void { $this->debtorTrans = $impl; }
+    public function setComments(CommentsService $impl): void { $this->comments = $impl; }
+    public function setReference(ReferenceService $impl): void { $this->reference = $impl; }
+    public function setBankAccount(BankAccountService $impl): void { $this->bankAccount = $impl; }
+    public function setCompanyPrefs(CompanyPrefsService $impl): void { $this->companyPrefs = $impl; }
+    public function setCustomer(CustomerService $impl): void { $this->customer = $impl; }
+    public function setExchangeRate(ExchangeRateService $impl): void { $this->exchangeRate = $impl; }
+    public function setHooks(HooksService $impl): void { $this->hooks = $impl; }
+    public function setTransaction(TransactionService $impl): void { $this->transaction = $impl; }
+    public function setMisc(MiscService $impl): void { $this->misc = $impl; }
 
-    private ?GlTransInterface $glTransDto = null;
-    private ?BankTransInterface $bankTransDto = null;
-    private ?DebtorTransInterface $debtorTransDto = null;
-    private ?CommentsInterface $commentsDto = null;
-    private ?ReferenceInterface $referenceDto = null;
-    private ?BankAccountInterface $bankAccountDto = null;
-    private ?CompanyPrefsInterface $companyPrefsDto = null;
-    private ?CustomerInterface $customerDto = null;
-    private ?ExchangeRateInterface $exchangeRateDto = null;
-    private ?HooksInterface $hooksDto = null;
-    private ?TransactionInterface $transactionDto = null;
-    private ?MiscInterface $miscDto = null;
+    // ── Getters (lazy ??= default) ────────────────────────────
 
-    public function __construct(string $mode = self::MODE_NATIVE)
-    {
-        $this->mode = $mode;
-    }
-
-    // -----------------------------------------------------------------
-    //  DTO overrides — set these to replace individual Native wrappers
-    // -----------------------------------------------------------------
-
-    public function setGlTransDto(GlTransInterface $impl): void { $this->glTransDto = $impl; }
-    public function setBankTransDto(BankTransInterface $impl): void { $this->bankTransDto = $impl; }
-    public function setDebtorTransDto(DebtorTransInterface $impl): void { $this->debtorTransDto = $impl; }
-    public function setCommentsDto(CommentsInterface $impl): void { $this->commentsDto = $impl; }
-    public function setReferenceDto(ReferenceInterface $impl): void { $this->referenceDto = $impl; }
-    public function setBankAccountDto(BankAccountInterface $impl): void { $this->bankAccountDto = $impl; }
-    public function setCompanyPrefsDto(CompanyPrefsInterface $impl): void { $this->companyPrefsDto = $impl; }
-    public function setCustomerDto(CustomerInterface $impl): void { $this->customerDto = $impl; }
-    public function setExchangeRateDto(ExchangeRateInterface $impl): void { $this->exchangeRateDto = $impl; }
-    public function setHooksDto(HooksInterface $impl): void { $this->hooksDto = $impl; }
-    public function setTransactionDto(TransactionInterface $impl): void { $this->transactionDto = $impl; }
-    public function setMiscDto(MiscInterface $impl): void { $this->miscDto = $impl; }
-
-    // -----------------------------------------------------------------
-    //  Factory getters — return DTO impl in DTO mode when set,
-    //  otherwise lazily create and return Native
-    // -----------------------------------------------------------------
-
-    public function getGlTrans(): GlTransInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->glTransDto !== null) {
-            return $this->glTransDto;
-        }
-        if ($this->glTransNative === null) {
-            $this->glTransNative = new GlTransNative();
-        }
-        return $this->glTransNative;
-    }
-
-    public function getBankTrans(): BankTransInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->bankTransDto !== null) {
-            return $this->bankTransDto;
-        }
-        if ($this->bankTransNative === null) {
-            $this->bankTransNative = new BankTransNative();
-        }
-        return $this->bankTransNative;
-    }
-
-    public function getDebtorTrans(): DebtorTransInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->debtorTransDto !== null) {
-            return $this->debtorTransDto;
-        }
-        if ($this->debtorTransNative === null) {
-            $this->debtorTransNative = new DebtorTransNative();
-        }
-        return $this->debtorTransNative;
-    }
-
-    public function getComments(): CommentsInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->commentsDto !== null) {
-            return $this->commentsDto;
-        }
-        if ($this->commentsNative === null) {
-            $this->commentsNative = new CommentsNative();
-        }
-        return $this->commentsNative;
-    }
-
-    public function getReference(): ReferenceInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->referenceDto !== null) {
-            return $this->referenceDto;
-        }
-        if ($this->referenceNative === null) {
-            $this->referenceNative = new ReferenceNative();
-        }
-        return $this->referenceNative;
-    }
-
-    public function getBankAccount(): BankAccountInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->bankAccountDto !== null) {
-            return $this->bankAccountDto;
-        }
-        if ($this->bankAccountNative === null) {
-            $this->bankAccountNative = new BankAccountNative();
-        }
-        return $this->bankAccountNative;
-    }
-
-    public function getCompanyPrefs(): CompanyPrefsInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->companyPrefsDto !== null) {
-            return $this->companyPrefsDto;
-        }
-        if ($this->companyPrefsNative === null) {
-            $this->companyPrefsNative = new CompanyPrefsNative();
-        }
-        return $this->companyPrefsNative;
-    }
-
-    public function getCustomer(): CustomerInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->customerDto !== null) {
-            return $this->customerDto;
-        }
-        if ($this->customerNative === null) {
-            $this->customerNative = new CustomerNative();
-        }
-        return $this->customerNative;
-    }
-
-    public function getExchangeRate(): ExchangeRateInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->exchangeRateDto !== null) {
-            return $this->exchangeRateDto;
-        }
-        if ($this->exchangeRateNative === null) {
-            $this->exchangeRateNative = new ExchangeRateNative();
-        }
-        return $this->exchangeRateNative;
-    }
-
-    public function getHooks(): HooksInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->hooksDto !== null) {
-            return $this->hooksDto;
-        }
-        if ($this->hooksNative === null) {
-            $this->hooksNative = new HooksNative();
-        }
-        return $this->hooksNative;
-    }
-
-    public function getTransaction(): TransactionInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->transactionDto !== null) {
-            return $this->transactionDto;
-        }
-        if ($this->transactionNative === null) {
-            $this->transactionNative = new TransactionNative();
-        }
-        return $this->transactionNative;
-    }
-
-    public function getMisc(): MiscInterface
-    {
-        if ($this->mode === self::MODE_DTO && $this->miscDto !== null) {
-            return $this->miscDto;
-        }
-        if ($this->miscNative === null) {
-            $this->miscNative = new MiscNative();
-        }
-        return $this->miscNative;
-    }
+    public function getGlTrans(): GlTransService { return $this->glTrans ??= new GlTransServiceNative(); }
+    public function getBankTrans(): BankTransService { return $this->bankTrans ??= new BankTransServiceNative(); }
+    public function getDebtorTrans(): DebtorTransService { return $this->debtorTrans ??= new DebtorTransServiceNative(); }
+    public function getComments(): CommentsService { return $this->comments ??= new CommentsServiceNative(); }
+    public function getReference(): ReferenceService { return $this->reference ??= new ReferenceServiceNative(); }
+    public function getBankAccount(): BankAccountService { return $this->bankAccount ??= new BankAccountServiceNative(); }
+    public function getCompanyPrefs(): CompanyPrefsService { return $this->companyPrefs ??= new CompanyPrefsServiceNative(); }
+    public function getCustomer(): CustomerService { return $this->customer ??= new CustomerServiceNative(); }
+    public function getExchangeRate(): ExchangeRateService { return $this->exchangeRate ??= new ExchangeRateServiceNative(); }
+    public function getHooks(): HooksService { return $this->hooks ??= new HooksServiceNative(); }
+    public function getTransaction(): TransactionService { return $this->transaction ??= new TransactionServiceNative(); }
+    public function getMisc(): MiscService { return $this->misc ??= new MiscServiceNative(); }
 }

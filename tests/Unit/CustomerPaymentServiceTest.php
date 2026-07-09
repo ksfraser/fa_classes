@@ -6,18 +6,18 @@ namespace Tests\Unit;
 
 use FrontAccounting\DTO\DebtorTransaction;
 use FrontAccounting\Repository\DebtorTransactionRepository;
-use FrontAccounting\Service\Contracts\BankAccountInterface;
-use FrontAccounting\Service\Contracts\BankTransInterface;
-use FrontAccounting\Service\Contracts\CommentsInterface;
-use FrontAccounting\Service\Contracts\CompanyPrefsInterface;
-use FrontAccounting\Service\Contracts\CustomerInterface;
-use FrontAccounting\Service\Contracts\DebtorTransInterface;
-use FrontAccounting\Service\Contracts\ExchangeRateInterface;
-use FrontAccounting\Service\Contracts\GlTransInterface;
-use FrontAccounting\Service\Contracts\HooksInterface;
-use FrontAccounting\Service\Contracts\MiscInterface;
-use FrontAccounting\Service\Contracts\ReferenceInterface;
-use FrontAccounting\Service\Contracts\TransactionInterface;
+use FrontAccounting\Service\Contracts\BankAccountService;
+use FrontAccounting\Service\Contracts\BankTransService;
+use FrontAccounting\Service\Contracts\CommentsService;
+use FrontAccounting\Service\Contracts\CompanyPrefsService;
+use FrontAccounting\Service\Contracts\CustomerService;
+use FrontAccounting\Service\Contracts\DebtorTransService;
+use FrontAccounting\Service\Contracts\ExchangeRateService;
+use FrontAccounting\Service\Contracts\GlTransService;
+use FrontAccounting\Service\Contracts\HooksService;
+use FrontAccounting\Service\Contracts\MiscService;
+use FrontAccounting\Service\Contracts\ReferenceService;
+use FrontAccounting\Service\Contracts\TransactionService;
 use FrontAccounting\Service\CustomerPaymentRequest;
 use FrontAccounting\Service\CustomerPaymentService;
 use FrontAccounting\Service\ServiceRuntimeConfig;
@@ -42,32 +42,32 @@ final class CustomerPaymentServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->glTrans = $this->createMock(GlTransInterface::class);
-        $this->bankTrans = $this->createMock(BankTransInterface::class);
-        $this->debtorTrans = $this->createMock(DebtorTransInterface::class);
-        $this->comments = $this->createMock(CommentsInterface::class);
-        $this->reference = $this->createMock(ReferenceInterface::class);
-        $this->bankAccount = $this->createMock(BankAccountInterface::class);
-        $this->companyPrefs = $this->createMock(CompanyPrefsInterface::class);
-        $this->customer = $this->createMock(CustomerInterface::class);
-        $this->exchangeRate = $this->createMock(ExchangeRateInterface::class);
-        $this->hooks = $this->createMock(HooksInterface::class);
-        $this->transaction = $this->createMock(TransactionInterface::class);
-        $this->misc = $this->createMock(MiscInterface::class);
+        $this->glTrans = $this->createMock(GlTransService::class);
+        $this->bankTrans = $this->createMock(BankTransService::class);
+        $this->debtorTrans = $this->createMock(DebtorTransService::class);
+        $this->comments = $this->createMock(CommentsService::class);
+        $this->reference = $this->createMock(ReferenceService::class);
+        $this->bankAccount = $this->createMock(BankAccountService::class);
+        $this->companyPrefs = $this->createMock(CompanyPrefsService::class);
+        $this->customer = $this->createMock(CustomerService::class);
+        $this->exchangeRate = $this->createMock(ExchangeRateService::class);
+        $this->hooks = $this->createMock(HooksService::class);
+        $this->transaction = $this->createMock(TransactionService::class);
+        $this->misc = $this->createMock(MiscService::class);
 
-        $config = new ServiceRuntimeConfig(ServiceRuntimeConfig::MODE_DTO);
-        $config->setGlTransDto($this->glTrans);
-        $config->setBankTransDto($this->bankTrans);
-        $config->setDebtorTransDto($this->debtorTrans);
-        $config->setCommentsDto($this->comments);
-        $config->setReferenceDto($this->reference);
-        $config->setBankAccountDto($this->bankAccount);
-        $config->setCompanyPrefsDto($this->companyPrefs);
-        $config->setCustomerDto($this->customer);
-        $config->setExchangeRateDto($this->exchangeRate);
-        $config->setHooksDto($this->hooks);
-        $config->setTransactionDto($this->transaction);
-        $config->setMiscDto($this->misc);
+        $config = new ServiceRuntimeConfig();
+        $config->setGlTrans($this->glTrans);
+        $config->setBankTrans($this->bankTrans);
+        $config->setDebtorTrans($this->debtorTrans);
+        $config->setComments($this->comments);
+        $config->setReference($this->reference);
+        $config->setBankAccount($this->bankAccount);
+        $config->setCompanyPrefs($this->companyPrefs);
+        $config->setCustomer($this->customer);
+        $config->setExchangeRate($this->exchangeRate);
+        $config->setHooks($this->hooks);
+        $config->setTransaction($this->transaction);
+        $config->setMisc($this->misc);
 
         $db = new FakeDbAdapter([], 200);
         $repo = new DebtorTransactionRepository($db);
@@ -252,19 +252,19 @@ final class CustomerPaymentServiceTest extends TestCase
 
     public function testGetPaymentDelegatesToRepository(): void
     {
-        $config = new ServiceRuntimeConfig(ServiceRuntimeConfig::MODE_DTO);
-        $config->setGlTransDto($this->createMock(GlTransInterface::class));
-        $config->setBankTransDto($this->createMock(BankTransInterface::class));
-        $config->setDebtorTransDto($this->createMock(DebtorTransInterface::class));
-        $config->setCommentsDto($this->createMock(CommentsInterface::class));
-        $config->setReferenceDto($this->createMock(ReferenceInterface::class));
-        $config->setBankAccountDto($this->createMock(BankAccountInterface::class));
-        $config->setCompanyPrefsDto($this->createMock(CompanyPrefsInterface::class));
-        $config->setCustomerDto($this->createMock(CustomerInterface::class));
-        $config->setExchangeRateDto($this->createMock(ExchangeRateInterface::class));
-        $config->setHooksDto($this->createMock(HooksInterface::class));
-        $config->setTransactionDto($this->createMock(TransactionInterface::class));
-        $config->setMiscDto($this->createMock(MiscInterface::class));
+        $config = new ServiceRuntimeConfig();
+        $config->setGlTrans($this->createMock(GlTransService::class));
+        $config->setBankTrans($this->createMock(BankTransService::class));
+        $config->setDebtorTrans($this->createMock(DebtorTransService::class));
+        $config->setComments($this->createMock(CommentsService::class));
+        $config->setReference($this->createMock(ReferenceService::class));
+        $config->setBankAccount($this->createMock(BankAccountService::class));
+        $config->setCompanyPrefs($this->createMock(CompanyPrefsService::class));
+        $config->setCustomer($this->createMock(CustomerService::class));
+        $config->setExchangeRate($this->createMock(ExchangeRateService::class));
+        $config->setHooks($this->createMock(HooksService::class));
+        $config->setTransaction($this->createMock(TransactionService::class));
+        $config->setMisc($this->createMock(MiscService::class));
 
         $db = new FakeDbAdapter([[
             'trans_no' => '201',
@@ -301,19 +301,19 @@ final class CustomerPaymentServiceTest extends TestCase
 
     public function testGetPaymentReturnsNullWhenNotFound(): void
     {
-        $config = new ServiceRuntimeConfig(ServiceRuntimeConfig::MODE_DTO);
-        $config->setGlTransDto($this->createMock(GlTransInterface::class));
-        $config->setBankTransDto($this->createMock(BankTransInterface::class));
-        $config->setDebtorTransDto($this->createMock(DebtorTransInterface::class));
-        $config->setCommentsDto($this->createMock(CommentsInterface::class));
-        $config->setReferenceDto($this->createMock(ReferenceInterface::class));
-        $config->setBankAccountDto($this->createMock(BankAccountInterface::class));
-        $config->setCompanyPrefsDto($this->createMock(CompanyPrefsInterface::class));
-        $config->setCustomerDto($this->createMock(CustomerInterface::class));
-        $config->setExchangeRateDto($this->createMock(ExchangeRateInterface::class));
-        $config->setHooksDto($this->createMock(HooksInterface::class));
-        $config->setTransactionDto($this->createMock(TransactionInterface::class));
-        $config->setMiscDto($this->createMock(MiscInterface::class));
+        $config = new ServiceRuntimeConfig();
+        $config->setGlTrans($this->createMock(GlTransService::class));
+        $config->setBankTrans($this->createMock(BankTransService::class));
+        $config->setDebtorTrans($this->createMock(DebtorTransService::class));
+        $config->setComments($this->createMock(CommentsService::class));
+        $config->setReference($this->createMock(ReferenceService::class));
+        $config->setBankAccount($this->createMock(BankAccountService::class));
+        $config->setCompanyPrefs($this->createMock(CompanyPrefsService::class));
+        $config->setCustomer($this->createMock(CustomerService::class));
+        $config->setExchangeRate($this->createMock(ExchangeRateService::class));
+        $config->setHooks($this->createMock(HooksService::class));
+        $config->setTransaction($this->createMock(TransactionService::class));
+        $config->setMisc($this->createMock(MiscService::class));
 
         $db = new FakeDbAdapter([], 0);
 

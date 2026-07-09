@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for customer query operations.
+ * Service contract for customer query operations.
  */
-interface CustomerInterface
+interface CustomerService
 {
     public function getCustomerCurrency(int $customerId): string;
 

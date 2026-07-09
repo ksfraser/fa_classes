@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\ReferenceInterface;
+use FrontAccounting\Service\Contracts\ReferenceService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for FA core reference functions.
+ * Native implementation of ReferenceService wrapping FA core reference functions.
  */
-class ReferenceNative implements ReferenceInterface
+class ReferenceServiceNative implements ReferenceService
 {
     /**
      * Wrap $Refs->save() to persist a reference.

@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for debtor transaction operations.
+ * Service contract for debtor transaction operations.
  */
-interface DebtorTransInterface
+interface DebtorTransService
 {
     public function writeCustomerTrans(
         int $transType,

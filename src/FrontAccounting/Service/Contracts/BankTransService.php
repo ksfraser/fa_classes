@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for bank transaction operations.
+ * Service contract for bank transaction operations.
  */
-interface BankTransInterface
+interface BankTransService
 {
     public function addBankTrans(
         int $type,

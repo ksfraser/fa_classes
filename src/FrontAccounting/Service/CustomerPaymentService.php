@@ -6,18 +6,18 @@ namespace FrontAccounting\Service;
 
 use FrontAccounting\DTO\DebtorTransaction;
 use FrontAccounting\Repository\DebtorTransactionRepository;
-use FrontAccounting\Service\Contracts\BankAccountInterface;
-use FrontAccounting\Service\Contracts\BankTransInterface;
-use FrontAccounting\Service\Contracts\CommentsInterface;
-use FrontAccounting\Service\Contracts\CompanyPrefsInterface;
-use FrontAccounting\Service\Contracts\CustomerInterface;
-use FrontAccounting\Service\Contracts\DebtorTransInterface;
-use FrontAccounting\Service\Contracts\ExchangeRateInterface;
-use FrontAccounting\Service\Contracts\GlTransInterface;
-use FrontAccounting\Service\Contracts\HooksInterface;
-use FrontAccounting\Service\Contracts\MiscInterface;
-use FrontAccounting\Service\Contracts\ReferenceInterface;
-use FrontAccounting\Service\Contracts\TransactionInterface;
+use FrontAccounting\Service\Contracts\BankAccountService;
+use FrontAccounting\Service\Contracts\BankTransService;
+use FrontAccounting\Service\Contracts\CommentsService;
+use FrontAccounting\Service\Contracts\CompanyPrefsService;
+use FrontAccounting\Service\Contracts\CustomerService;
+use FrontAccounting\Service\Contracts\DebtorTransService;
+use FrontAccounting\Service\Contracts\ExchangeRateService;
+use FrontAccounting\Service\Contracts\GlTransService;
+use FrontAccounting\Service\Contracts\HooksService;
+use FrontAccounting\Service\Contracts\MiscService;
+use FrontAccounting\Service\Contracts\ReferenceService;
+use FrontAccounting\Service\Contracts\TransactionService;
 
 /**
  * @since 2026-07-09
@@ -69,18 +69,18 @@ class CustomerPaymentService
 
     // ── internal convenience accessors ──────────────────────────────
 
-    private function glTrans(): GlTransInterface { return $this->config->getGlTrans(); }
-    private function bankTrans(): BankTransInterface { return $this->config->getBankTrans(); }
-    private function debtorTrans(): DebtorTransInterface { return $this->config->getDebtorTrans(); }
-    private function comments(): CommentsInterface { return $this->config->getComments(); }
-    private function reference(): ReferenceInterface { return $this->config->getReference(); }
-    private function bankAccount(): BankAccountInterface { return $this->config->getBankAccount(); }
-    private function companyPrefs(): CompanyPrefsInterface { return $this->config->getCompanyPrefs(); }
-    private function customer(): CustomerInterface { return $this->config->getCustomer(); }
-    private function exchangeRate(): ExchangeRateInterface { return $this->config->getExchangeRate(); }
-    private function hooks(): HooksInterface { return $this->config->getHooks(); }
-    private function transaction(): TransactionInterface { return $this->config->getTransaction(); }
-    private function misc(): MiscInterface { return $this->config->getMisc(); }
+    private function glTrans(): GlTransService { return $this->config->getGlTrans(); }
+    private function bankTrans(): BankTransService { return $this->config->getBankTrans(); }
+    private function debtorTrans(): DebtorTransService { return $this->config->getDebtorTrans(); }
+    private function comments(): CommentsService { return $this->config->getComments(); }
+    private function reference(): ReferenceService { return $this->config->getReference(); }
+    private function bankAccount(): BankAccountService { return $this->config->getBankAccount(); }
+    private function companyPrefs(): CompanyPrefsService { return $this->config->getCompanyPrefs(); }
+    private function customer(): CustomerService { return $this->config->getCustomer(); }
+    private function exchangeRate(): ExchangeRateService { return $this->config->getExchangeRate(); }
+    private function hooks(): HooksService { return $this->config->getHooks(); }
+    private function transaction(): TransactionService { return $this->config->getTransaction(); }
+    private function misc(): MiscService { return $this->config->getMisc(); }
 
     /**
      * Create a customer payment transaction.

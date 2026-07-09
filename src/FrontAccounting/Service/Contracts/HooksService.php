@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for hook operations.
+ * Service contract for hook operations.
  */
-interface HooksInterface
+interface HooksService
 {
     /**
      * @param mixed $obj

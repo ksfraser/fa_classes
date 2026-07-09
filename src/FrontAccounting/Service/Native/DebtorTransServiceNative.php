@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\DebtorTransInterface;
+use FrontAccounting\Service\Contracts\DebtorTransService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for FA core debtor transaction functions.
+ * Native implementation of DebtorTransService wrapping FA core debtor functions.
  */
-class DebtorTransNative implements DebtorTransInterface
+class DebtorTransServiceNative implements DebtorTransService
 {
     /**
      * Wrap write_customer_trans() — creates the debtor_trans record.

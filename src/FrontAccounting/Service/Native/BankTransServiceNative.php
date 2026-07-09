@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\BankTransInterface;
+use FrontAccounting\Service\Contracts\BankTransService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for FA core bank transaction functions.
+ * Native implementation of BankTransService wrapping FA core bank functions.
  */
-class BankTransNative implements BankTransInterface
+class BankTransServiceNative implements BankTransService
 {
     /**
      * Wrap add_bank_trans().

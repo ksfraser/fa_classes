@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\ExchangeRateInterface;
+use FrontAccounting\Service\Contracts\ExchangeRateService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for FA core exchange rate functions.
+ * Native implementation of ExchangeRateService wrapping FA core rate functions.
  */
-class ExchangeRateNative implements ExchangeRateInterface
+class ExchangeRateServiceNative implements ExchangeRateService
 {
     /**
      * Wrap get_exchange_rate_from_to().

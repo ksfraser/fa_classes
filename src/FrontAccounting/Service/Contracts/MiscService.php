@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for miscellaneous FA utility operations.
+ * Service contract for miscellaneous FA utility operations.
  */
-interface MiscInterface
+interface MiscService
 {
     public function checkNum(string $fieldName, float $minValue = 0): bool;
 

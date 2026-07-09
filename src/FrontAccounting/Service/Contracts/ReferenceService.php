@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for reference operations.
+ * Service contract for reference operations.
  */
-interface ReferenceInterface
+interface ReferenceService
 {
     public function saveReference(int $type, int $transNo, string $ref): void;
 

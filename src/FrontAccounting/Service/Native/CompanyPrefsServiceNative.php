@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
-use FrontAccounting\Service\Contracts\CompanyPrefsInterface;
+use FrontAccounting\Service\Contracts\CompanyPrefsService;
 
 /**
  * @since 2026-07-09
- * Native wrapper for FA core company preference functions.
+ * Native implementation of CompanyPrefsService wrapping FA core prefs functions.
  */
-class CompanyPrefsNative implements CompanyPrefsInterface
+class CompanyPrefsServiceNative implements CompanyPrefsService
 {
     /**
      * Wrap get_company_prefs() — returns all company preferences.

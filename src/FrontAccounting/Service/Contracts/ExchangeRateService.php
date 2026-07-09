@@ -6,9 +6,9 @@ namespace FrontAccounting\Service\Contracts;
 
 /**
  * @since 2026-07-09
- * Interface for exchange rate operations.
+ * Service contract for exchange rate operations.
  */
-interface ExchangeRateInterface
+interface ExchangeRateService
 {
     public function getExchangeRateFromTo(string $from, string $to, string $date): float;
 }
