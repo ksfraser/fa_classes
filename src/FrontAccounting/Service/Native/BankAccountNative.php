@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for FA core bank account query functions.
  *
  * Wraps get_bank_account(), get_bank_gl_account(),

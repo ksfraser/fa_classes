@@ -7,6 +7,27 @@ namespace FrontAccounting\Service;
 use FrontAccounting\Repository\CommentRepository;
 use FrontAccounting\Repository\RefsRepository;
 
+/**
+ * @since 2026-07-09
+ * Service for managing FA references and comments.
+ *
+ * Generates sequential references, persists them to the refs
+ * table, and manages transaction comments.
+ *
+ * ┌───────────────────────────────────────────────────────┐
+ * │                    ReferenceService                    │
+ * │  - refsRepo:    RefsRepository                         │
+ * │  - commentRepo: CommentRepository                      │
+ * ├───────────────────────────────────────────────────────┤
+ * │  + getNextReference($type): string                    │
+ * │  + saveReference($type, $transNo, $reference): void   │
+ * │  + addComment($type, $typeNo, $date, $memo): void     │
+ * │  + findReference($type, $transNo): ?string            │
+ * ├───────────────────────────────────────────────────────┤
+ * │ Manages reference generation and comment storage       │
+ * │ via the DTO/Repository layer.                          │
+ * └───────────────────────────────────────────────────────┘
+ */
 final class ReferenceService
 {
     private RefsRepository $refsRepo;

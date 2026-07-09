@@ -7,6 +7,27 @@ namespace FrontAccounting\Service;
 use FrontAccounting\DTO\CrmContact;
 use FrontAccounting\Repository\CrmContactRepository;
 
+/**
+ * @since 2026-07-09
+ * Service for managing CRM contact links.
+ *
+ * Links a CRM person to an entity (customer, branch, etc.)
+ * with a specific type and action.
+ *
+ * ┌───────────────────────────────────────────────────────┐
+ * │                    CrmContactService                   │
+ * │  - contactRepo: CrmContactRepository                   │
+ * ├───────────────────────────────────────────────────────┤
+ * │  + createContact(): CrmContact                        │
+ * │  + findById($id): ?CrmContact                         │
+ * │  + findByPerson($personId): CrmContact[]              │
+ * │  + findByEntity($type, $action, $entityId): CrmContact│
+ * │  + findPersonContacts($personId): CrmContact[]        │
+ * ├───────────────────────────────────────────────────────┤
+ * │ Creates and retrieves CRM contact links via the        │
+ * │ DTO/Repository layer with basic validation.            │
+ * └───────────────────────────────────────────────────────┘
+ */
 final class CrmContactService
 {
     private CrmContactRepository $contactRepo;

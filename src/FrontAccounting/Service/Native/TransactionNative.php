@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for FA core database transaction functions.
  *
  * Wraps begin_transaction() and commit_transaction() from

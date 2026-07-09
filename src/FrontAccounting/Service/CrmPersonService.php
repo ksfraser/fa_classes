@@ -7,6 +7,24 @@ namespace FrontAccounting\Service;
 use FrontAccounting\DTO\CrmPerson;
 use FrontAccounting\Repository\CrmPersonRepository;
 
+/**
+ * @since 2026-07-09
+ * Service for managing CRM person records.
+ *
+ * ┌───────────────────────────────────────────────────────┐
+ * │                    CrmPersonService                    │
+ * │  - personRepo: CrmPersonRepository                     │
+ * ├───────────────────────────────────────────────────────┤
+ * │  + createPerson(): CrmPerson                          │
+ * │  + findById($id): ?CrmPerson                          │
+ * │  + findByRef($ref): ?CrmPerson                        │
+ * │  + findByEmail($email): CrmPerson[]                   │
+ * │  + findActive(): CrmPerson[]                          │
+ * ├───────────────────────────────────────────────────────┤
+ * │ Creates and retrieves CRM person records via the       │
+ * │ DTO/Repository layer with basic validation.            │
+ * └───────────────────────────────────────────────────────┘
+ */
 final class CrmPersonService
 {
     private CrmPersonRepository $personRepo;

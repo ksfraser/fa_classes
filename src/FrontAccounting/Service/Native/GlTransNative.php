@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for FA core GL transaction functions.
  *
  * Wraps add_gl_trans() and add_gl_trans_customer() from

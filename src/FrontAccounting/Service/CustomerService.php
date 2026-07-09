@@ -10,6 +10,7 @@ use FrontAccounting\Repository\CustomerBranchRepository;
 use FrontAccounting\Repository\DebtorMasterRepository;
 
 /**
+ * @since 2026-07-09
  * Service for creating, updating, and retrieving FA customers.
  *
  * Orchestrates the multi-step customer creation workflow:

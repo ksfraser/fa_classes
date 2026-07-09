@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for FA core customer query functions.
  *
  * Wraps get_customer_currency() and get_customer_habit()

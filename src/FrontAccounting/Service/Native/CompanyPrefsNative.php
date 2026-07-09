@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for FA core company preference functions.
  *
  * Wraps get_company_prefs() and get_company_pref() from

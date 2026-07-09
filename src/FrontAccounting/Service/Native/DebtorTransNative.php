@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for FA core debtor transaction functions.
  *
  * Wraps write_customer_trans() from sales/includes/db/payment_db.inc

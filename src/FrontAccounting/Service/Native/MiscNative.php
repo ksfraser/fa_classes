@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service\Native;
 
 /**
+ * @since 2026-07-09
  * Native wrapper for misc FA core utility functions.
  *
  * Wraps check_num(), db_has_currency_rates(), is_date_in_fiscalyear(),
