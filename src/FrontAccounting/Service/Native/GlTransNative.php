@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
+use FrontAccounting\Service\Contracts\GlTransInterface;
+
 /**
  * @since 2026-07-09
  * Native wrapper for FA core GL transaction functions.
- *
- * Wraps add_gl_trans() and add_gl_trans_customer() from
- * gl/includes/db/gl_db.inc and sales/includes/db/sales_db.inc.
  */
-class GlTransNative
+class GlTransNative implements GlTransInterface
 {
     /**
      * Wrap add_gl_trans().

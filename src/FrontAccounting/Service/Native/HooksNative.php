@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
+use FrontAccounting\Service\Contracts\HooksInterface;
+
 /**
  * @since 2026-07-09
  * Native wrapper for FA core hook functions.
- *
- * Wraps hook_db_prewrite() and hook_db_postwrite() from
- * includes/hooks.inc.
  */
-class HooksNative
+class HooksNative implements HooksInterface
 {
     /**
      * Wrap hook_db_prewrite().

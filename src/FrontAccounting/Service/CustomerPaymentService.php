@@ -6,18 +6,18 @@ namespace FrontAccounting\Service;
 
 use FrontAccounting\DTO\DebtorTransaction;
 use FrontAccounting\Repository\DebtorTransactionRepository;
-use FrontAccounting\Service\Native\BankAccountNative;
-use FrontAccounting\Service\Native\BankTransNative;
-use FrontAccounting\Service\Native\CommentsNative;
-use FrontAccounting\Service\Native\CompanyPrefsNative;
-use FrontAccounting\Service\Native\CustomerNative;
-use FrontAccounting\Service\Native\DebtorTransNative;
-use FrontAccounting\Service\Native\ExchangeRateNative;
-use FrontAccounting\Service\Native\GlTransNative;
-use FrontAccounting\Service\Native\HooksNative;
-use FrontAccounting\Service\Native\MiscNative;
-use FrontAccounting\Service\Native\ReferenceNative;
-use FrontAccounting\Service\Native\TransactionNative;
+use FrontAccounting\Service\Contracts\BankAccountInterface;
+use FrontAccounting\Service\Contracts\BankTransInterface;
+use FrontAccounting\Service\Contracts\CommentsInterface;
+use FrontAccounting\Service\Contracts\CompanyPrefsInterface;
+use FrontAccounting\Service\Contracts\CustomerInterface;
+use FrontAccounting\Service\Contracts\DebtorTransInterface;
+use FrontAccounting\Service\Contracts\ExchangeRateInterface;
+use FrontAccounting\Service\Contracts\GlTransInterface;
+use FrontAccounting\Service\Contracts\HooksInterface;
+use FrontAccounting\Service\Contracts\MiscInterface;
+use FrontAccounting\Service\Contracts\ReferenceInterface;
+use FrontAccounting\Service\Contracts\TransactionInterface;
 
 /**
  * @since 2026-07-09
@@ -32,18 +32,7 @@ use FrontAccounting\Service\Native\TransactionNative;
  * ┌───────────────────────────────────────────────────────────────────┐
  * │                      CustomerPaymentService                       │
  * │  - debitTransRepo: DebtorTransactionRepository                    │
- * │  - glTrans:        GlTransNative                                   │
- * │  - bankTrans:      BankTransNative                                 │
- * │  - debtorTrans:    DebtorTransNative                               │
- * │  - comments:       CommentsNative                                  │
- * │  - reference:      ReferenceNative                                 │
- * │  - bankAccount:    BankAccountNative                               │
- * │  - companyPrefs:   CompanyPrefsNative                              │
- * │  - customer:       CustomerNative                                  │
- * │  - exchangeRate:   ExchangeRateNative                              │
- * │  - hooks:          HooksNative                                     │
- * │  - transaction:    TransactionNative                               │
- * │  - misc:           MiscNative                                      │
+ * │  - config:         ServiceRuntimeConfig                           │
  * ├───────────────────────────────────────────────────────────────────┤
  * │  + createPayment(CustomerPaymentRequest): int                      │
  * │  + getPayment(int $transNo): ?DebtorTransaction                   │
@@ -68,48 +57,30 @@ use FrontAccounting\Service\Native\TransactionNative;
 class CustomerPaymentService
 {
     private DebtorTransactionRepository $debitTransRepo;
-    private GlTransNative $glTrans;
-    private BankTransNative $bankTrans;
-    private DebtorTransNative $debtorTrans;
-    private CommentsNative $comments;
-    private ReferenceNative $reference;
-    private BankAccountNative $bankAccount;
-    private CompanyPrefsNative $companyPrefs;
-    private CustomerNative $customer;
-    private ExchangeRateNative $exchangeRate;
-    private HooksNative $hooks;
-    private TransactionNative $transaction;
-    private MiscNative $misc;
+    private ServiceRuntimeConfig $config;
 
     public function __construct(
         DebtorTransactionRepository $debitTransRepo,
-        GlTransNative $glTrans,
-        BankTransNative $bankTrans,
-        DebtorTransNative $debtorTrans,
-        CommentsNative $comments,
-        ReferenceNative $reference,
-        BankAccountNative $bankAccount,
-        CompanyPrefsNative $companyPrefs,
-        CustomerNative $customer,
-        ExchangeRateNative $exchangeRate,
-        HooksNative $hooks,
-        TransactionNative $transaction,
-        MiscNative $misc
+        ServiceRuntimeConfig $config
     ) {
         $this->debitTransRepo = $debitTransRepo;
-        $this->glTrans = $glTrans;
-        $this->bankTrans = $bankTrans;
-        $this->debtorTrans = $debtorTrans;
-        $this->comments = $comments;
-        $this->reference = $reference;
-        $this->bankAccount = $bankAccount;
-        $this->companyPrefs = $companyPrefs;
-        $this->customer = $customer;
-        $this->exchangeRate = $exchangeRate;
-        $this->hooks = $hooks;
-        $this->transaction = $transaction;
-        $this->misc = $misc;
+        $this->config = $config;
     }
+
+    // ── internal convenience accessors ──────────────────────────────
+
+    private function glTrans(): GlTransInterface { return $this->config->getGlTrans(); }
+    private function bankTrans(): BankTransInterface { return $this->config->getBankTrans(); }
+    private function debtorTrans(): DebtorTransInterface { return $this->config->getDebtorTrans(); }
+    private function comments(): CommentsInterface { return $this->config->getComments(); }
+    private function reference(): ReferenceInterface { return $this->config->getReference(); }
+    private function bankAccount(): BankAccountInterface { return $this->config->getBankAccount(); }
+    private function companyPrefs(): CompanyPrefsInterface { return $this->config->getCompanyPrefs(); }
+    private function customer(): CustomerInterface { return $this->config->getCustomer(); }
+    private function exchangeRate(): ExchangeRateInterface { return $this->config->getExchangeRate(); }
+    private function hooks(): HooksInterface { return $this->config->getHooks(); }
+    private function transaction(): TransactionInterface { return $this->config->getTransaction(); }
+    private function misc(): MiscInterface { return $this->config->getMisc(); }
 
     /**
      * Create a customer payment transaction.
@@ -123,24 +94,24 @@ class CustomerPaymentService
      */
     public function createPayment(CustomerPaymentRequest $request): int
     {
-        $this->transaction->begin();
-        $this->hooks->preWrite($this, ST_CUSTPAYMENT);
+        $this->transaction()->begin();
+        $this->hooks()->preWrite($this, ST_CUSTPAYMENT);
 
-        $companyPrefs = $this->companyPrefs->getCompanyPrefs();
+        $companyPrefs = $this->companyPrefs()->getCompanyPrefs();
 
         if ($request->transNo !== 0) {
-            $this->comments->deleteComments(ST_CUSTPAYMENT, $request->transNo);
-            $this->bankTrans->voidBankTrans(ST_CUSTPAYMENT, $request->transNo, true);
+            $this->comments()->deleteComments(ST_CUSTPAYMENT, $request->transNo);
+            $this->bankTrans()->voidBankTrans(ST_CUSTPAYMENT, $request->transNo, true);
         }
 
-        $bank = $this->bankAccount->getBankAccount($request->bankAccount);
+        $bank = $this->bankAccount()->getBankAccount($request->bankAccount);
 
         $bankAmount = $request->bankAmount;
         if ($bankAmount == 0.0) {
             $rate = $request->rate;
             if ($rate == 0.0) {
-                $custCurrency = $this->customer->getCustomerCurrency($request->customerId);
-                $rate = $this->exchangeRate->getExchangeRateFromTo(
+                $custCurrency = $this->customer()->getCustomerCurrency($request->customerId);
+                $rate = $this->exchangeRate()->getExchangeRateFromTo(
                     $custCurrency,
                     $bank['bank_curr_code'],
                     $request->date
@@ -149,7 +120,7 @@ class CustomerPaymentService
             $bankAmount = $request->amount / $rate;
         }
 
-        $paymentNo = $this->debtorTrans->writeCustomerTrans(
+        $paymentNo = $this->debtorTrans()->writeCustomerTrans(
             ST_CUSTPAYMENT,
             $request->transNo,
             $request->customerId,
@@ -160,11 +131,11 @@ class CustomerPaymentService
             $request->discount
         );
 
-        $bankGlAccount = $this->bankAccount->getBankGlAccount($request->bankAccount);
+        $bankGlAccount = $this->bankAccount()->getBankGlAccount($request->bankAccount);
 
         $total = 0.0;
 
-        $total += $this->glTrans->addGlTrans(
+        $total += $this->glTrans()->addGlTrans(
             ST_CUSTPAYMENT, $paymentNo, $request->date,
             (string)$bankGlAccount, 0, 0, '',
             $bankAmount - $request->charge,
@@ -172,7 +143,7 @@ class CustomerPaymentService
         );
 
         if ($request->branchId !== -1) {
-            $branchData = $this->bankAccount->getBranchAccounts($request->branchId);
+            $branchData = $this->bankAccount()->getBranchAccounts($request->branchId);
             $debtorsAccount = $branchData['receivables_account'];
             $discountAccount = $branchData['payment_discount_account'];
         } else {
@@ -181,7 +152,7 @@ class CustomerPaymentService
         }
 
         if (($request->discount + $request->amount) != 0) {
-            $total += $this->glTrans->addGlTransCustomer(
+            $total += $this->glTrans()->addGlTransCustomer(
                 ST_CUSTPAYMENT, $paymentNo, $request->date,
                 $debtorsAccount, 0, 0,
                 -($request->discount + $request->amount),
@@ -191,7 +162,7 @@ class CustomerPaymentService
         }
 
         if ($request->discount != 0) {
-            $total += $this->glTrans->addGlTransCustomer(
+            $total += $this->glTrans()->addGlTransCustomer(
                 ST_CUSTPAYMENT, $paymentNo, $request->date,
                 $discountAccount, 0, 0,
                 $request->discount,
@@ -201,8 +172,8 @@ class CustomerPaymentService
         }
 
         if ($request->charge != 0) {
-            $chargeAct = $this->companyPrefs->getCompanyPref('bank_charge_act');
-            $total += $this->glTrans->addGlTrans(
+            $chargeAct = $this->companyPrefs()->getCompanyPref('bank_charge_act');
+            $total += $this->glTrans()->addGlTrans(
                 ST_CUSTPAYMENT, $paymentNo, $request->date,
                 $chargeAct, 0, 0, '',
                 $request->charge,
@@ -211,25 +182,25 @@ class CustomerPaymentService
         }
 
         if ($total != 0) {
-            $varianceAct = $this->companyPrefs->getCompanyPref('exchange_diff_act');
-            $this->glTrans->addGlTrans(
+            $varianceAct = $this->companyPrefs()->getCompanyPref('exchange_diff_act');
+            $this->glTrans()->addGlTrans(
                 ST_CUSTPAYMENT, $paymentNo, $request->date,
                 $varianceAct, 0, 0, '',
                 -$total, null, PT_CUSTOMER, $request->customerId
             );
         }
 
-        $this->bankTrans->addBankTrans(
+        $this->bankTrans()->addBankTrans(
             ST_CUSTPAYMENT, $paymentNo, $request->bankAccount,
             $request->ref, $request->date,
             $bankAmount - $request->charge,
             PT_CUSTOMER, $request->customerId
         );
 
-        $this->comments->addComments(ST_CUSTPAYMENT, $paymentNo, $request->date, $request->memo);
-        $this->reference->saveReference(ST_CUSTPAYMENT, $paymentNo, $request->ref);
-        $this->hooks->postWrite($this, ST_CUSTPAYMENT);
-        $this->transaction->commit();
+        $this->comments()->addComments(ST_CUSTPAYMENT, $paymentNo, $request->date, $request->memo);
+        $this->reference()->saveReference(ST_CUSTPAYMENT, $paymentNo, $request->ref);
+        $this->hooks()->postWrite($this, ST_CUSTPAYMENT);
+        $this->transaction()->commit();
 
         return $paymentNo;
     }

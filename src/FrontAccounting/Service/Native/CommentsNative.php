@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
+use FrontAccounting\Service\Contracts\CommentsInterface;
+
 /**
  * @since 2026-07-09
  * Native wrapper for FA core comment functions.
- *
- * Wraps add_comments() and delete_comments() from
- * includes/comments.inc.
  */
-class CommentsNative
+class CommentsNative implements CommentsInterface
 {
     /**
      * Wrap add_comments().

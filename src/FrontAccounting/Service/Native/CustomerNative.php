@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
+use FrontAccounting\Service\Contracts\CustomerInterface;
+
 /**
  * @since 2026-07-09
  * Native wrapper for FA core customer query functions.
- *
- * Wraps get_customer_currency() and get_customer_habit()
- * from sales/includes/db/customers_db.inc.
  */
-class CustomerNative
+class CustomerNative implements CustomerInterface
 {
     /**
      * Wrap get_customer_currency().

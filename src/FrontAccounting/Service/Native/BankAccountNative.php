@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
+use FrontAccounting\Service\Contracts\BankAccountInterface;
+
 /**
  * @since 2026-07-09
  * Native wrapper for FA core bank account query functions.
- *
- * Wraps get_bank_account(), get_bank_gl_account(),
- * get_branch_accounts(), and get_bank_charge_account().
  */
-class BankAccountNative
+class BankAccountNative implements BankAccountInterface
 {
     /**
      * Wrap get_bank_account().

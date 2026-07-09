@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace FrontAccounting\Service\Native;
 
+use FrontAccounting\Service\Contracts\MiscInterface;
+
 /**
  * @since 2026-07-09
  * Native wrapper for misc FA core utility functions.
- *
- * Wraps check_num(), db_has_currency_rates(), is_date_in_fiscalyear(),
- * new_doc_date(), and get_gl_account().
  */
-class MiscNative
+class MiscNative implements MiscInterface
 {
     /**
      * Wrap check_num() — validates a numeric input field.
