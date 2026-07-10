@@ -28,6 +28,14 @@ final class DebtorTransactionRepository extends \FrontAccounting\Repository\Base
         return $results;
     }
 
+    public function getNextTransNo(int $type): int
+    {
+        $sql = "SELECT COALESCE(MAX(trans_no), 0) + 1 AS next_no"
+            . " FROM {$this->prefix}debtor_trans WHERE type = ?";
+        $rows = $this->db->query($sql, [$type]);
+        return (int)$rows[0]['next_no'];
+    }
+
     public function findByOrder(int $orderNo): array
     {
         $sql = "SELECT * FROM {$this->prefix}debtor_trans
