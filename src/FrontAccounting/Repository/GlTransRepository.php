@@ -49,6 +49,18 @@ final class GlTransRepository extends \FrontAccounting\Repository\BaseRepository
         return $this->find(['dimension_id' => $dimensionId], ['tran_date' => 'ASC', 'counter' => 'ASC']);
     }
 
+    /**
+     * Get the next counter value for a given transaction type+number.
+     * Mimics FA core's SELECT MAX(counter)+1 from gl_trans.
+     */
+    public function getNextCounter(int $type, int $typeNo): int
+    {
+        $sql = "SELECT COALESCE(MAX(counter), 0) + 1 AS next_counter"
+            . " FROM {$this->prefix}gl_trans WHERE type = ? AND type_no = ?";
+        $result = $this->db->query($sql, [$type, $typeNo]);
+        return (int)$result[0]['next_counter'];
+    }
+
     public function findForPeriod(string $fromDate, string $toDate): array
     {
         $sql = "SELECT * FROM {$this->prefix}gl_trans WHERE tran_date >= ? AND tran_date <= ? ORDER BY tran_date, counter";
