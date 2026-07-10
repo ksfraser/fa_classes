@@ -48,7 +48,7 @@ final class CustomerServiceStandard implements CustomerService
         }
         return [
             'discount' => $customer->getDiscount(),
-            'pymt_discount' => $customer->getPaymentDiscount(),
+            'pymt_discount' => $customer->getPymtDiscount(),
         ];
     }
 }
