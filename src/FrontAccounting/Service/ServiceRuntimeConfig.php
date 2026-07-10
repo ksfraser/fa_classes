@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontAccounting\Service;
 
 use FrontAccounting\Service\Contracts\BankAccountService;
+use FrontAccounting\Service\Contracts\BankTransferService;
 use FrontAccounting\Service\Contracts\BankTransService;
 use FrontAccounting\Service\Contracts\CommentsService;
 use FrontAccounting\Service\Contracts\CompanyPrefsService;
@@ -17,6 +18,7 @@ use FrontAccounting\Service\Contracts\MiscService;
 use FrontAccounting\Service\Contracts\ReferenceService;
 use FrontAccounting\Service\Contracts\TransactionService;
 use FrontAccounting\Service\Native\BankAccountServiceNative;
+use FrontAccounting\Service\Native\BankTransferServiceNative;
 use FrontAccounting\Service\Native\BankTransServiceNative;
 use FrontAccounting\Service\Native\CommentsServiceNative;
 use FrontAccounting\Service\Native\CompanyPrefsServiceNative;
@@ -43,24 +45,26 @@ use FrontAccounting\Service\Native\TransactionServiceNative;
  * │                                                          │
  * │  Registry (set / get)      Default (lazy ??=)            │
  * │  ─────────────────────     ──────────────────────────    │
- * │  setGlTrans(...)           GlTransServiceNative          │
- * │  setBankTrans(...)         BankTransServiceNative        │
- * │  setDebtorTrans(...)       DebtorTransServiceNative      │
- * │  setComments(...)          CommentsServiceNative         │
- * │  setReference(...)         ReferenceServiceNative        │
- * │  setBankAccount(...)       BankAccountServiceNative      │
- * │  setCompanyPrefs(...)      CompanyPrefsServiceNative     │
- * │  setCustomer(...)          CustomerServiceNative         │
- * │  setExchangeRate(...)      ExchangeRateServiceNative     │
- * │  setHooks(...)             HooksServiceNative            │
- * │  setTransaction(...)       TransactionServiceNative      │
- * │  setMisc(...)              MiscServiceNative             │
+ *  │  setGlTrans(...)           GlTransServiceNative          │
+ *  │  setBankTrans(...)         BankTransServiceNative        │
+ *  │  setBankTransfer(...)      BankTransferServiceNative     │
+ *  │  setDebtorTrans(...)       DebtorTransServiceNative      │
+ *  │  setComments(...)          CommentsServiceNative         │
+ *  │  setReference(...)         ReferenceServiceNative        │
+ *  │  setBankAccount(...)       BankAccountServiceNative      │
+ *  │  setCompanyPrefs(...)      CompanyPrefsServiceNative     │
+ *  │  setCustomer(...)          CustomerServiceNative         │
+ *  │  setExchangeRate(...)      ExchangeRateServiceNative     │
+ *  │  setHooks(...)             HooksServiceNative            │
+ *  │  setTransaction(...)       TransactionServiceNative      │
+ *  │  setMisc(...)              MiscServiceNative             │
  * └──────────────────────────────────────────────────────────┘
  */
 class ServiceRuntimeConfig
 {
     private ?GlTransService $glTrans = null;
     private ?BankTransService $bankTrans = null;
+    private ?BankTransferService $bankTransfer = null;
     private ?DebtorTransService $debtorTrans = null;
     private ?CommentsService $comments = null;
     private ?ReferenceService $reference = null;
@@ -76,6 +80,7 @@ class ServiceRuntimeConfig
 
     public function setGlTrans(GlTransService $impl): void { $this->glTrans = $impl; }
     public function setBankTrans(BankTransService $impl): void { $this->bankTrans = $impl; }
+    public function setBankTransfer(BankTransferService $impl): void { $this->bankTransfer = $impl; }
     public function setDebtorTrans(DebtorTransService $impl): void { $this->debtorTrans = $impl; }
     public function setComments(CommentsService $impl): void { $this->comments = $impl; }
     public function setReference(ReferenceService $impl): void { $this->reference = $impl; }
@@ -91,6 +96,7 @@ class ServiceRuntimeConfig
 
     public function getGlTrans(): GlTransService { return $this->glTrans ??= new GlTransServiceNative(); }
     public function getBankTrans(): BankTransService { return $this->bankTrans ??= new BankTransServiceNative(); }
+    public function getBankTransfer(): BankTransferService { return $this->bankTransfer ??= new BankTransferServiceNative(); }
     public function getDebtorTrans(): DebtorTransService { return $this->debtorTrans ??= new DebtorTransServiceNative(); }
     public function getComments(): CommentsService { return $this->comments ??= new CommentsServiceNative(); }
     public function getReference(): ReferenceService { return $this->reference ??= new ReferenceServiceNative(); }
