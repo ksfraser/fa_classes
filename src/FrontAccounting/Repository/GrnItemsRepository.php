@@ -37,4 +37,43 @@ final class GrnItemsRepository extends \FrontAccounting\Repository\BaseRepositor
         return $this->db->execute($sql);
     }
 
+    /**
+     * Find GRN items where received qty exceeds invoiced qty.
+     *
+     * @param  int|null $supplierId Optional supplier filter
+     * @return array[]  List of associative arrays
+     */
+    public function findUninvoicedLines(?int $supplierId = null): array
+    {
+        $d = $this->delta;
+        $where = '';
+        $params = [];
+        if ($supplierId !== null) {
+            $where = ' AND gb.supplier_id = ?';
+            $params[] = $supplierId;
+        }
+        $sql = "
+            SELECT
+                g.id                AS grn_item_id,
+                gb.id               AS grn_batch_id,
+                gb.delivery_date,
+                gb.reference        AS grn_ref,
+                gb.purch_order_no,
+                gb.supplier_id,
+                s.supp_name,
+                g.item_code,
+                g.description,
+                g.qty_recd,
+                g.quantity_inv,
+                g.qty_recd - g.quantity_inv AS uninvoiced_qty
+            FROM {$this->prefix}grn_batch gb
+            JOIN {$this->prefix}grn_items g    ON g.grn_batch_id = gb.id
+            JOIN {$this->prefix}suppliers s    ON s.supplier_id = gb.supplier_id
+            WHERE g.qty_recd > g.quantity_inv + {$d}
+            {$where}
+            ORDER BY s.supp_name, gb.delivery_date";
+
+        return $this->db->query($sql, $params);
+    }
+
 }

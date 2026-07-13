@@ -15,6 +15,7 @@ use FrontAccounting\Service\Contracts\ExchangeRateService;
 use FrontAccounting\Service\Contracts\GlTransService;
 use FrontAccounting\Service\Contracts\HooksService;
 use FrontAccounting\Service\Contracts\MiscService;
+use FrontAccounting\Service\Contracts\OrderToDeliveryService;
 use FrontAccounting\Service\Contracts\ReferenceService;
 use FrontAccounting\Service\Contracts\TransactionService;
 use FrontAccounting\Service\Native\BankAccountServiceNative;
@@ -28,6 +29,7 @@ use FrontAccounting\Service\Native\ExchangeRateServiceNative;
 use FrontAccounting\Service\Native\GlTransServiceNative;
 use FrontAccounting\Service\Native\HooksServiceNative;
 use FrontAccounting\Service\Native\MiscServiceNative;
+use FrontAccounting\Service\Native\OrderToDeliveryServiceNative;
 use FrontAccounting\Service\Native\ReferenceServiceNative;
 use FrontAccounting\Service\Native\TransactionServiceNative;
 
@@ -75,6 +77,7 @@ class ServiceRuntimeConfig
     private ?HooksService $hooks = null;
     private ?TransactionService $transaction = null;
     private ?MiscService $misc = null;
+    private ?OrderToDeliveryService $orderToDelivery = null;
 
     // ── Setters ──────────────────────────────────────────────
 
@@ -91,6 +94,7 @@ class ServiceRuntimeConfig
     public function setHooks(HooksService $impl): void { $this->hooks = $impl; }
     public function setTransaction(TransactionService $impl): void { $this->transaction = $impl; }
     public function setMisc(MiscService $impl): void { $this->misc = $impl; }
+    public function setOrderToDelivery(OrderToDeliveryService $impl): void { $this->orderToDelivery = $impl; }
 
     // ── Getters (lazy ??= default) ────────────────────────────
 
@@ -107,4 +111,5 @@ class ServiceRuntimeConfig
     public function getHooks(): HooksService { return $this->hooks ??= new HooksServiceNative(); }
     public function getTransaction(): TransactionService { return $this->transaction ??= new TransactionServiceNative(); }
     public function getMisc(): MiscService { return $this->misc ??= new MiscServiceNative(); }
+    public function getOrderToDelivery(): OrderToDeliveryService { return $this->orderToDelivery ??= new OrderToDeliveryServiceNative(); }
 }

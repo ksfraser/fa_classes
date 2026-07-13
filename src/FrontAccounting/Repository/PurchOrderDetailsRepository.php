@@ -53,4 +53,44 @@ final class PurchOrderDetailsRepository extends \FrontAccounting\Repository\Base
         return $this->db->execute($sql);
     }
 
+    /**
+     * Find purchase-order detail lines where ordered qty exceeds received qty.
+     *
+     * @param  int|null $supplierId Optional supplier filter
+     * @return array[]  List of associative arrays
+     */
+    public function findUnreceivedLines(?int $supplierId = null): array
+    {
+        $d = $this->delta;
+        $where = '';
+        $params = [];
+        if ($supplierId !== null) {
+            $where = ' AND po.supplier_id = ?';
+            $params[] = $supplierId;
+        }
+        $sql = "
+            SELECT
+                pod.order_no              AS po_no,
+                po.reference              AS po_ref,
+                po.ord_date,
+                po.supplier_id,
+                s.supp_name,
+                pod.po_detail_item,
+                pod.item_code,
+                pod.description,
+                pod.quantity_ordered,
+                pod.quantity_received,
+                pod.quantity_ordered - pod.quantity_received AS qty_outstanding,
+                pod.unit_price,
+                pod.qty_invoiced
+            FROM {$this->prefix}purch_order_details pod
+            JOIN {$this->prefix}purch_orders po        ON po.order_no = pod.order_no
+            JOIN {$this->prefix}suppliers s            ON s.supplier_id = po.supplier_id
+            WHERE pod.quantity_ordered > pod.quantity_received + {$d}
+            {$where}
+            ORDER BY s.supp_name, po.order_no";
+
+        return $this->db->query($sql, $params);
+    }
+
 }

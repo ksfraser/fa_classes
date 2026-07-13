@@ -65,6 +65,57 @@ final class DebtorTransactionRepository extends \FrontAccounting\Repository\Base
         return $results;
     }
 
+    /**
+     * Find customer invoices (type 10) where alloc < total.
+     *
+     * @param  int|null $debtorNo   Optional customer filter
+     * @param  int|null $branchCode Optional branch filter
+     * @return array[]  List of associative arrays
+     */
+    public function findUnpaidInvoices(?int $debtorNo = null, ?int $branchCode = null): array
+    {
+        $d = 0.005;
+        $where = '';
+        $params = [];
+        if ($debtorNo !== null) {
+            $where .= ' AND dt.debtor_no = ?';
+            $params[] = $debtorNo;
+        }
+        if ($branchCode !== null) {
+            $where .= ' AND dt.branch_code = ?';
+            $params[] = $branchCode;
+        }
+        $sql = "
+            SELECT
+                dt.trans_no            AS inv_no,
+                dt.reference,
+                dt.tran_date,
+                dt.due_date,
+                dt.debtor_no,
+                dm.name                AS customer_name,
+                dt.ov_amount,
+                dt.ov_gst,
+                dt.ov_freight,
+                dt.ov_freight_tax,
+                dt.ov_discount,
+                dt.alloc,
+                dt.ov_amount + dt.ov_gst + dt.ov_freight
+                    + dt.ov_freight_tax + dt.ov_discount  AS total,
+                dt.ov_amount + dt.ov_gst + dt.ov_freight
+                    + dt.ov_freight_tax + dt.ov_discount - dt.alloc AS unpaid
+            FROM {$this->prefix}debtor_trans dt
+            JOIN {$this->prefix}debtors_master dm
+                ON dm.debtor_no = dt.debtor_no
+            WHERE dt.type = 10
+              AND dt.ov_amount != 0
+              AND dt.alloc < dt.ov_amount + dt.ov_gst + dt.ov_freight
+                  + dt.ov_freight_tax + dt.ov_discount - {$d}
+            {$where}
+            ORDER BY dm.name, dt.tran_date";
+
+        return $this->db->query($sql, $params);
+    }
+
     public function void(int $type, int $transNo): int
     {
         $sql = "UPDATE {$this->prefix}debtor_trans

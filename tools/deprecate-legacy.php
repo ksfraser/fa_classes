@@ -65,7 +65,7 @@ $mixedFiles = [
     'class.fa_cust.php' => "Customer wrapper + CRM cross-reference logic not yet ported",
     'class.fa_customer_payment.php' => "Payment/allocation transaction logic not yet ported — references external 'origin' class",
     'class.fa_bank_transfer.php' => "Bank transfer transaction logic not yet ported — references external 'fa_origin' class",
-    'class.fa_order_to_delivery.php' => "Order-to-delivery analysis queries not yet ported; references external 'table_interface' class",
+    'class.fa_order_to_delivery.php' => "Replaced by FrontAccounting\\Service\\Contracts\\OrderToDeliveryService + Native/Standard implementations; references external 'table_interface' class",
 ];
 
 $infraOnlyFiles = [
