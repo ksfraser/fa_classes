@@ -6,22 +6,38 @@ namespace FrontAccounting\DTO;
 
 final class DebtorMaster
 {
-    private int $debtorNo;
-    private string $name;
-    private string $debtorRef;
-    private ?string $address;
-    private string $taxId;
-    private string $currCode;
-    private int $salesType;
-    private int $dimensionId;
-    private int $dimension2Id;
-    private int $creditStatus;
-    private ?int $paymentTerms;
-    private float $discount;
-    private float $pymtDiscount;
-    private float $creditLimit;
-    private string $notes;
-    private int $inactive;
+    /** @var int */
+    private $debtorNo;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $debtorRef;
+    /** @var ?string */
+    private $address;
+    /** @var string */
+    private $taxId;
+    /** @var string */
+    private $currCode;
+    /** @var int */
+    private $salesType;
+    /** @var int */
+    private $dimensionId;
+    /** @var int */
+    private $dimension2Id;
+    /** @var int */
+    private $creditStatus;
+    /** @var ?int */
+    private $paymentTerms;
+    /** @var float */
+    private $discount;
+    /** @var float */
+    private $pymtDiscount;
+    /** @var float */
+    private $creditLimit;
+    /** @var string */
+    private $notes;
+    /** @var int */
+    private $inactive;
 
     public function __construct(
         int $debtorNo,

@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class RecurrentInvoiceRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'recurrent_invoices';
+    /** @var string */
+    protected $tableName= 'recurrent_invoices';
     public function findById(int $id): ?RecurrentInvoice
     {
         return $this->findOne(['id' => $id]);

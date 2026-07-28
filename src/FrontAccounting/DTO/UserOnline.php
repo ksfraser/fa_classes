@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class UserOnline
 {
-    private int $id;
-    private int $userId;
-    private ?string $ipAddress;
-    private ?string $time_;
-    private ?string $date_;
-    private ?string $currDate;
-    private ?string $lastCheck;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $userId;
+    /** @var ?string */
+    private $ipAddress;
+    /** @var ?string */
+    private $time_;
+    /** @var ?string */
+    private $date_;
+    /** @var ?string */
+    private $currDate;
+    /** @var ?string */
+    private $lastCheck;
 
     public function __construct(
         int $id,

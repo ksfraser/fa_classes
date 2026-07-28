@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class CurrencyRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'currencies';
+    /** @var string */
+    protected $tableName= 'currencies';
     public function findByCode(string $currency): ?Currency
     {
         return $this->findOne(['currency' => $currency]);

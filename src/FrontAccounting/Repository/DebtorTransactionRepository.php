@@ -7,7 +7,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class DebtorTransactionRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'debtor_trans';
+    /** @var string */
+    protected $tableName= 'debtor_trans';
 
     public function findByTypeAndNo(int $type, int $transNo): ?DebtorTransaction
     {

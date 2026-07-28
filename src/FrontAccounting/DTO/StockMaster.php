@@ -6,28 +6,50 @@ namespace FrontAccounting\DTO;
 
 final class StockMaster
 {
-    private string $stockId;
-    private int $categoryId;
-    private int $taxTypeId;
-    private string $description;
-    private string $longDescription;
-    private string $units;
-    private string $mbFlag;
-    private string $salesAccount;
-    private string $cogsAccount;
-    private string $inventoryAccount;
-    private string $adjustmentAccount;
-    private string $wipAccount;
-    private ?int $dimensionId;
-    private ?int $dimension2Id;
-    private float $purchaseCost;
-    private float $materialCost;
-    private float $labourCost;
-    private float $overheadCost;
-    private int $inactive;
-    private int $noSale;
-    private int $noPurchase;
-    private int $editable;
+    /** @var string */
+    private $stockId;
+    /** @var int */
+    private $categoryId;
+    /** @var int */
+    private $taxTypeId;
+    /** @var string */
+    private $description;
+    /** @var string */
+    private $longDescription;
+    /** @var string */
+    private $units;
+    /** @var string */
+    private $mbFlag;
+    /** @var string */
+    private $salesAccount;
+    /** @var string */
+    private $cogsAccount;
+    /** @var string */
+    private $inventoryAccount;
+    /** @var string */
+    private $adjustmentAccount;
+    /** @var string */
+    private $wipAccount;
+    /** @var ?int */
+    private $dimensionId;
+    /** @var ?int */
+    private $dimension2Id;
+    /** @var float */
+    private $purchaseCost;
+    /** @var float */
+    private $materialCost;
+    /** @var float */
+    private $labourCost;
+    /** @var float */
+    private $overheadCost;
+    /** @var int */
+    private $inactive;
+    /** @var int */
+    private $noSale;
+    /** @var int */
+    private $noPurchase;
+    /** @var int */
+    private $editable;
 
     public function __construct(
         string $stockId,

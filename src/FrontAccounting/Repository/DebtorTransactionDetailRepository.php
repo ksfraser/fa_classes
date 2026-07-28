@@ -7,7 +7,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class DebtorTransactionDetailRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'debtor_trans_details';
+    /** @var string */
+    protected $tableName= 'debtor_trans_details';
 
     public function findByTransaction(int $type, int $transNo): array
     {

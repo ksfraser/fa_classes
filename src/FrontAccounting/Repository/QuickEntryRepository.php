@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class QuickEntryRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'quick_entries';
+    /** @var string */
+    protected $tableName= 'quick_entries';
     public function findById(int $id): ?QuickEntry
     {
         return $this->findOne(['id' => $id]);

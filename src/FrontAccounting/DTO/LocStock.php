@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class LocStock
 {
-    private string $locCode;
-    private string $stockId;
-    private float $quantity;
-    private ?string $expiryDate;
+    /** @var string */
+    private $locCode;
+    /** @var string */
+    private $stockId;
+    /** @var float */
+    private $quantity;
+    /** @var ?string */
+    private $expiryDate;
 
     public function __construct(string $locCode, string $stockId, float $quantity, ?string $expiryDate = null)
     {

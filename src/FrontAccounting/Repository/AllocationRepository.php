@@ -7,9 +7,12 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class AllocationRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'supp_allocations';
+    /** @var string */
+    protected $tableName= 'supp_allocations';
 
-    private float $delta;
+    /** @var float */
+
+    private $delta;
 
     public function __construct(DbAdapterInterface $db, float $delta = 0.005)
     {

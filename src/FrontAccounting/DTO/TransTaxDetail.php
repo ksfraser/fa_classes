@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class TransTaxDetail
 {
-    private int $id;
-    private int $transType;
-    private int $transNo;
-    private ?string $tranDate;
-    private int $taxTypeId;
-    private float $rate;
-    private float $exemptionPercent;
-    private float $amount;
-    private float $netAmount;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $transType;
+    /** @var int */
+    private $transNo;
+    /** @var ?string */
+    private $tranDate;
+    /** @var int */
+    private $taxTypeId;
+    /** @var float */
+    private $rate;
+    /** @var float */
+    private $exemptionPercent;
+    /** @var float */
+    private $amount;
+    /** @var float */
+    private $netAmount;
 
     public function __construct(
         int $id,

@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class VoidedRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'voided';
+    /** @var string */
+    protected $tableName= 'voided';
     public function findById(int $id): ?Voided
     {
         return $this->findOne(['id' => $id]);

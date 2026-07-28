@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class Price
 {
-    private int $id;
-    private string $stockId;
-    private int $salesTypeId;
-    private string $currency;
-    private float $price;
-    private ?string $priceListDescription;
-    private ?string $startDate;
-    private ?string $endDate;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $stockId;
+    /** @var int */
+    private $salesTypeId;
+    /** @var string */
+    private $currency;
+    /** @var float */
+    private $price;
+    /** @var ?string */
+    private $priceListDescription;
+    /** @var ?string */
+    private $startDate;
+    /** @var ?string */
+    private $endDate;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

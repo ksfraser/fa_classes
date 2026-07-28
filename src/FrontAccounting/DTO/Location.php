@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class Location
 {
-    private string $locCode;
-    private string $locationName;
-    private ?string $deliveryAddress;
-    private ?string $deliveryPhone;
-    private bool $inactive;
-    private bool $isDflt;
-    private int $taxGroupId;
+    /** @var string */
+    private $locCode;
+    /** @var string */
+    private $locationName;
+    /** @var ?string */
+    private $deliveryAddress;
+    /** @var ?string */
+    private $deliveryPhone;
+    /** @var bool */
+    private $inactive;
+    /** @var bool */
+    private $isDflt;
+    /** @var int */
+    private $taxGroupId;
 
     public function __construct(
         string $locCode,

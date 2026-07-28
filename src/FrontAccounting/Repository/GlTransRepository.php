@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class GlTransRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'gl_trans';
+    /** @var string */
+    protected $tableName= 'gl_trans';
     public function findByCounter(int $counter): ?GlTrans
     {
         return $this->findOne(['counter' => $counter]);

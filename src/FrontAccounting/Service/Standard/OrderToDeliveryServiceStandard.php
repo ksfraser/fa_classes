@@ -26,8 +26,10 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
  */
 final class OrderToDeliveryServiceStandard implements OrderToDeliveryService
 {
-    private DbAdapterInterface $db;
-    private string $prefix;
+    /** @var DbAdapterInterface */
+    private $db;
+    /** @var string */
+    private $prefix;
 
     public function __construct(DbAdapterInterface $db)
     {

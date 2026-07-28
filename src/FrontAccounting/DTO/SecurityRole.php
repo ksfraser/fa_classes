@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class SecurityRole
 {
-    private int $id;
-    private string $role;
-    private string $description;
-    private string $sections;
-    private string $areas;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $role;
+    /** @var string */
+    private $description;
+    /** @var string */
+    private $sections;
+    /** @var string */
+    private $areas;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

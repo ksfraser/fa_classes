@@ -28,7 +28,8 @@ use FrontAccounting\Service\Contracts\GlTransService;
  */
 final class GlTransServiceStandard implements GlTransService
 {
-    private GlTransRepository $glTransRepo;
+    /** @var GlTransRepository */
+    private $glTransRepo;
 
     public function __construct(GlTransRepository $glTransRepo)
     {

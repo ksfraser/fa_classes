@@ -6,21 +6,36 @@ namespace FrontAccounting\DTO;
 
 final class WorkOrder
 {
-    private int $id;
-    private string $stockId;
-    private string $reference;
-    private int $type;
-    private ?string $requiredBy;
-    private ?string $date_;
-    private string $unitsIssued;
-    private string $unitsRequired;
-    private string $unitsManufactured;
-    private int $workCentreId;
-    private float $unitCost;
-    private float $labourCost;
-    private float $overheadCost;
-    private int $released;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $stockId;
+    /** @var string */
+    private $reference;
+    /** @var int */
+    private $type;
+    /** @var ?string */
+    private $requiredBy;
+    /** @var ?string */
+    private $date_;
+    /** @var string */
+    private $unitsIssued;
+    /** @var string */
+    private $unitsRequired;
+    /** @var string */
+    private $unitsManufactured;
+    /** @var int */
+    private $workCentreId;
+    /** @var float */
+    private $unitCost;
+    /** @var float */
+    private $labourCost;
+    /** @var float */
+    private $overheadCost;
+    /** @var int */
+    private $released;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

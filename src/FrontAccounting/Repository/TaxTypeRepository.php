@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class TaxTypeRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'tax_types';
+    /** @var string */
+    protected $tableName= 'tax_types';
     public function findById(int $id): ?TaxType
     {
         return $this->findOne(['id' => $id]);

@@ -10,7 +10,8 @@ use Ksfraser\Validation\Traits\ValidatesStringTrait;
 
 class BankAccountsRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'bank_accounts';
+    /** @var string */
+    protected $tableName= 'bank_accounts';
     use ValidatesStringTrait;
 
     public function findByBankAccountNumber(string $bankAccountNumber): ?BankAccount

@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class Currency
 {
-    private string $currency;
-    private string $currencySymbol;
-    private string $currencyName;
-    private int $decimalPlaces;
-    private bool $inactive;
+    /** @var string */
+    private $currency;
+    /** @var string */
+    private $currencySymbol;
+    /** @var string */
+    private $currencyName;
+    /** @var int */
+    private $decimalPlaces;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         string $currency,

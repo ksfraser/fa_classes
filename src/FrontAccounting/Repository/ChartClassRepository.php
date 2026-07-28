@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class ChartClassRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'chart_class';
+    /** @var string */
+    protected $tableName= 'chart_class';
     public function findById(int $cid): ?ChartClass
     {
         return $this->findOne(['cid' => $cid]);

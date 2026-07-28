@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class PurchData
 {
-    private int $id;
-    private int $supplierId;
-    private string $stockId;
-    private float $price;
-    private float $suppliersUom;
-    private string $conversionFactor;
-    private string $supplierDescription;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $supplierId;
+    /** @var string */
+    private $stockId;
+    /** @var float */
+    private $price;
+    /** @var float */
+    private $suppliersUom;
+    /** @var string */
+    private $conversionFactor;
+    /** @var string */
+    private $supplierDescription;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

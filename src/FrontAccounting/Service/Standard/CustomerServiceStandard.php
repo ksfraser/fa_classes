@@ -24,7 +24,8 @@ use FrontAccounting\Service\Contracts\CustomerService;
  */
 final class CustomerServiceStandard implements CustomerService
 {
-    private DebtorMasterRepository $debtorMasterRepo;
+    /** @var DebtorMasterRepository */
+    private $debtorMasterRepo;
 
     public function __construct(DebtorMasterRepository $debtorMasterRepo)
     {

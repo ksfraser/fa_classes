@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class DebtorMasterRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'debtors_master';
+    /** @var string */
+    protected $tableName= 'debtors_master';
     public function findById(int $debtorNo): ?DebtorMaster
     {
         return $this->findOne(['debtor_no' => $debtorNo]);

@@ -64,20 +64,34 @@ use FrontAccounting\Service\Native\TransactionServiceNative;
  */
 class ServiceRuntimeConfig
 {
-    private ?GlTransService $glTrans = null;
-    private ?BankTransService $bankTrans = null;
-    private ?BankTransferService $bankTransfer = null;
-    private ?DebtorTransService $debtorTrans = null;
-    private ?CommentsService $comments = null;
-    private ?ReferenceService $reference = null;
-    private ?BankAccountService $bankAccount = null;
-    private ?CompanyPrefsService $companyPrefs = null;
-    private ?CustomerService $customer = null;
-    private ?ExchangeRateService $exchangeRate = null;
-    private ?HooksService $hooks = null;
-    private ?TransactionService $transaction = null;
-    private ?MiscService $misc = null;
-    private ?OrderToDeliveryService $orderToDelivery = null;
+    /** @var ?GlTransService */
+    private $glTrans= null;
+    /** @var ?BankTransService */
+    private $bankTrans= null;
+    /** @var ?BankTransferService */
+    private $bankTransfer= null;
+    /** @var ?DebtorTransService */
+    private $debtorTrans= null;
+    /** @var ?CommentsService */
+    private $comments= null;
+    /** @var ?ReferenceService */
+    private $reference= null;
+    /** @var ?BankAccountService */
+    private $bankAccount= null;
+    /** @var ?CompanyPrefsService */
+    private $companyPrefs= null;
+    /** @var ?CustomerService */
+    private $customer= null;
+    /** @var ?ExchangeRateService */
+    private $exchangeRate= null;
+    /** @var ?HooksService */
+    private $hooks= null;
+    /** @var ?TransactionService */
+    private $transaction= null;
+    /** @var ?MiscService */
+    private $misc= null;
+    /** @var ?OrderToDeliveryService */
+    private $orderToDelivery= null;
 
     // ── Setters ──────────────────────────────────────────────
 

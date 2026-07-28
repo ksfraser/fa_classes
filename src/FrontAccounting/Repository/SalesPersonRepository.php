@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class SalesPersonRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'salesman';
+    /** @var string */
+    protected $tableName= 'salesman';
     public function findById(int $salesmanCode): ?SalesPerson
     {
         return $this->findOne(['salesman_code' => $salesmanCode]);

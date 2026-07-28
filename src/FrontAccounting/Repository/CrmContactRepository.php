@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class CrmContactRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'crm_contacts';
+    /** @var string */
+    protected $tableName= 'crm_contacts';
     public function findById(int $id): ?CrmContact
     {
         return $this->findOne(['id' => $id]);

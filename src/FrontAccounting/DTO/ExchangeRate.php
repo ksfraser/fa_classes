@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class ExchangeRate
 {
-    private int $id;
-    private string $currency;
-    private float $rateBuy;
-    private float $rateSell;
-    private string $date;
-    private ?string $dateTime;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $currency;
+    /** @var float */
+    private $rateBuy;
+    /** @var float */
+    private $rateSell;
+    /** @var string */
+    private $date;
+    /** @var ?string */
+    private $dateTime;
 
     public function __construct(
         int $id,

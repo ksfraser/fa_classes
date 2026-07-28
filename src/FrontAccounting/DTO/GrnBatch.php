@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class GrnBatch
 {
-    private int $id;
-    private int $purchOrderNo;
-    private ?string $reference;
-    private ?string $ordDate;
-    private ?string $deliveryDate;
-    private ?string $dueDate;
-    private string $location;
-    private bool $isReceived;
-    private bool $isPartial;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $purchOrderNo;
+    /** @var ?string */
+    private $reference;
+    /** @var ?string */
+    private $ordDate;
+    /** @var ?string */
+    private $deliveryDate;
+    /** @var ?string */
+    private $dueDate;
+    /** @var string */
+    private $location;
+    /** @var bool */
+    private $isReceived;
+    /** @var bool */
+    private $isPartial;
 
     public function __construct(
         int $id,

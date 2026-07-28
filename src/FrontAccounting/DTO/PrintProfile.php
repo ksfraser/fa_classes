@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class PrintProfile
 {
-    private int $id;
-    private string $name;
-    private int $reportId;
-    private string $printerName;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var int */
+    private $reportId;
+    /** @var string */
+    private $printerName;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $name, int $reportId, string $printerName = '', bool $inactive = false)
     {

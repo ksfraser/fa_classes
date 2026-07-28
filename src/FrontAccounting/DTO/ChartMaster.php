@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class ChartMaster
 {
-    private string $accountCode;
-    private int $accountType;
-    private string $accountName;
-    private ?string $bankCode;
-    private ?string $bankDescription;
-    private bool $showInTrialBalance;
-    private bool $inactive;
+    /** @var string */
+    private $accountCode;
+    /** @var int */
+    private $accountType;
+    /** @var string */
+    private $accountName;
+    /** @var ?string */
+    private $bankCode;
+    /** @var ?string */
+    private $bankDescription;
+    /** @var bool */
+    private $showInTrialBalance;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         string $accountCode,

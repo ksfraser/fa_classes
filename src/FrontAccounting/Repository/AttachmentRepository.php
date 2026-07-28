@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class AttachmentRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'attachments';
+    /** @var string */
+    protected $tableName= 'attachments';
     public function findById(int $id): ?Attachment
     {
         return $this->findOne(['id' => $id]);

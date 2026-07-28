@@ -6,18 +6,30 @@ namespace FrontAccounting\DTO;
 
 final class CrmPerson
 {
-    private int $id;
-    private string $ref;
-    private string $name;
-    private ?string $name2;
-    private ?string $address;
-    private ?string $phone;
-    private ?string $phone2;
-    private ?string $fax;
-    private ?string $email;
-    private ?string $lang;
-    private string $notes;
-    private int $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $ref;
+    /** @var string */
+    private $name;
+    /** @var ?string */
+    private $name2;
+    /** @var ?string */
+    private $address;
+    /** @var ?string */
+    private $phone;
+    /** @var ?string */
+    private $phone2;
+    /** @var ?string */
+    private $fax;
+    /** @var ?string */
+    private $email;
+    /** @var ?string */
+    private $lang;
+    /** @var string */
+    private $notes;
+    /** @var int */
+    private $inactive;
 
     public function __construct(
         int $id,

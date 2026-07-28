@@ -27,15 +27,24 @@ namespace FrontAccounting\Service;
  */
 final class BankTransferRequest
 {
-    private ?int $transNo;
-    private int $fromBankAccount;
-    private int $toBankAccount;
-    private float $amount;
-    private float $charge;
-    private float $targetAmount;
-    private string $ref;
-    private string $memo;
-    private string $transDate;
+    /** @var ?int */
+    private $transNo;
+    /** @var int */
+    private $fromBankAccount;
+    /** @var int */
+    private $toBankAccount;
+    /** @var float */
+    private $amount;
+    /** @var float */
+    private $charge;
+    /** @var float */
+    private $targetAmount;
+    /** @var string */
+    private $ref;
+    /** @var string */
+    private $memo;
+    /** @var string */
+    private $transDate;
 
     public function __construct(
         int $fromBankAccount,

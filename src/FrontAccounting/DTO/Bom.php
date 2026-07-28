@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class Bom
 {
-    private int $id;
-    private string $parent;
-    private string $component;
-    private float $quantity;
-    private float $labourCost;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $parent;
+    /** @var string */
+    private $component;
+    /** @var float */
+    private $quantity;
+    /** @var float */
+    private $labourCost;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

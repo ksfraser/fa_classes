@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class WoIssueItem
 {
-    private int $id;
-    private int $issueId;
-    private string $stockId;
-    private float $qtyIssued;
-    private string $date_;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $issueId;
+    /** @var string */
+    private $stockId;
+    /** @var float */
+    private $qtyIssued;
+    /** @var string */
+    private $date_;
 
     public function __construct(int $id, int $issueId, string $stockId, float $qtyIssued, string $date_ = '')
     {

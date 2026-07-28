@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class ItemCode
 {
-    private int $id;
-    private string $itemCode;
-    private string $stockId;
-    private ?string $description;
-    private ?string $categoryId;
-    private float $quantity;
-    private bool $isForeign;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $itemCode;
+    /** @var string */
+    private $stockId;
+    /** @var ?string */
+    private $description;
+    /** @var ?string */
+    private $categoryId;
+    /** @var float */
+    private $quantity;
+    /** @var bool */
+    private $isForeign;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

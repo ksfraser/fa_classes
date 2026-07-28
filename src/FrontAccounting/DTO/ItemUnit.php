@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class ItemUnit
 {
-    private string $abbreviation;
-    private string $name;
-    private int $decimals;
-    private bool $inactive;
+    /** @var string */
+    private $abbreviation;
+    /** @var string */
+    private $name;
+    /** @var int */
+    private $decimals;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(string $abbreviation, string $name, int $decimals = 0, bool $inactive = false)
     {

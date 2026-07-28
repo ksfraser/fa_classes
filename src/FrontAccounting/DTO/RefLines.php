@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class RefLines
 {
-    private int $id;
-    private int $type;
-    private string $reference;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $type;
+    /** @var string */
+    private $reference;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, int $type, string $reference, bool $inactive = false)
     {

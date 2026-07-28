@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class PaginatedResult
 {
-    private array $items;
-    private int $total;
-    private int $page;
-    private int $perPage;
-    private int $totalPages;
+    /** @var array */
+    private $items;
+    /** @var int */
+    private $total;
+    /** @var int */
+    private $page;
+    /** @var int */
+    private $perPage;
+    /** @var int */
+    private $totalPages;
 
     public function __construct(array $items, int $total, int $page, int $perPage)
     {

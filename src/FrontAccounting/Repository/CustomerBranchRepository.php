@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class CustomerBranchRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'cust_branch';
+    /** @var string */
+    protected $tableName= 'cust_branch';
     public function findById(int $branchCode, int $debtorNo): ?CustomerBranch
     {
         return $this->findOne(['branch_code' => $branchCode, 'debtor_no' => $debtorNo]);

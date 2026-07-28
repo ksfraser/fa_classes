@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class Journal
 {
-    private int $type;
-    private int $typeNo;
-    private string $tranDate;
-    private string $reference;
-    private string $memo;
-    private ?string $eventDate;
-    private bool $recurrent;
-    private int $recurring;
-    private ?int $userId;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $typeNo;
+    /** @var string */
+    private $tranDate;
+    /** @var string */
+    private $reference;
+    /** @var string */
+    private $memo;
+    /** @var ?string */
+    private $eventDate;
+    /** @var bool */
+    private $recurrent;
+    /** @var int */
+    private $recurring;
+    /** @var ?int */
+    private $userId;
 
     public function __construct(
         int $type,

@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class StockMoveRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'stock_moves';
+    /** @var string */
+    protected $tableName= 'stock_moves';
     public function findByTypeAndNo(int $type, int $transNo): array
     {
         return $this->find(['type' => $type, 'trans_no' => $transNo], ['trans_id' => 'ASC']);

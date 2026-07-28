@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class QuickEntryLineRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'quick_entry_lines';
+    /** @var string */
+    protected $tableName= 'quick_entry_lines';
     public function findByQuickEntry(int $quickEntryId): array
     {
         return $this->find(['quick_entries_id' => $quickEntryId], ['id' => 'ASC']);

@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class RefsRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'refs';
+    /** @var string */
+    protected $tableName= 'refs';
     public function findByTransaction(int $type, int $transNo): ?Refs
     {
         return $this->findOne(['type' => $type, 'trans_no' => $transNo]);

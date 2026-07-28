@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class PrintProfileRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'print_profiles';
+    /** @var string */
+    protected $tableName= 'print_profiles';
     public function findById(int $id): ?PrintProfile
     {
         return $this->findOne(['id' => $id]);

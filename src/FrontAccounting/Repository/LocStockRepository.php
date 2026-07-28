@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class LocStockRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'loc_stock';
+    /** @var string */
+    protected $tableName= 'loc_stock';
     public function findByStockId(string $stockId): array
     {
         return $this->find(['stock_id' => $stockId], ['loc_code' => 'ASC']);

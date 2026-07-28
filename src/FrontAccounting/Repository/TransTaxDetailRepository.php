@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class TransTaxDetailRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'trans_tax_details';
+    /** @var string */
+    protected $tableName= 'trans_tax_details';
     public function findByTransaction(int $transType, int $transNo): array
     {
         return $this->find(['trans_type' => $transType, 'trans_no' => $transNo], ['id' => 'ASC']);

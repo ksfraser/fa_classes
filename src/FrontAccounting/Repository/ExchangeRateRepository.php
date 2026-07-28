@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class ExchangeRateRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'exchange_rates';
+    /** @var string */
+    protected $tableName= 'exchange_rates';
     public function findById(int $id): ?ExchangeRate
     {
         return $this->findOne(['id' => $id]);

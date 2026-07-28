@@ -6,16 +6,26 @@ namespace FrontAccounting\DTO;
 
 final class StockMove
 {
-    private int $transId;
-    private int $transNo;
-    private string $stockId;
-    private int $type;
-    private string $locCode;
-    private string $tranDate;
-    private float $price;
-    private string $reference;
-    private float $qty;
-    private float $standardCost;
+    /** @var int */
+    private $transId;
+    /** @var int */
+    private $transNo;
+    /** @var string */
+    private $stockId;
+    /** @var int */
+    private $type;
+    /** @var string */
+    private $locCode;
+    /** @var string */
+    private $tranDate;
+    /** @var float */
+    private $price;
+    /** @var string */
+    private $reference;
+    /** @var float */
+    private $qty;
+    /** @var float */
+    private $standardCost;
 
     public function __construct(
         int $transId,

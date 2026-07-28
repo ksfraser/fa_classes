@@ -6,17 +6,28 @@ namespace FrontAccounting\DTO;
 
 final class PurchaseOrderDetail
 {
-    private int $poDetailItem;
-    private int $orderNo;
-    private string $itemCode;
-    private ?string $description;
-    private string $deliveryDate;
-    private float $qtyInvoiced;
-    private float $unitPrice;
-    private float $actPrice;
-    private float $stdCostUnit;
-    private float $quantityOrdered;
-    private float $quantityReceived;
+    /** @var int */
+    private $poDetailItem;
+    /** @var int */
+    private $orderNo;
+    /** @var string */
+    private $itemCode;
+    /** @var ?string */
+    private $description;
+    /** @var string */
+    private $deliveryDate;
+    /** @var float */
+    private $qtyInvoiced;
+    /** @var float */
+    private $unitPrice;
+    /** @var float */
+    private $actPrice;
+    /** @var float */
+    private $stdCostUnit;
+    /** @var float */
+    private $quantityOrdered;
+    /** @var float */
+    private $quantityReceived;
 
     public function __construct(
         int $poDetailItem,

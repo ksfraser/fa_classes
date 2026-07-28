@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class PurchDataRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'purch_data';
+    /** @var string */
+    protected $tableName= 'purch_data';
     public function findById(int $id): ?PurchData
     {
         return $this->findOne(['id' => $id]);

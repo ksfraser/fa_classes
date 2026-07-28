@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class PaymentTermRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'payment_terms';
+    /** @var string */
+    protected $tableName= 'payment_terms';
     public function findById(int $termsId): ?PaymentTerm
     {
         return $this->findOne(['terms_id' => $termsId]);

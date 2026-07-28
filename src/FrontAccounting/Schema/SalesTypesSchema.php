@@ -14,7 +14,8 @@ namespace FrontAccounting\Schema;
 class SalesTypesSchema
 {
     /** @var array|null */
-    private static $descriptor;
+    /** @var static */
+    private $descriptor;
 
     /**
      * Return a memoized descriptor array.

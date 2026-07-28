@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class CreditStatus
 {
-    private int $id;
-    private string $reasonDescription;
-    private bool $dissallowInvoices;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $reasonDescription;
+    /** @var bool */
+    private $dissallowInvoices;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $reasonDescription, bool $dissallowInvoices = false, bool $inactive = false)
     {

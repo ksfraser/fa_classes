@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class GrnBatchRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'grn_batch';
+    /** @var string */
+    protected $tableName= 'grn_batch';
     public function findById(int $id): ?GrnBatch
     {
         return $this->findOne(['id' => $id]);

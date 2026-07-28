@@ -6,19 +6,32 @@ namespace FrontAccounting\DTO;
 
 final class RecurrentInvoice
 {
-    private int $id;
-    private string $description;
-    private int $orderNo;
-    private int $debtorNo;
-    private int $branchCode;
-    private int $group_;
-    private int $salesType;
-    private string $date_;
-    private ?string $endDate;
-    private int $templateNo;
-    private int $isTemplate;
-    private string $memo;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $description;
+    /** @var int */
+    private $orderNo;
+    /** @var int */
+    private $debtorNo;
+    /** @var int */
+    private $branchCode;
+    /** @var int */
+    private $group_;
+    /** @var int */
+    private $salesType;
+    /** @var string */
+    private $date_;
+    /** @var ?string */
+    private $endDate;
+    /** @var int */
+    private $templateNo;
+    /** @var int */
+    private $isTemplate;
+    /** @var string */
+    private $memo;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

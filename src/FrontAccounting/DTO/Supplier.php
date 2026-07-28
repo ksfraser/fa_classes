@@ -6,28 +6,50 @@ namespace FrontAccounting\DTO;
 
 final class Supplier
 {
-    private int $supplierId;
-    private string $suppName;
-    private string $suppRef;
-    private string $address;
-    private string $suppAddress;
-    private string $gstNo;
-    private string $contact;
-    private string $suppAccountNo;
-    private string $website;
-    private string $bankAccount;
-    private ?string $currCode;
-    private ?int $paymentTerms;
-    private int $taxIncluded;
-    private int $dimensionId;
-    private int $dimension2Id;
-    private ?int $taxGroupId;
-    private float $creditLimit;
-    private string $purchaseAccount;
-    private string $payableAccount;
-    private string $paymentDiscountAccount;
-    private string $notes;
-    private int $inactive;
+    /** @var int */
+    private $supplierId;
+    /** @var string */
+    private $suppName;
+    /** @var string */
+    private $suppRef;
+    /** @var string */
+    private $address;
+    /** @var string */
+    private $suppAddress;
+    /** @var string */
+    private $gstNo;
+    /** @var string */
+    private $contact;
+    /** @var string */
+    private $suppAccountNo;
+    /** @var string */
+    private $website;
+    /** @var string */
+    private $bankAccount;
+    /** @var ?string */
+    private $currCode;
+    /** @var ?int */
+    private $paymentTerms;
+    /** @var int */
+    private $taxIncluded;
+    /** @var int */
+    private $dimensionId;
+    /** @var int */
+    private $dimension2Id;
+    /** @var ?int */
+    private $taxGroupId;
+    /** @var float */
+    private $creditLimit;
+    /** @var string */
+    private $purchaseAccount;
+    /** @var string */
+    private $payableAccount;
+    /** @var string */
+    private $paymentDiscountAccount;
+    /** @var string */
+    private $notes;
+    /** @var int */
+    private $inactive;
 
     public function __construct(
         int $supplierId,

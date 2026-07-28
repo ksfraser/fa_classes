@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class CommentRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'comments';
+    /** @var string */
+    protected $tableName= 'comments';
     public function findById(int $id): ?Comment
     {
         return $this->findOne(['id' => $id]);

@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class Attachment
 {
-    private int $id;
-    private int $type;
-    private int $typeNo;
-    private string $filename;
-    private ?string $fileType;
-    private int $fileSize;
-    private string $content;
-    private ?string $description;
-    private ?string $date_;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $typeNo;
+    /** @var string */
+    private $filename;
+    /** @var ?string */
+    private $fileType;
+    /** @var int */
+    private $fileSize;
+    /** @var string */
+    private $content;
+    /** @var ?string */
+    private $description;
+    /** @var ?string */
+    private $date_;
 
     public function __construct(
         int $id,

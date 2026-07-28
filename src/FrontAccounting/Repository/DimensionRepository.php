@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class DimensionRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'dimensions';
+    /** @var string */
+    protected $tableName= 'dimensions';
     public function findById(int $id): ?Dimension
     {
         return $this->findOne(['id' => $id]);

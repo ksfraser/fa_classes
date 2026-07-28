@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class AuditTrailRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'audit_trail';
+    /** @var string */
+    protected $tableName= 'audit_trail';
     public function findById(int $id): ?AuditTrail
     {
         return $this->findOne(['id' => $id]);

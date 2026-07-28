@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class LocationRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'locations';
+    /** @var string */
+    protected $tableName= 'locations';
     public function findByCode(string $locCode): ?Location
     {
         return $this->findOne(['loc_code' => $locCode]);

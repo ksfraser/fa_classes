@@ -6,9 +6,12 @@ namespace FrontAccounting\DTO;
 
 final class ItemTaxTypeExemption
 {
-    private int $id;
-    private int $itemTaxTypeId;
-    private int $taxTypeId;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $itemTaxTypeId;
+    /** @var int */
+    private $taxTypeId;
 
     public function __construct(int $id, int $itemTaxTypeId, int $taxTypeId)
     {

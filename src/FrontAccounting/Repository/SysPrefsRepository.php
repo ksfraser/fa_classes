@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class SysPrefsRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'sys_prefs';
+    /** @var string */
+    protected $tableName= 'sys_prefs';
     public function findByName(string $name): ?SysPrefs
     {
         return $this->findOne(['name' => $name]);

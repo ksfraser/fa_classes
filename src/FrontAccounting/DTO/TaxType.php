@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class TaxType
 {
-    private int $id;
-    private string $name;
-    private string $taxTypeName;
-    private float $rate;
-    private string $salesGlCode;
-    private string $purchasingGlCode;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $taxTypeName;
+    /** @var float */
+    private $rate;
+    /** @var string */
+    private $salesGlCode;
+    /** @var string */
+    private $purchasingGlCode;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

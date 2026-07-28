@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class Printer
 {
-    private int $id;
-    private string $name;
-    private string $description;
-    private string $queue;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $description;
+    /** @var string */
+    private $queue;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $name, string $description, string $queue = '', bool $inactive = false)
     {

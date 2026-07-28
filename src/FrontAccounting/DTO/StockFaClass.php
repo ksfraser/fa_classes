@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class StockFaClass
 {
-    private int $id;
-    private string $name;
-    private string $description;
-    private ?float $depreciationRate;
-    private string $faAccountCode;
-    private string $depreciationAccountCode;
-    private string $accumDepreciationAccountCode;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $description;
+    /** @var ?float */
+    private $depreciationRate;
+    /** @var string */
+    private $faAccountCode;
+    /** @var string */
+    private $depreciationAccountCode;
+    /** @var string */
+    private $accumDepreciationAccountCode;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

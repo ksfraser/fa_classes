@@ -6,29 +6,52 @@ namespace FrontAccounting\DTO;
 
 final class SalesOrder
 {
-    private int $orderNo;
-    private int $transType;
-    private int $version;
-    private int $type;
-    private int $debtorNo;
-    private int $branchCode;
-    private string $reference;
-    private string $customerRef;
-    private ?string $comments;
-    private string $ordDate;
-    private int $orderType;
-    private int $shipVia;
-    private string $deliveryAddress;
-    private ?string $contactPhone;
-    private ?string $contactEmail;
-    private string $deliverTo;
-    private float $freightCost;
-    private string $fromStkLoc;
-    private string $deliveryDate;
-    private ?int $paymentTerms;
-    private float $total;
-    private float $prepAmount;
-    private float $alloc;
+    /** @var int */
+    private $orderNo;
+    /** @var int */
+    private $transType;
+    /** @var int */
+    private $version;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $debtorNo;
+    /** @var int */
+    private $branchCode;
+    /** @var string */
+    private $reference;
+    /** @var string */
+    private $customerRef;
+    /** @var ?string */
+    private $comments;
+    /** @var string */
+    private $ordDate;
+    /** @var int */
+    private $orderType;
+    /** @var int */
+    private $shipVia;
+    /** @var string */
+    private $deliveryAddress;
+    /** @var ?string */
+    private $contactPhone;
+    /** @var ?string */
+    private $contactEmail;
+    /** @var string */
+    private $deliverTo;
+    /** @var float */
+    private $freightCost;
+    /** @var string */
+    private $fromStkLoc;
+    /** @var string */
+    private $deliveryDate;
+    /** @var ?int */
+    private $paymentTerms;
+    /** @var float */
+    private $total;
+    /** @var float */
+    private $prepAmount;
+    /** @var float */
+    private $alloc;
 
     public function __construct(
         int $orderNo,

@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class FiscalYear
 {
-    private int $id;
-    private string $begin;
-    private string $end;
-    private bool $closed;
-    private bool $isActive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $begin;
+    /** @var string */
+    private $end;
+    /** @var bool */
+    private $closed;
+    /** @var bool */
+    private $isActive;
 
     public function __construct(int $id, string $begin, string $end, bool $closed = false, bool $isActive = false)
     {

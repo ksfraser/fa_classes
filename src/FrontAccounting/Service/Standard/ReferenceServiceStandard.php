@@ -24,7 +24,8 @@ use FrontAccounting\Service\Contracts\ReferenceService;
  */
 final class ReferenceServiceStandard implements ReferenceService
 {
-    private RefsRepository $refsRepo;
+    /** @var RefsRepository */
+    private $refsRepo;
 
     public function __construct(RefsRepository $refsRepo)
     {

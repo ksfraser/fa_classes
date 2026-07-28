@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class CreditStatusRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'credit_status';
+    /** @var string */
+    protected $tableName= 'credit_status';
     public function findById(int $id): ?CreditStatus
     {
         return $this->findOne(['id' => $id]);

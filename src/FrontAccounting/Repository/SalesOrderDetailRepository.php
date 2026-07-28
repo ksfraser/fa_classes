@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class SalesOrderDetailRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'sales_order_details';
+    /** @var string */
+    protected $tableName= 'sales_order_details';
     public function findByOrder(int $orderNo, int $transType = 30): array
     {
         return $this->find(['order_no' => $orderNo, 'trans_type' => $transType], ['id' => 'ASC']);

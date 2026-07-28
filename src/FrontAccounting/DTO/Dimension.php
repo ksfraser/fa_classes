@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class Dimension
 {
-    private int $id;
-    private string $reference;
-    private string $name;
-    private int $type;
-    private bool $closed;
-    private ?string $date_;
-    private ?string $dueDate;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $reference;
+    /** @var string */
+    private $name;
+    /** @var int */
+    private $type;
+    /** @var bool */
+    private $closed;
+    /** @var ?string */
+    private $date_;
+    /** @var ?string */
+    private $dueDate;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

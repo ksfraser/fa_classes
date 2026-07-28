@@ -6,16 +6,26 @@ namespace FrontAccounting\DTO;
 
 final class SalesOrderDetail
 {
-    private int $id;
-    private int $orderNo;
-    private int $transType;
-    private string $stkCode;
-    private ?string $description;
-    private float $qtySent;
-    private float $unitPrice;
-    private float $quantity;
-    private float $invoiced;
-    private float $discountPercent;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $orderNo;
+    /** @var int */
+    private $transType;
+    /** @var string */
+    private $stkCode;
+    /** @var ?string */
+    private $description;
+    /** @var float */
+    private $qtySent;
+    /** @var float */
+    private $unitPrice;
+    /** @var float */
+    private $quantity;
+    /** @var float */
+    private $invoiced;
+    /** @var float */
+    private $discountPercent;
 
     public function __construct(
         int $id,

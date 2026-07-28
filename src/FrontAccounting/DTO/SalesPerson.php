@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class SalesPerson
 {
-    private int $salesmanCode;
-    private string $salesmanName;
-    private ?string $salesmanPhone;
-    private ?string $salesmanFax;
-    private ?string $salesmanEmail;
-    private ?float $provision;
-    private ?float $breakPt;
-    private ?float $provision2;
-    private bool $inactive;
+    /** @var int */
+    private $salesmanCode;
+    /** @var string */
+    private $salesmanName;
+    /** @var ?string */
+    private $salesmanPhone;
+    /** @var ?string */
+    private $salesmanFax;
+    /** @var ?string */
+    private $salesmanEmail;
+    /** @var ?float */
+    private $provision;
+    /** @var ?float */
+    private $breakPt;
+    /** @var ?float */
+    private $provision2;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $salesmanCode,

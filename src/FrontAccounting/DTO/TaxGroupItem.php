@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class TaxGroupItem
 {
-    private int $id;
-    private int $taxGroupId;
-    private int $taxTypeId;
-    private float $rate;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $taxGroupId;
+    /** @var int */
+    private $taxTypeId;
+    /** @var float */
+    private $rate;
 
     public function __construct(int $id, int $taxGroupId, int $taxTypeId, float $rate = 0.0)
     {

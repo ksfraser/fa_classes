@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class JournalRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'journal';
+    /** @var string */
+    protected $tableName= 'journal';
     public function findById(int $type, int $typeNo): ?Journal
     {
         return $this->findOne(['type' => $type, 'type_no' => $typeNo]);

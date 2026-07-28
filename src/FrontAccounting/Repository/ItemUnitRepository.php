@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class ItemUnitRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'item_units';
+    /** @var string */
+    protected $tableName= 'item_units';
     public function findByAbbreviation(string $abbreviation): ?ItemUnit
     {
         return $this->findOne(['abbr' => $abbreviation]);

@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class ItemTaxTypeExemptionRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'item_tax_type_exemptions';
+    /** @var string */
+    protected $tableName= 'item_tax_type_exemptions';
     public function findByItemTaxType(int $itemTaxTypeId): array
     {
         return $this->find(['item_tax_type_id' => $itemTaxTypeId]);

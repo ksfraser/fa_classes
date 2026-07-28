@@ -6,18 +6,30 @@ namespace FrontAccounting\DTO;
 
 final class User
 {
-    private int $id;
-    private string $userId;
-    private ?string $realName;
-    private string $email;
-    private ?string $phone;
-    private ?int $language;
-    private ?string $dateFormat;
-    private bool $showHints;
-    private bool $showGraphic;
-    private ?string $querySize;
-    private bool $showCurrency;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $userId;
+    /** @var ?string */
+    private $realName;
+    /** @var string */
+    private $email;
+    /** @var ?string */
+    private $phone;
+    /** @var ?int */
+    private $language;
+    /** @var ?string */
+    private $dateFormat;
+    /** @var bool */
+    private $showHints;
+    /** @var bool */
+    private $showGraphic;
+    /** @var ?string */
+    private $querySize;
+    /** @var bool */
+    private $showCurrency;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

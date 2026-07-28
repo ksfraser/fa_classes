@@ -6,9 +6,12 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class GrnItemsRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'grn_items';
+    /** @var string */
+    protected $tableName= 'grn_items';
 
-    private float $delta;
+    /** @var float */
+
+    private $delta;
 
     public function __construct(DbAdapterInterface $db, float $delta = 0.005)
     {

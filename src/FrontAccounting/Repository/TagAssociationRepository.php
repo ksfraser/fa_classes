@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class TagAssociationRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'tag_associations';
+    /** @var string */
+    protected $tableName= 'tag_associations';
     public function findByTag(int $tagId): array
     {
         return $this->find(['tag_id' => $tagId], ['id' => 'ASC']);

@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class Refs
 {
-    private int $id;
-    private int $type;
-    private int $transNo;
-    private string $reference;
-    private ?string $description;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $transNo;
+    /** @var string */
+    private $reference;
+    /** @var ?string */
+    private $description;
 
     public function __construct(int $id, int $type, int $transNo, string $reference, ?string $description = null)
     {

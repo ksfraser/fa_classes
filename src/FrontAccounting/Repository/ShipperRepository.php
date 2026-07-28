@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class ShipperRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'shippers';
+    /** @var string */
+    protected $tableName= 'shippers';
     public function findById(int $shipperId): ?Shipper
     {
         return $this->findOne(['shipper_id' => $shipperId]);

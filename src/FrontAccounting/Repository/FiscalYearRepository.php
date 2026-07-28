@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class FiscalYearRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'fiscal_year';
+    /** @var string */
+    protected $tableName= 'fiscal_year';
     public function findById(int $id): ?FiscalYear
     {
         return $this->findOne(['id' => $id]);

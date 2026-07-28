@@ -44,12 +44,18 @@ use FrontAccounting\Service\Contracts\TransactionService;
  */
 final class BankTransferServiceStandard implements BankTransferService
 {
-    private BankTransactionRepository $bankTransRepo;
-    private GlTransRepository $glTransRepo;
-    private RefsRepository $refsRepo;
-    private GlTransService $glTransService;
-    private BankAccountService $bankAccountService;
-    private TransactionService $transactionService;
+    /** @var BankTransactionRepository */
+    private $bankTransRepo;
+    /** @var GlTransRepository */
+    private $glTransRepo;
+    /** @var RefsRepository */
+    private $refsRepo;
+    /** @var GlTransService */
+    private $glTransService;
+    /** @var BankAccountService */
+    private $bankAccountService;
+    /** @var TransactionService */
+    private $transactionService;
 
     public function __construct(
         BankTransactionRepository $bankTransRepo,

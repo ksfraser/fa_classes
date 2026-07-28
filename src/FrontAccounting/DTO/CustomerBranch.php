@@ -6,25 +6,44 @@ namespace FrontAccounting\DTO;
 
 final class CustomerBranch
 {
-    private int $branchCode;
-    private int $debtorNo;
-    private string $brName;
-    private string $branchRef;
-    private string $brAddress;
-    private ?int $area;
-    private int $salesman;
-    private string $defaultLocation;
-    private ?int $taxGroupId;
-    private string $salesAccount;
-    private string $salesDiscountAccount;
-    private string $receivablesAccount;
-    private string $paymentDiscountAccount;
-    private int $defaultShipVia;
-    private string $brPostAddress;
-    private int $groupNo;
-    private string $notes;
-    private ?string $bankAccount;
-    private int $inactive;
+    /** @var int */
+    private $branchCode;
+    /** @var int */
+    private $debtorNo;
+    /** @var string */
+    private $brName;
+    /** @var string */
+    private $branchRef;
+    /** @var string */
+    private $brAddress;
+    /** @var ?int */
+    private $area;
+    /** @var int */
+    private $salesman;
+    /** @var string */
+    private $defaultLocation;
+    /** @var ?int */
+    private $taxGroupId;
+    /** @var string */
+    private $salesAccount;
+    /** @var string */
+    private $salesDiscountAccount;
+    /** @var string */
+    private $receivablesAccount;
+    /** @var string */
+    private $paymentDiscountAccount;
+    /** @var int */
+    private $defaultShipVia;
+    /** @var string */
+    private $brPostAddress;
+    /** @var int */
+    private $groupNo;
+    /** @var string */
+    private $notes;
+    /** @var ?string */
+    private $bankAccount;
+    /** @var int */
+    private $inactive;
 
     public function __construct(
         int $branchCode,

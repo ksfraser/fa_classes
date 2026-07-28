@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class AreaRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'areas';
+    /** @var string */
+    protected $tableName= 'areas';
     public function findById(int $areaCode): ?Area
     {
         return $this->findOne(['area_code' => $areaCode]);

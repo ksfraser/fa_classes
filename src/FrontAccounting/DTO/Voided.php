@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class Voided
 {
-    private int $id;
-    private int $type;
-    private int $typeNo;
-    private ?string $date_;
-    private ?string $memo;
-    private ?int $userId;
-    private ?string $userEmail;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $typeNo;
+    /** @var ?string */
+    private $date_;
+    /** @var ?string */
+    private $memo;
+    /** @var ?int */
+    private $userId;
+    /** @var ?string */
+    private $userEmail;
 
     public function __construct(
         int $id,

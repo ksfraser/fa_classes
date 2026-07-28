@@ -31,9 +31,12 @@ use FrontAccounting\Service\Contracts\MiscService;
  */
 final class MiscServiceStandard implements MiscService
 {
-    private FiscalYearRepository $fiscalYearRepo;
-    private ExchangeRateRepository $exchangeRateRepo;
-    private ChartMasterRepository $chartMasterRepo;
+    /** @var FiscalYearRepository */
+    private $fiscalYearRepo;
+    /** @var ExchangeRateRepository */
+    private $exchangeRateRepo;
+    /** @var ChartMasterRepository */
+    private $chartMasterRepo;
 
     public function __construct(
         FiscalYearRepository $fiscalYearRepo,

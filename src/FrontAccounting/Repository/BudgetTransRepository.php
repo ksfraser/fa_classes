@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class BudgetTransRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'budget_trans';
+    /** @var string */
+    protected $tableName= 'budget_trans';
     public function findByAccount(string $account): array
     {
         return $this->find(['account' => $account], ['tran_date' => 'ASC']);

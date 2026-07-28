@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class CrmContact
 {
-    private int $id;
-    private int $personId;
-    private string $type;
-    private string $action;
-    private ?string $entityId;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $personId;
+    /** @var string */
+    private $type;
+    /** @var string */
+    private $action;
+    /** @var ?string */
+    private $entityId;
 
     public function __construct(
         int $id,

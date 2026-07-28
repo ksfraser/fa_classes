@@ -24,7 +24,8 @@ use FrontAccounting\Service\Contracts\CompanyPrefsService;
  */
 final class CompanyPrefsServiceStandard implements CompanyPrefsService
 {
-    private SysPrefsRepository $sysPrefsRepo;
+    /** @var SysPrefsRepository */
+    private $sysPrefsRepo;
 
     public function __construct(SysPrefsRepository $sysPrefsRepo)
     {

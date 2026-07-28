@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class RefLinesRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'reflines';
+    /** @var string */
+    protected $tableName= 'reflines';
     public function findByType(int $type): array
     {
         return $this->find(['type' => $type], ['reference' => 'ASC']);

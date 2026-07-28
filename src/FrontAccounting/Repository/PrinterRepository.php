@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class PrinterRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'printers';
+    /** @var string */
+    protected $tableName= 'printers';
     public function findById(int $id): ?Printer
     {
         return $this->findOne(['id' => $id]);

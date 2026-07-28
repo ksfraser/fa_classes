@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class StockCategoryRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'stock_category';
+    /** @var string */
+    protected $tableName= 'stock_category';
     public function findById(int $categoryId): ?StockCategory
     {
         return $this->findOne(['category_id' => $categoryId]);

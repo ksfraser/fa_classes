@@ -23,7 +23,8 @@ use FrontAccounting\Service\Contracts\ExchangeRateService;
  */
 final class ExchangeRateServiceStandard implements ExchangeRateService
 {
-    private ExchangeRateRepository $exchangeRateRepo;
+    /** @var ExchangeRateRepository */
+    private $exchangeRateRepo;
 
     public function __construct(ExchangeRateRepository $exchangeRateRepo)
     {

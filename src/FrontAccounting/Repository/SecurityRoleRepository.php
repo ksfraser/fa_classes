@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class SecurityRoleRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'security_roles';
+    /** @var string */
+    protected $tableName= 'security_roles';
     public function findById(int $id): ?SecurityRole
     {
         return $this->findOne(['id' => $id]);

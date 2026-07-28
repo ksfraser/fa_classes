@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class UserRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'users';
+    /** @var string */
+    protected $tableName= 'users';
     public function findById(int $id): ?User
     {
         return $this->findOne(['id' => $id]);

@@ -6,15 +6,24 @@ namespace FrontAccounting\DTO;
 
 final class WoManufacture
 {
-    private int $id;
-    private int $workOrderId;
-    private string $reference;
-    private string $stockId;
-    private float $qtyManufactured;
-    private float $qtyWaste;
-    private string $date_;
-    private ?string $memo;
-    private ?int $userId;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $workOrderId;
+    /** @var string */
+    private $reference;
+    /** @var string */
+    private $stockId;
+    /** @var float */
+    private $qtyManufactured;
+    /** @var float */
+    private $qtyWaste;
+    /** @var string */
+    private $date_;
+    /** @var ?string */
+    private $memo;
+    /** @var ?int */
+    private $userId;
 
     public function __construct(
         int $id,

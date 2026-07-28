@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class WoRequirement
 {
-    private int $id;
-    private int $workOrderId;
-    private string $stockId;
-    private float $qtyRequired;
-    private float $qtyIssued;
-    private float $qtyLost;
-    private ?string $date_;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $workOrderId;
+    /** @var string */
+    private $stockId;
+    /** @var float */
+    private $qtyRequired;
+    /** @var float */
+    private $qtyIssued;
+    /** @var float */
+    private $qtyLost;
+    /** @var ?string */
+    private $date_;
 
     public function __construct(
         int $id,

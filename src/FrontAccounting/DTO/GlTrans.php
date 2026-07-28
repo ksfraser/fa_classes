@@ -6,17 +6,28 @@ namespace FrontAccounting\DTO;
 
 final class GlTrans
 {
-    private int $counter;
-    private int $type;
-    private int $typeNo;
-    private ?string $tranDate;
-    private string $account;
-    private string $memo;
-    private float $amount;
-    private int $dimensionId;
-    private int $dimension2Id;
-    private ?int $personTypeId;
-    private ?int $personId;
+    /** @var int */
+    private $counter;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $typeNo;
+    /** @var ?string */
+    private $tranDate;
+    /** @var string */
+    private $account;
+    /** @var string */
+    private $memo;
+    /** @var float */
+    private $amount;
+    /** @var int */
+    private $dimensionId;
+    /** @var int */
+    private $dimension2Id;
+    /** @var ?int */
+    private $personTypeId;
+    /** @var ?int */
+    private $personId;
 
     public function __construct(
         int $counter,

@@ -9,7 +9,8 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 
 final class ChartMasterRepository extends \FrontAccounting\Repository\BaseRepository
 {
-    protected string $tableName = 'chart_master';
+    /** @var string */
+    protected $tableName= 'chart_master';
     public function findByCode(string $accountCode): ?ChartMaster
     {
         return $this->findOne(['account_code' => $accountCode]);
