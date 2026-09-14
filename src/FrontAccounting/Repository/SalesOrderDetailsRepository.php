@@ -34,7 +34,7 @@ final class SalesOrderDetailsRepository extends \FrontAccounting\Repository\Base
             SET sod.qty_sent = COALESCE(del_sum.qty_sent, 0)
             WHERE ABS(sod.qty_sent - COALESCE(del_sum.qty_sent, 0)) > {$d}";
 
-        return $this->db->execute($sql);
+        return (int) $this->db->execute($sql);
     }
 
     public function recalcInvoiced(): int
@@ -55,7 +55,7 @@ final class SalesOrderDetailsRepository extends \FrontAccounting\Repository\Base
             SET sod.invoiced = COALESCE(inv_sum.qty_invoiced, 0)
             WHERE ABS(sod.invoiced - COALESCE(inv_sum.qty_invoiced, 0)) > {$d}";
 
-        return $this->db->execute($sql);
+        return (int) $this->db->execute($sql);
     }
 
     /**

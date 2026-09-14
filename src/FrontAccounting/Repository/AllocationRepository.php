@@ -75,7 +75,7 @@ final class AllocationRepository extends \FrontAccounting\Repository\BaseReposit
             WHERE st.ov_amount != 0
               AND ABS(st.alloc - COALESCE(sa_sum.total_alloc, 0)) > {$d}";
 
-        return $this->db->execute($sql);
+        return (int) $this->db->execute($sql);
     }
 
     public function recalcCustomerAlloc(): int
@@ -95,7 +95,7 @@ final class AllocationRepository extends \FrontAccounting\Repository\BaseReposit
             WHERE dt.ov_amount != 0
               AND ABS(dt.alloc - COALESCE(ca_sum.total_alloc, 0)) > {$d}";
 
-        return $this->db->execute($sql);
+        return (int) $this->db->execute($sql);
     }
 
 }

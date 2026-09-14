@@ -34,7 +34,7 @@ final class GrnItemsRepository extends \FrontAccounting\Repository\BaseRepositor
             SET g.quantity_inv = COALESCE(inv_sum.qty_invoiced, 0)
             WHERE ABS(g.quantity_inv - COALESCE(inv_sum.qty_invoiced, 0)) > {$d}";
 
-        return $this->db->execute($sql);
+        return (int) $this->db->execute($sql);
     }
 
     /**
