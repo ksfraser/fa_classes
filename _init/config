@@ -1,0 +1,12 @@
+Package: ksf_FA_Classes
+Name: ksf_FA_Classes
+Description: FrontAccounting-specific table classes and related data access helpers.
+Author: Kevin Fraser <kevin@ksfraser.com>
+Maintenance: Kevin Fraser <kevin@ksfraser.com>
+Homepage: http://ksfraser.com
+Type: extension
+InstallPath: modules/ksf_FA_Classes
+Filename: ksf_FA_Classes
+Version: 2.4.19-0
+FA-Version: 2.4
+PHP-Version: 7.3
