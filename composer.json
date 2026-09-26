@@ -46,6 +46,6 @@
   },
   "scripts": {
     "test": "@php vendor/bin/phpunit",
-    "lint:php74": "tools/lint-php74.sh"
+    "lint:php73": "tools/lint-php73.sh"
   }
 }
