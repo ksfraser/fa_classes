@@ -45,7 +45,7 @@ use FrontAccounting\Service\Native\TransactionServiceNative;
  * ┌──────────────────────────────────────────────────────────┐
  * │                    ServiceRuntimeConfig                   │
  * │                                                          │
- * │  Registry (set / get)      Default (lazy ??=)            │
+ * │  Registry (set / get)      Default (lazy)                │
  * │  ─────────────────────     ──────────────────────────    │
  *  │  setGlTrans(...)           GlTransServiceNative          │
  *  │  setBankTrans(...)         BankTransServiceNative        │
@@ -64,20 +64,34 @@ use FrontAccounting\Service\Native\TransactionServiceNative;
  */
 class ServiceRuntimeConfig
 {
-    private ?GlTransService $glTrans = null;
-    private ?BankTransService $bankTrans = null;
-    private ?BankTransferService $bankTransfer = null;
-    private ?DebtorTransService $debtorTrans = null;
-    private ?CommentsService $comments = null;
-    private ?ReferenceService $reference = null;
-    private ?BankAccountService $bankAccount = null;
-    private ?CompanyPrefsService $companyPrefs = null;
-    private ?CustomerService $customer = null;
-    private ?ExchangeRateService $exchangeRate = null;
-    private ?HooksService $hooks = null;
-    private ?TransactionService $transaction = null;
-    private ?MiscService $misc = null;
-    private ?OrderToDeliveryService $orderToDelivery = null;
+    /** @var GlTransService|null */
+    private $glTrans = null;
+    /** @var BankTransService|null */
+    private $bankTrans = null;
+    /** @var BankTransferService|null */
+    private $bankTransfer = null;
+    /** @var DebtorTransService|null */
+    private $debtorTrans = null;
+    /** @var CommentsService|null */
+    private $comments = null;
+    /** @var ReferenceService|null */
+    private $reference = null;
+    /** @var BankAccountService|null */
+    private $bankAccount = null;
+    /** @var CompanyPrefsService|null */
+    private $companyPrefs = null;
+    /** @var CustomerService|null */
+    private $customer = null;
+    /** @var ExchangeRateService|null */
+    private $exchangeRate = null;
+    /** @var HooksService|null */
+    private $hooks = null;
+    /** @var TransactionService|null */
+    private $transaction = null;
+    /** @var MiscService|null */
+    private $misc = null;
+    /** @var OrderToDeliveryService|null */
+    private $orderToDelivery = null;
 
     // ── Setters ──────────────────────────────────────────────
 
@@ -96,20 +110,20 @@ class ServiceRuntimeConfig
     public function setMisc(MiscService $impl): void { $this->misc = $impl; }
     public function setOrderToDelivery(OrderToDeliveryService $impl): void { $this->orderToDelivery = $impl; }
 
-    // ── Getters (lazy ??= default) ────────────────────────────
+    // ── Getters (lazy default) ────────────────────────────
 
-    public function getGlTrans(): GlTransService { return $this->glTrans ??= new GlTransServiceNative(); }
-    public function getBankTrans(): BankTransService { return $this->bankTrans ??= new BankTransServiceNative(); }
-    public function getBankTransfer(): BankTransferService { return $this->bankTransfer ??= new BankTransferServiceNative(); }
-    public function getDebtorTrans(): DebtorTransService { return $this->debtorTrans ??= new DebtorTransServiceNative(); }
-    public function getComments(): CommentsService { return $this->comments ??= new CommentsServiceNative(); }
-    public function getReference(): ReferenceService { return $this->reference ??= new ReferenceServiceNative(); }
-    public function getBankAccount(): BankAccountService { return $this->bankAccount ??= new BankAccountServiceNative(); }
-    public function getCompanyPrefs(): CompanyPrefsService { return $this->companyPrefs ??= new CompanyPrefsServiceNative(); }
-    public function getCustomer(): CustomerService { return $this->customer ??= new CustomerServiceNative(); }
-    public function getExchangeRate(): ExchangeRateService { return $this->exchangeRate ??= new ExchangeRateServiceNative(); }
-    public function getHooks(): HooksService { return $this->hooks ??= new HooksServiceNative(); }
-    public function getTransaction(): TransactionService { return $this->transaction ??= new TransactionServiceNative(); }
-    public function getMisc(): MiscService { return $this->misc ??= new MiscServiceNative(); }
-    public function getOrderToDelivery(): OrderToDeliveryService { return $this->orderToDelivery ??= new OrderToDeliveryServiceNative(); }
+    public function getGlTrans(): GlTransService { return $this->glTrans ?? ($this->glTrans = new GlTransServiceNative()); }
+    public function getBankTrans(): BankTransService { return $this->bankTrans ?? ($this->bankTrans = new BankTransServiceNative()); }
+    public function getBankTransfer(): BankTransferService { return $this->bankTransfer ?? ($this->bankTransfer = new BankTransferServiceNative()); }
+    public function getDebtorTrans(): DebtorTransService { return $this->debtorTrans ?? ($this->debtorTrans = new DebtorTransServiceNative()); }
+    public function getComments(): CommentsService { return $this->comments ?? ($this->comments = new CommentsServiceNative()); }
+    public function getReference(): ReferenceService { return $this->reference ?? ($this->reference = new ReferenceServiceNative()); }
+    public function getBankAccount(): BankAccountService { return $this->bankAccount ?? ($this->bankAccount = new BankAccountServiceNative()); }
+    public function getCompanyPrefs(): CompanyPrefsService { return $this->companyPrefs ?? ($this->companyPrefs = new CompanyPrefsServiceNative()); }
+    public function getCustomer(): CustomerService { return $this->customer ?? ($this->customer = new CustomerServiceNative()); }
+    public function getExchangeRate(): ExchangeRateService { return $this->exchangeRate ?? ($this->exchangeRate = new ExchangeRateServiceNative()); }
+    public function getHooks(): HooksService { return $this->hooks ?? ($this->hooks = new HooksServiceNative()); }
+    public function getTransaction(): TransactionService { return $this->transaction ?? ($this->transaction = new TransactionServiceNative()); }
+    public function getMisc(): MiscService { return $this->misc ?? ($this->misc = new MiscServiceNative()); }
+    public function getOrderToDelivery(): OrderToDeliveryService { return $this->orderToDelivery ?? ($this->orderToDelivery = new OrderToDeliveryServiceNative()); }
 }

@@ -26,12 +26,14 @@ set -uo pipefail
 
 cd "$(dirname "$0")/.." || exit 2
 
-# src/ only: that is the code Composer ships and FA loads at runtime.
-# legacy/ is excluded on purpose - 34 of those FA core reference dumps do not
-# parse on ANY version (mangled comment terminators), so they are not a 7.3
-# signal. tests/ is excluded because it is dev-box only and legitimately uses
-# 8.0 named arguments; it never loads inside FA.
-TARGETS=(src)
+# src/ is the code Composer ships and FA loads at runtime. tests/ is included
+# too: it is dev-only, but a test that cannot parse on the floor interpreter
+# is a test nobody can run on the floor, and it hid 108 PHP 8.0 named arguments
+# that would have failed on first run in CI.
+# legacy/ is excluded on purpose - those are FA core reference dumps, many of
+# which do not parse on ANY version (mangled comment terminators), so they are
+# not a 7.3 signal.
+TARGETS=(src tests)
 IMAGE="${PHP73_IMAGE:-docker.io/library/php:7.3-alpine}"
 
 descend() {
@@ -99,11 +101,13 @@ for rt in podman docker; do
 		MOUNT="$PWD:/r:ro,Z"
 	fi
 
+	# The target list is passed as arguments, not interpolated into the script:
+	# $TARGETS is a host-side array and would be empty inside the container.
 	"$rt" run --rm -v "$MOUNT" "$IMAGE" sh -c '
 		cd /r || exit 2
 		fail=0
 		count=0
-		for f in $(find ./src -type f -name "*.php" | sort); do
+		for f in $(find "$@" -type d -name vendor -prune -o -type f -name "*.php" -print | sort); do
 			count=$((count + 1))
 			out=$(php -l "$f" 2>&1)
 			case "$out" in
@@ -113,7 +117,7 @@ for rt in podman docker; do
 		done
 		echo "Checked $count files with PHP $(php -r "echo PHP_VERSION;")"
 		exit $fail
-	'
+	' sh "${TARGETS[@]}"
 	exit $?
 done
 

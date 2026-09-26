@@ -3,7 +3,7 @@
   "description": "FrontAccounting-specific table classes and related data access helpers.",
   "type": "library",
   "require": {
-    "php": ">=7.4",
+    "php": ">=7.3",
     "ksfraser/ksf-modules-dao": "^0.5",
     "ksfraser/validation": "^0.1"
   },
@@ -24,6 +24,12 @@
   "require-dev": {
     "phpunit/phpunit": "^9.6",
     "ksfraser/famock": "*"
+  },
+  "config": {
+    "platform": {
+      "php": "7.3.33"
+    },
+    "sort-packages": true
   },
   "autoload": {
     "psr-4": {

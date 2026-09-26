@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class Shipper
 {
-    private int $shipperId;
-    private string $shipperName;
-    private string $contact;
-    private string $phone;
-    private string $phone2;
-    private string $email;
-    private string $website;
-    private bool $inactive;
+    /** @var int */
+    private $shipperId;
+    /** @var string */
+    private $shipperName;
+    /** @var string */
+    private $contact;
+    /** @var string */
+    private $phone;
+    /** @var string */
+    private $phone2;
+    /** @var string */
+    private $email;
+    /** @var string */
+    private $website;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $shipperId,

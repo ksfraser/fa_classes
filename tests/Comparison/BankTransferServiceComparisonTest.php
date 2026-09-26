@@ -58,11 +58,11 @@ final class BankTransferServiceComparisonTest extends TestCase
         );
 
         $request = new BankTransferRequest(
-            fromBankAccount: 1,
-            toBankAccount: 2,
-            amount: 100.00,
-            transDate: '2026-07-10',
-            ref: 'BT-001'
+            1,
+            2,
+            100.00,
+            '2026-07-10',
+            'BT-001'
         );
 
         $nativeResult = $native->addBankTransfer($request);
@@ -92,12 +92,15 @@ final class BankTransferServiceComparisonTest extends TestCase
         );
 
         $request = new BankTransferRequest(
-            fromBankAccount: 1,
-            toBankAccount: 2,
-            amount: 100.00,
-            transDate: '2026-07-10',
-            ref: 'BT-002',
-            transNo: 50
+            1,
+            2,
+            100.00,
+            '2026-07-10',
+            'BT-002',
+            '',
+            0.0,
+            0.0,
+            50
         );
 
         $nativeResult = $native->updateBankTransfer($request);

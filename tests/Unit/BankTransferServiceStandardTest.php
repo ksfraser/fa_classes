@@ -27,8 +27,10 @@ final class BankTransferServiceStandardTest extends TestCase
     /** @var TransactionService&MockObject */
     private $transactionService;
 
-    private FakeDbAdapter $db;
-    private BankTransferServiceStandard $svc;
+    /** @var FakeDbAdapter */
+    private $db;
+    /** @var BankTransferServiceStandard */
+    private $svc;
 
     protected function setUp(): void
     {
@@ -50,12 +52,12 @@ final class BankTransferServiceStandardTest extends TestCase
     public function testAddBankTransferInsertsBankTransAndRef(): void
     {
         $request = new BankTransferRequest(
-            fromBankAccount: 1,
-            toBankAccount: 2,
-            amount: 100.00,
-            transDate: '2026-07-10',
-            ref: 'BT-001',
-            memo: 'Test transfer'
+            1,
+            2,
+            100.00,
+            '2026-07-10',
+            'BT-001',
+            'Test transfer'
         );
 
         $this->bankAccountService->method('getBankGlAccount')
@@ -79,13 +81,13 @@ final class BankTransferServiceStandardTest extends TestCase
     public function testAddBankTransferWithCharge(): void
     {
         $request = new BankTransferRequest(
-            fromBankAccount: 1,
-            toBankAccount: 2,
-            amount: 100.00,
-            transDate: '2026-07-10',
-            ref: 'BT-002',
-            memo: 'With charge',
-            charge: 2.50
+            1,
+            2,
+            100.00,
+            '2026-07-10',
+            'BT-002',
+            'With charge',
+            2.50
         );
 
         $this->bankAccountService->method('getBankGlAccount')->willReturn(1100);
@@ -101,14 +103,14 @@ final class BankTransferServiceStandardTest extends TestCase
     public function testAddBankTransferWithTargetAmount(): void
     {
         $request = new BankTransferRequest(
-            fromBankAccount: 1,
-            toBankAccount: 2,
-            amount: 100.00,
-            transDate: '2026-07-10',
-            ref: 'BT-003',
-            memo: 'Cross-currency',
-            charge: 0.0,
-            targetAmount: 130.00
+            1,
+            2,
+            100.00,
+            '2026-07-10',
+            'BT-003',
+            'Cross-currency',
+            0.0,
+            130.00
         );
 
         $this->bankAccountService->method('getBankGlAccount')->willReturn(1100);
@@ -123,15 +125,15 @@ final class BankTransferServiceStandardTest extends TestCase
     public function testUpdateBankTransferDelegates(): void
     {
         $request = new BankTransferRequest(
-            fromBankAccount: 1,
-            toBankAccount: 2,
-            amount: 100.00,
-            transDate: '2026-07-10',
-            ref: 'BT-004',
-            memo: '',
-            charge: 0.0,
-            targetAmount: 0.0,
-            transNo: 42
+            1,
+            2,
+            100.00,
+            '2026-07-10',
+            'BT-004',
+            '',
+            0.0,
+            0.0,
+            42
         );
 
         $this->bankAccountService->method('getBankGlAccount')->willReturn(1100);

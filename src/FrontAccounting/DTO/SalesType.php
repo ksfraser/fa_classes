@@ -6,11 +6,16 @@ namespace FrontAccounting\DTO;
 
 final class SalesType
 {
-    private int $id;
-    private string $salesType;
-    private float $taxIncluded;
-    private float $factor;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $salesType;
+    /** @var float */
+    private $taxIncluded;
+    /** @var float */
+    private $factor;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $salesType, float $taxIncluded = 0.0, float $factor = 1.0, bool $inactive = false)
     {

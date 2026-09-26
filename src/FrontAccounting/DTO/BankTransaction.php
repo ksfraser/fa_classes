@@ -6,19 +6,32 @@ namespace FrontAccounting\DTO;
 
 final class BankTransaction
 {
-    private int $id;
-    private int $type;
-    private int $transNo;
-    private string $bankAccount;
-    private string $ref;
-    private ?string $statementDate;
-    private float $amount;
-    private ?int $dimensionId;
-    private ?int $dimension2Id;
-    private ?string $personType;
-    private ?int $personId;
-    private ?string $tranDate;
-    private bool $reconciled;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $transNo;
+    /** @var string */
+    private $bankAccount;
+    /** @var string */
+    private $ref;
+    /** @var string|null */
+    private $statementDate;
+    /** @var float */
+    private $amount;
+    /** @var int|null */
+    private $dimensionId;
+    /** @var int|null */
+    private $dimension2Id;
+    /** @var string|null */
+    private $personType;
+    /** @var int|null */
+    private $personId;
+    /** @var string|null */
+    private $tranDate;
+    /** @var bool */
+    private $reconciled;
 
     public function __construct(
         int $id,

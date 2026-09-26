@@ -6,9 +6,12 @@ namespace FrontAccounting\DTO;
 
 final class TaxGroup
 {
-    private int $id;
-    private string $name;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $name, bool $inactive = false)
     {

@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class AuditTrail
 {
-    private int $id;
-    private int $type;
-    private int $transNo;
-    private ?int $userId;
-    private ?string $stamp;
-    private ?string $description;
-    private ?string $sql;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $transNo;
+    /** @var int|null */
+    private $userId;
+    /** @var string|null */
+    private $stamp;
+    /** @var string|null */
+    private $description;
+    /** @var string|null */
+    private $sql;
 
     public function __construct(
         int $id,

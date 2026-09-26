@@ -18,17 +18,17 @@ final class GlTransServiceStandardTest extends TestCase
         $svc = new GlTransServiceStandard($repo);
 
         $result = $svc->addGlTrans(
-            type: 12,
-            typeNo: 201,
-            tranDate: '2026-07-10',
-            account: '1100',
-            dimensionId: 0,
-            dimension2Id: 0,
-            memo: '',
-            amount: 100.00,
-            personCurrency: null,
-            personType: '',
-            personId: 0
+            12,
+            201,
+            '2026-07-10',
+            '1100',
+            0,
+            0,
+            '',
+            100.00,
+            null,
+            '',
+            0
         );
 
         $this->assertSame(100.00, $result);
@@ -54,17 +54,17 @@ final class GlTransServiceStandardTest extends TestCase
         $svc = new GlTransServiceStandard($repo);
 
         $svc->addGlTrans(
-            type: 12,
-            typeNo: 201,
-            tranDate: '2026-07-10',
-            account: '1100',
-            dimensionId: 0,
-            dimension2Id: 0,
-            memo: 'Bank charge',
-            amount: -5.00,
-            personCurrency: null,
-            personType: PT_CUSTOMER,
-            personId: 42
+            12,
+            201,
+            '2026-07-10',
+            '1100',
+            0,
+            0,
+            'Bank charge',
+            -5.00,
+            null,
+            PT_CUSTOMER,
+            42
         );
 
         $this->assertStringContainsStringIgnoringCase('insert', $db->lastSql);
@@ -77,15 +77,15 @@ final class GlTransServiceStandardTest extends TestCase
         $svc = new GlTransServiceStandard($repo);
 
         $result = $svc->addGlTransCustomer(
-            type: 12,
-            typeNo: 201,
-            tranDate: '2026-07-10',
-            account: '1200',
-            dimensionId: 0,
-            dimension2Id: 0,
-            amount: -500.00,
-            customerId: 99,
-            errorMsg: 'Test'
+            12,
+            201,
+            '2026-07-10',
+            '1200',
+            0,
+            0,
+            -500.00,
+            99,
+            'Test'
         );
 
         $this->assertSame(-500.00, $result);

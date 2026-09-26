@@ -48,10 +48,14 @@ use FrontAccounting\Repository\DebtorMasterRepository;
  */
 class CustomerService
 {
-    private DebtorMasterRepository $customerRepo;
-    private CustomerBranchRepository $branchRepo;
-    private CrmPersonService $personSvc;
-    private CrmContactService $contactSvc;
+    /** @var DebtorMasterRepository */
+    private $customerRepo;
+    /** @var CustomerBranchRepository */
+    private $branchRepo;
+    /** @var CrmPersonService */
+    private $personSvc;
+    /** @var CrmContactService */
+    private $contactSvc;
 
     public function __construct(
         DebtorMasterRepository $customerRepo,

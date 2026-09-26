@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class WoCosting
 {
-    private int $id;
-    private int $workOrderId;
-    private int $crType;
-    private int $crNo;
-    private string $stockId;
-    private float $qty;
-    private float $cost;
-    private string $date_;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $workOrderId;
+    /** @var int */
+    private $crType;
+    /** @var int */
+    private $crNo;
+    /** @var string */
+    private $stockId;
+    /** @var float */
+    private $qty;
+    /** @var float */
+    private $cost;
+    /** @var string */
+    private $date_;
 
     public function __construct(int $id, int $workOrderId, int $crType, int $crNo, string $stockId, float $qty, float $cost, string $date_ = '')
     {

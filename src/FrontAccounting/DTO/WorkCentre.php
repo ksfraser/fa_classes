@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class WorkCentre
 {
-    private int $id;
-    private string $name;
-    private string $description;
-    private ?float $overheadCost;
-    private ?float $labourCost;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $description;
+    /** @var float|null */
+    private $overheadCost;
+    /** @var float|null */
+    private $labourCost;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

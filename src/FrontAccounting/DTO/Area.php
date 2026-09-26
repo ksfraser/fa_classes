@@ -6,9 +6,12 @@ namespace FrontAccounting\DTO;
 
 final class Area
 {
-    private int $areaCode;
-    private string $description;
-    private bool $inactive;
+    /** @var int */
+    private $areaCode;
+    /** @var string */
+    private $description;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $areaCode, string $description, bool $inactive = false)
     {

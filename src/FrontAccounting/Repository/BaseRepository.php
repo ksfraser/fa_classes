@@ -10,9 +10,12 @@ abstract class BaseRepository
 {
     use RepositoryTrait;
 
-    protected DbAdapterInterface $db;
-    protected string $prefix;
-    protected string $tableName;
+    /** @var DbAdapterInterface */
+    protected $db;
+    /** @var string */
+    protected $prefix;
+    /** @var string */
+    protected $tableName;
 
     public function __construct(DbAdapterInterface $db)
     {

@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class ItemTaxType
 {
-    private int $id;
-    private string $name;
-    private string $longName;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $longName;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $name, string $longName = '', bool $inactive = false)
     {

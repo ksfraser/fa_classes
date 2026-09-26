@@ -6,20 +6,34 @@ namespace FrontAccounting\DTO;
 
 final class StockCategory
 {
-    private int $categoryId;
-    private string $description;
-    private ?string $longDescription;
-    private int $dfltTaxType;
-    private int $dfltUnits;
-    private int $dfltMbFlag;
-    private ?string $dfltSalesAccount;
-    private ?string $dfltInventoryAccount;
-    private ?string $dfltCogsAccount;
-    private ?string $dfltAdjustmentAccount;
-    private ?string $dfltAssemblyAccount;
-    private ?string $dfltDimAccount;
-    private ?string $dfltWipAccount;
-    private bool $inactive;
+    /** @var int */
+    private $categoryId;
+    /** @var string */
+    private $description;
+    /** @var string|null */
+    private $longDescription;
+    /** @var int */
+    private $dfltTaxType;
+    /** @var int */
+    private $dfltUnits;
+    /** @var int */
+    private $dfltMbFlag;
+    /** @var string|null */
+    private $dfltSalesAccount;
+    /** @var string|null */
+    private $dfltInventoryAccount;
+    /** @var string|null */
+    private $dfltCogsAccount;
+    /** @var string|null */
+    private $dfltAdjustmentAccount;
+    /** @var string|null */
+    private $dfltAssemblyAccount;
+    /** @var string|null */
+    private $dfltDimAccount;
+    /** @var string|null */
+    private $dfltWipAccount;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $categoryId,

@@ -56,8 +56,10 @@ use FrontAccounting\Service\Contracts\TransactionService;
  */
 class CustomerPaymentService
 {
-    private DebtorTransactionRepository $debitTransRepo;
-    private ServiceRuntimeConfig $config;
+    /** @var DebtorTransactionRepository */
+    private $debitTransRepo;
+    /** @var ServiceRuntimeConfig */
+    private $config;
 
     public function __construct(
         DebtorTransactionRepository $debitTransRepo,

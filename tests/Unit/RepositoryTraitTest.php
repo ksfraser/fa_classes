@@ -16,7 +16,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([['id' => '1', 'name' => 'Alice']]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -34,7 +35,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -50,7 +52,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -66,7 +69,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -81,7 +85,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -96,7 +101,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([['id' => '1', 'name' => 'Alice']]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -113,7 +119,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -126,7 +133,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([['cnt' => '42']]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -143,7 +151,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([['cnt' => '1']]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -156,7 +165,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([['cnt' => '0']]);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -169,7 +179,8 @@ final class RepositoryTraitTest extends TestCase
         $db = new FakeDbAdapter([], 0, 2);
         $repo = new class($db) {
             use RepositoryTrait;
-            private DbAdapterInterface $db;
+            /** @var DbAdapterInterface */
+            private $db;
             public function __construct(DbAdapterInterface $db) { $this->db = $db; }
             protected function getTableName(): string { return 'users'; }
         };
@@ -185,9 +196,12 @@ final class RepositoryTraitTest extends TestCase
     public function testPaginate(): void
     {
         $db = new class implements DbAdapterInterface {
-            public int $callCount = 0;
-            public ?string $lastSql = null;
-            public ?array $lastParams = null;
+            /** @var int */
+            public $callCount = 0;
+            /** @var string|null */
+            public $lastSql = null;
+            /** @var array|null */
+            public $lastParams = null;
             public function getDialect(): string { return 'mysql'; }
             public function getTablePrefix(): string { return '0_'; }
             public function escape(string $value): string { return addslashes($value); }

@@ -24,7 +24,8 @@ use FrontAccounting\Service\Contracts\CommentsService;
  */
 final class CommentsServiceStandard implements CommentsService
 {
-    private CommentRepository $commentRepo;
+    /** @var CommentRepository */
+    private $commentRepo;
 
     public function __construct(CommentRepository $commentRepo)
     {

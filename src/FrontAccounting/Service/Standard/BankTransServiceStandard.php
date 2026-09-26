@@ -24,7 +24,8 @@ use FrontAccounting\Service\Contracts\BankTransService;
  */
 final class BankTransServiceStandard implements BankTransService
 {
-    private BankTransactionRepository $bankTransRepo;
+    /** @var BankTransactionRepository */
+    private $bankTransRepo;
 
     public function __construct(BankTransactionRepository $bankTransRepo)
     {

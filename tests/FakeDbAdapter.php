@@ -8,16 +8,21 @@ use Ksfraser\ModulesDAO\Db\DbAdapterInterface;
 final class FakeDbAdapter implements DbAdapterInterface
 {
     /** @var array<int, array<string, mixed>> */
-    private array $rows;
+    /** @var array */
+    private $rows;
 
     /** @var string|null */
-    public ?string $lastSql = null;
+    /** @var string|null */
+    public $lastSql = null;
     /** @var array<mixed>|null */
-    public ?array $lastParams = null;
+    /** @var array|null */
+    public $lastParams = null;
     /** @var int */
-    private int $insertId;
     /** @var int */
-    private int $affectedRows;
+    private $insertId;
+    /** @var int */
+    /** @var int */
+    private $affectedRows;
 
     /** @param array<int, array<string, mixed>> $rows */
     public function __construct(array $rows = [], int $insertId = 1, int $affectedRows = 0)

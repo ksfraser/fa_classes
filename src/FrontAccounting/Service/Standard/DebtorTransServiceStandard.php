@@ -24,7 +24,8 @@ use FrontAccounting\Service\Contracts\DebtorTransService;
  */
 final class DebtorTransServiceStandard implements DebtorTransService
 {
-    private DebtorTransactionRepository $debtorTransRepo;
+    /** @var DebtorTransactionRepository */
+    private $debtorTransRepo;
 
     public function __construct(DebtorTransactionRepository $debtorTransRepo)
     {

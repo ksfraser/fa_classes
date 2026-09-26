@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class SqlTrail
 {
-    private int $id;
-    private string $sql;
-    private string $stamp;
-    private int $userId;
-    private string $errorNo;
-    private string $msg;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $sql;
+    /** @var string */
+    private $stamp;
+    /** @var int */
+    private $userId;
+    /** @var string */
+    private $errorNo;
+    /** @var string */
+    private $msg;
 
     public function __construct(int $id, string $sql, string $stamp, int $userId, string $errorNo = '', string $msg = '')
     {

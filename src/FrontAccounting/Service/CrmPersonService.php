@@ -27,7 +27,8 @@ use FrontAccounting\Repository\CrmPersonRepository;
  */
 final class CrmPersonService
 {
-    private CrmPersonRepository $personRepo;
+    /** @var CrmPersonRepository */
+    private $personRepo;
 
     public function __construct(CrmPersonRepository $personRepo)
     {

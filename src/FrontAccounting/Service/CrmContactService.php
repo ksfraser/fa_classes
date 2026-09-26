@@ -30,7 +30,8 @@ use FrontAccounting\Repository\CrmContactRepository;
  */
 final class CrmContactService
 {
-    private CrmContactRepository $contactRepo;
+    /** @var CrmContactRepository */
+    private $contactRepo;
 
     public function __construct(CrmContactRepository $contactRepo)
     {

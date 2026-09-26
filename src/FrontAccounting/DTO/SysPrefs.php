@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class SysPrefs
 {
-    private string $name;
-    private string $value;
-    private ?string $description;
-    private int $category;
-    private int $type;
-    private int $length;
-    private ?int $userId;
-    private ?int $companyId;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $value;
+    /** @var string|null */
+    private $description;
+    /** @var int */
+    private $category;
+    /** @var int */
+    private $type;
+    /** @var int */
+    private $length;
+    /** @var int|null */
+    private $userId;
+    /** @var int|null */
+    private $companyId;
 
     public function __construct(
         string $name,

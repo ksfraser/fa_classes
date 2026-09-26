@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class QuickEntryLine
 {
-    private int $id;
-    private int $quickEntryId;
-    private string $accountCode;
-    private string $action;
-    private string $amount;
-    private string $memo;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $quickEntryId;
+    /** @var string */
+    private $accountCode;
+    /** @var string */
+    private $action;
+    /** @var string */
+    private $amount;
+    /** @var string */
+    private $memo;
 
     public function __construct(int $id, int $quickEntryId, string $accountCode, string $action, string $amount = '0', string $memo = '')
     {

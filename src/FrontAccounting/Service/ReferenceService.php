@@ -30,8 +30,10 @@ use FrontAccounting\Repository\RefsRepository;
  */
 final class ReferenceService
 {
-    private RefsRepository $refsRepo;
-    private CommentRepository $commentRepo;
+    /** @var RefsRepository */
+    private $refsRepo;
+    /** @var CommentRepository */
+    private $commentRepo;
 
     public function __construct(RefsRepository $refsRepo, CommentRepository $commentRepo)
     {

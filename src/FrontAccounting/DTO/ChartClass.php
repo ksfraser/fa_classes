@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class ChartClass
 {
-    private int $cid;
-    private string $name;
-    private string $ctype;
-    private bool $inactive;
+    /** @var int */
+    private $cid;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $ctype;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $cid, string $name, string $ctype, bool $inactive = false)
     {

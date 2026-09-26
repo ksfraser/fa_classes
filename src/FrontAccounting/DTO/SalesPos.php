@@ -6,14 +6,22 @@ namespace FrontAccounting\DTO;
 
 final class SalesPos
 {
-    private int $id;
-    private string $posName;
-    private int $cashAccount;
-    private int $creditCardAccount;
-    private int $exchangeDiffAccount;
-    private int $discountAccount;
-    private int $defaultSalesType;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $posName;
+    /** @var int */
+    private $cashAccount;
+    /** @var int */
+    private $creditCardAccount;
+    /** @var int */
+    private $exchangeDiffAccount;
+    /** @var int */
+    private $discountAccount;
+    /** @var int */
+    private $defaultSalesType;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $id,

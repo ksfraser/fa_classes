@@ -6,9 +6,12 @@ namespace FrontAccounting\DTO;
 
 final class Groups
 {
-    private int $id;
-    private string $description;
-    private bool $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $description;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(int $id, string $description, bool $inactive = false)
     {

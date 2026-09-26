@@ -28,8 +28,10 @@ use FrontAccounting\Service\Contracts\BankAccountService;
  */
 final class BankAccountServiceStandard implements BankAccountService
 {
-    private BankAccountsRepository $bankAccountRepo;
-    private CustomerBranchRepository $branchRepo;
+    /** @var BankAccountsRepository */
+    private $bankAccountRepo;
+    /** @var CustomerBranchRepository */
+    private $branchRepo;
 
     public function __construct(
         BankAccountsRepository $bankAccountRepo,

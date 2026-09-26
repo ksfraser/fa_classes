@@ -38,7 +38,8 @@ final class CustomerPaymentServiceTest extends TestCase
     private $hooks;
     private $transaction;
     private $misc;
-    private CustomerPaymentService $svc;
+    /** @var CustomerPaymentService */
+    private $svc;
 
     protected function setUp(): void
     {
@@ -78,18 +79,18 @@ final class CustomerPaymentServiceTest extends TestCase
     public function testCreatePaymentFullFlow(): void
     {
         $request = new CustomerPaymentRequest(
-            transNo: 0,
-            customerId: 1,
-            branchId: 1,
-            bankAccount: 1,
-            date: '2026-07-09',
-            ref: 'PAY-001',
-            amount: 100.00,
-            discount: 0.0,
-            memo: 'Test payment',
-            rate: 0.0,
-            charge: 0.0,
-            bankAmount: 100.00,
+            0,
+            1,
+            1,
+            1,
+            '2026-07-09',
+            'PAY-001',
+            100.00,
+            0.0,
+            'Test payment',
+            0.0,
+            0.0,
+            100.00
         );
 
         $this->transaction->expects($this->once())->method('begin');
@@ -139,18 +140,18 @@ final class CustomerPaymentServiceTest extends TestCase
     public function testCreatePaymentCalculatesBankAmountWhenZero(): void
     {
         $request = new CustomerPaymentRequest(
-            transNo: 0,
-            customerId: 1,
-            branchId: 1,
-            bankAccount: 1,
-            date: '2026-07-09',
-            ref: 'PAY-002',
-            amount: 200.00,
-            discount: 0.0,
-            memo: '',
-            rate: 1.3,
-            charge: 0.0,
-            bankAmount: 0.0,
+            0,
+            1,
+            1,
+            1,
+            '2026-07-09',
+            'PAY-002',
+            200.00,
+            0.0,
+            '',
+            1.3,
+            0.0,
+            0.0
         );
 
         $this->transaction->expects($this->once())->method('begin');
@@ -191,18 +192,18 @@ final class CustomerPaymentServiceTest extends TestCase
     public function testCreatePaymentWithDiscountAndCharge(): void
     {
         $request = new CustomerPaymentRequest(
-            transNo: 0,
-            customerId: 1,
-            branchId: 1,
-            bankAccount: 1,
-            date: '2026-07-09',
-            ref: 'PAY-003',
-            amount: 500.00,
-            discount: 10.00,
-            memo: 'With discount',
-            rate: 0.0,
-            charge: 5.00,
-            bankAmount: 0.0,
+            0,
+            1,
+            1,
+            1,
+            '2026-07-09',
+            'PAY-003',
+            500.00,
+            10.00,
+            'With discount',
+            0.0,
+            5.00,
+            0.0
         );
 
         $this->transaction->expects($this->once())->method('begin');

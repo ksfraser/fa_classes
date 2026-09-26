@@ -6,12 +6,18 @@ namespace FrontAccounting\DTO;
 
 final class PaymentTerm
 {
-    private int $termsId;
-    private string $termsName;
-    private float $daysBeforeDue;
-    private float $dayInFollowingMonth;
-    private int $termsIndicator;
-    private bool $inactive;
+    /** @var int */
+    private $termsId;
+    /** @var string */
+    private $termsName;
+    /** @var float */
+    private $daysBeforeDue;
+    /** @var float */
+    private $dayInFollowingMonth;
+    /** @var int */
+    private $termsIndicator;
+    /** @var bool */
+    private $inactive;
 
     public function __construct(
         int $termsId,

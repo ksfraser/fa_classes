@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class CrmCategory
 {
-    private int $id;
-    private string $type;
-    private string $action;
-    private string $name;
-    private string $description;
-    private int $system;
-    private int $inactive;
+    /** @var int */
+    private $id;
+    /** @var string */
+    private $type;
+    /** @var string */
+    private $action;
+    /** @var string */
+    private $name;
+    /** @var string */
+    private $description;
+    /** @var int */
+    private $system;
+    /** @var int */
+    private $inactive;
 
     public function __construct(
         int $id,

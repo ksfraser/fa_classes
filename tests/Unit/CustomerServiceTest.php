@@ -16,7 +16,8 @@ use PHPUnit\Framework\TestCase;
 
 final class CustomerServiceTest extends TestCase
 {
-    private CustomerService $svc;
+    /** @var CustomerService */
+    private $svc;
 
     protected function setUp(): void
     {

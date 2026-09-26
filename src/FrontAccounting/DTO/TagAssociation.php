@@ -6,10 +6,14 @@ namespace FrontAccounting\DTO;
 
 final class TagAssociation
 {
-    private int $id;
-    private int $tagId;
-    private int $transType;
-    private int $transNo;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $tagId;
+    /** @var int */
+    private $transType;
+    /** @var int */
+    private $transNo;
 
     public function __construct(int $id, int $tagId, int $transType, int $transNo)
     {

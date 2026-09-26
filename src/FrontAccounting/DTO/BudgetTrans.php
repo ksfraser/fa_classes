@@ -6,13 +6,20 @@ namespace FrontAccounting\DTO;
 
 final class BudgetTrans
 {
-    private int $id;
-    private int $counter;
-    private string $account;
-    private string $tranDate;
-    private int $dimensionId;
-    private int $dimension2Id;
-    private float $amount;
+    /** @var int */
+    private $id;
+    /** @var int */
+    private $counter;
+    /** @var string */
+    private $account;
+    /** @var string */
+    private $tranDate;
+    /** @var int */
+    private $dimensionId;
+    /** @var int */
+    private $dimension2Id;
+    /** @var float */
+    private $amount;
 
     public function __construct(
         int $id,
